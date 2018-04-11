@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/feedback"
+            android:title="FeedBack_SMS" />
+        <item android:id="@+id/msetting"
+            android:title="Message Setting"/>
+    </group>
+
+  <item android:title="">
+      <menu>
+        <item
+            android:id="@+id/overload"
+            android:title="Over_Load" />
+        <item
+            android:id="@+id/noload"
+            android:title="No_Load(Dry run)" />
+        <item
+            android:id="@+id/restart"
+            android:title="Restart(Dry run)" />
+          <item
+              android:id="@+id/cableswitch"
+              android:title="Stolen protection(Cable Switch)"/>
+      </menu>
+  </item>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/uvoltage"
+                android:title="Under_Voltage" />
+            <item
+                android:id="@+id/ovoltage"
+                android:title="Over_Voltage" />
+            <item
+                android:id="@+id/difference"
+                android:title="Under/over voltage Difference setting"/>
+            <item android:id="@+id/delay"
+                android:title="Power On Delay"/>
+        </menu>
+    </item>
+
+  <item android:title=" ">
+      <menu>
+        <item android:id="@+id/rspp"
+            android:title="Reverse Phase(Rspp)"/>
+        <item android:id="@+id/spp"
+            android:title="1Phase Preventer Voltage"/>
+        <item android:id="@+id/sppc"
+            android:title="1phase preventer Current"/>
+      </menu>
+  </item>
+
+</menu>
