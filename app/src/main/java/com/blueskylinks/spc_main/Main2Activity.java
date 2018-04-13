@@ -2,12 +2,14 @@ package com.blueskylinks.spc_main;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 
 public class Main2Activity extends AppCompatActivity {
@@ -107,5 +109,19 @@ public class Main2Activity extends AppCompatActivity {
             Log.i("Test", "SMS sent!");}
 
 
+    }
+
+    public void settings(View view){
+            //starting another activity..
+            Intent it1 = new Intent(Main2Activity.this, SettingsActivity.class);
+            startActivity(it1);
+
+
+    }
+
+    public void ON_OFF(View view){
+        //starting another activity..
+        Intent it2 = new Intent(Main2Activity.this, ON_OFFActivity.class);
+        startActivity(it2);
     }
 }
