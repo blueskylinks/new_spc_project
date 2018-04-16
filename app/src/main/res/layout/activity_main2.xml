@@ -458,6 +458,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:text="ON/OFF"
                     android:textColor="@android:color/black"
                     android:textSize="10sp"
                     android:textStyle="bold" />
@@ -467,7 +468,6 @@
             </TableRow>
 
         </TableLayout>
-
 
 
         <TableLayout
@@ -499,6 +499,7 @@
                     android:textColor="@android:color/black"
                     android:textSize="10sp"
                     android:textStyle="bold" />
+
             </TableRow>
 
         </TableLayout>

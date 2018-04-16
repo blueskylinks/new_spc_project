@@ -24,11 +24,7 @@
             android:name=".Main2Activity"
             android:parentActivityName=".MainActivity" />
 
-        <receiver android:name=".Receiver">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </receiver>
+
 
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ON_OFFActivity"></activity>

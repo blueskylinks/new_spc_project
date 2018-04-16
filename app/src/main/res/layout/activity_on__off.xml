@@ -4,56 +4,164 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@mipmap/image7"
+    android:orientation="vertical"
     tools:context="com.blueskylinks.spc_main.ON_OFFActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
-        android:orientation="vertical">
+        android:layout_weight="4"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="false"
-        android:onClick="turnsOn"
-        android:text="ON" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="false"
-        android:onClick="turnsOff"
-        android:text="OFF" />
+            <TextView
+                android:id="@+id/textView_l1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="match_parent"
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" " />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView30"
-            android:layout_width="match_parent"
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/editTextBackground"
+                android:orientation="horizontal"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TableRow
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/mot_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Motor 1" />
+
+                </TableRow>
+
+                <RadioGroup
+                    android:id="@+id/radiogroup1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <RadioButton
+                        android:id="@+id/radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ON" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="OFF" />
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:onClick="turnsOn"
+                    android:text="submit" />
+
+                <TableRow
+                    android:id="@+id/tb3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+
+                    <ProgressBar
+                        android:id="@+id/onoff_pgbar1"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/mot_st"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </TableRow>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/editTextBackground"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/onoff_status_text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?attr/colorButtonNormal"
+                    android:text="!!" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text=" " />
+            android:layout_weight="1"
+            android:background="?attr/editTextBackground"
+            android:orientation="horizontal"></LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:gravity="center_horizontal">
 
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
-
 
             <TableRow
                 android:layout_width="match_parent"
@@ -63,7 +171,6 @@
                     android:id="@+id/imageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="home"
                     app:srcCompat="@mipmap/icon1" />
             </TableRow>
 
@@ -96,7 +203,6 @@
                     android:id="@+id/imageButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="settings"
                     app:srcCompat="@mipmap/icon_set" />
             </TableRow>
 
@@ -142,39 +248,6 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:text="Users"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
-            </TableRow>
-
-        </TableLayout>
-
-
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageButton
-                    android:id="@+id/usrll1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/icons8_error" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/usr_l21"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Warning"
                     android:textColor="@android:color/black"
                     android:textSize="10sp"
                     android:textStyle="bold" />

@@ -36,11 +36,6 @@ public class Receiver extends BroadcastReceiver {
                 int l=lines.length-1;
                 Log.i("test",String.valueOf(l));
                 Log.i("test",lines[l]);
-                if(lines[0].equals("Power supply is off")){
-                    textView1.setText("Power supply is OFF");
-                }
-                else textView1.setText("Power supply is ON");
-                textView2.setText(lines[l]);
             }
         }
     }
