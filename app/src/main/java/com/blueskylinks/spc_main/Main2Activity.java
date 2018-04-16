@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.provider.Telephony;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ public class Main2Activity extends AppCompatActivity {
     public static  TextView tv4;
     public static  TextView tv5;
     public static  TextView textView6;
+    TextView tv9;
     public static ProgressDialog progressDialog;
     //String phoneNumber = "9764005401";
     String phoneNumber = "9663261329";
@@ -45,15 +47,17 @@ public class Main2Activity extends AppCompatActivity {
         tv2 = findViewById(R.id.textView13);
         tv3 = findViewById(R.id.textView17);
         tv4 = findViewById(R.id.textView18);
-        String s = tv.getText().toString();
-
+        tv9=findViewById(R.id.textView29);
 
         String message = "SPC,25";
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phoneNumber, null, message, null, null);
         Log.i("Test", "SMS sent!");
         progress();
-        b = findViewById(R.id.textView314);
+
+        final IntentFilter mIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
+        registerReceiver(sms_notify_reciver, mIntentFilter);
+        registerReceiver(sms_notify_reciver,mIntentFilter);
     }
 
     @Override
@@ -68,7 +72,6 @@ public class Main2Activity extends AppCompatActivity {
 
         if(s.matches(" "))
         {
-
             String message = "SPC,25";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
@@ -98,32 +101,11 @@ public class Main2Activity extends AppCompatActivity {
         }).start();
     }
 
-    public void power(View view){
-        tv=findViewById(R.id.textView11);
-        String s=tv.getText().toString();
-        TextView b=findViewById(R.id.textView314);
-        Log.i("Test",s);
-        String s1=b.getText().toString();
-        if(s1.equals("turn OFF")){
-            String message = "SPC,26";
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            Log.i("Test", "SMS sent!");}
-
-        else if(s1.equals("turn ON")){
-            String message = "SPC,24";
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            Log.i("Test", "SMS sent!");}
-
-
-    }
 
     public void settings(View view){
             //starting another activity..
             Intent it1 = new Intent(Main2Activity.this, SettingsActivity.class);
             startActivity(it1);
-
 
     }
 
@@ -133,6 +115,18 @@ public class Main2Activity extends AppCompatActivity {
         startActivity(it2);
     }
 
+    public void Users(View view){
+        //starting another activity..
+        Intent it3 = new Intent(Main2Activity.this, UsersActivity.class);
+        startActivity(it3);
+    }
+
+    public void manual(View view){
+        //starting another activity..
+        Intent it4 = new Intent(Main2Activity.this, ManualActivity.class);
+        startActivity(it4);
+    }
+
     private final BroadcastReceiver sms_notify_reciver = new BroadcastReceiver() {
 
         @Override
@@ -140,18 +134,35 @@ public class Main2Activity extends AppCompatActivity {
             if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent.getAction())) {
                 for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent)) {
                     String senderNum = smsMessage.getDisplayOriginatingAddress();
-                    Log.i("sender num", senderNum);
+                  //  Log.i("sender num", senderNum);
                     SMSBody1 += smsMessage.getMessageBody().toString();
+                    Log.i("Received SMS:",SMSBody1);
                     String[] lines = SMSBody1.split("\\r?\\n");
                     int l=lines.length-1;
-                    Log.i("test",String.valueOf(l));
-                    Log.i("test",lines[l]);
-                    if(lines[0].equals("Power supply is on")){
 
+                    Log.i("lines length",String.valueOf(l));
+
+                    String s4=lines[l].toString();
+                    if(lines[1].toString().contains("on")){
+                        tv.setText("ON");
+                        if(lines[1].toString().contains("3")) tv1.setText("3 Phase Mode");
+                        else tv1.setText("2 Phase Mode");
+                        String s1=lines[2].toString();
+                        String s2=lines[3].toString();
+                        String s3=lines[4].toString();
+                        tv2.setText(s1.substring(4));
+                        tv3.setText(s2.substring(4));
+                        tv4.setText(s3.substring(4));
+                        tv9.setText(s4.substring(6));
                     }
-                    else {
+
+                    else if(lines[1].toString().contains("off")) {
+                        tv.setText("OFF");
+                        tv9.setText(s4.substring(10));
                     }
-                    SMSBody1 ="";
+
+                    else return;
+                   SMSBody1 ="";
 
                 }
             }

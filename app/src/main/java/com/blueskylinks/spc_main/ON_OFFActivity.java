@@ -95,20 +95,11 @@ public class ON_OFFActivity extends AppCompatActivity {
         }).start();
     }
 
-    public void turnsOff(View view){
-
-        String message = "SPC,26";
-        SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-        Log.i("Test", "SMS sent!");
-        progress();
-    }
 
     public void settings(View view){
         //starting another activity..
         Intent it1 = new Intent(ON_OFFActivity.this, SettingsActivity.class);
         startActivity(it1);
-
 
     }
 
@@ -117,6 +108,13 @@ public class ON_OFFActivity extends AppCompatActivity {
         Intent it1 = new Intent(ON_OFFActivity.this, Main2Activity.class);
         startActivity(it1);
     }
+
+    public void Users(View view){
+        //starting another activity..
+        Intent it3 = new Intent(ON_OFFActivity.this, UsersActivity.class);
+        startActivity(it3);
+    }
+
 
     private final BroadcastReceiver toastOrNotificationCatcherReceiver = new BroadcastReceiver() {
 
@@ -128,12 +126,7 @@ public class ON_OFFActivity extends AppCompatActivity {
                     Log.i("sender num", senderNum);
                     SMSBody1 += smsMessage.getMessageBody().toString();
                     String[] lines = SMSBody1.split("\\r?\\n");
-                    int l=lines.length-1;
-                    Log.i("test",String.valueOf(l));
-                    Log.i("test",lines[l]);
-                    for (int i=0;i<=l;i++){
-                        Log.i("SMSText",lines[i]);
-                    }
+
                     if(lines[2].toString().contains("on")){
                         onoffpg1.setVisibility(View.INVISIBLE);
                         textView1.setText(lines[4]);
