@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Login_page</string>
+
+    <string name="spc_function_prompt">Choose a country</string>
+
+    <string-array name="spc_function_arrays">
+        <item>Feedback</item>
+        <item>DryRun</item>
+        <item>General</item>
+        <item>Menu3</item>
+        <item>Menu4</item>
+        <item>Menu5</item>
+        <item>Menu6</item>
+        <item>Menu7</item>
+    </string-array>
 </resources>

@@ -110,19 +110,26 @@ public class UsersActivity extends AppCompatActivity {
     private final BroadcastReceiver addorremovereceiver = new BroadcastReceiver() {
 
         @Override
-        public void onReceive(Context context, Intent intent) {
-            if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent.getAction())) {
-                for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent)) {
+        public void onReceive(Context context, Intent intent1) {
+            if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent1.getAction())) {
+                for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent1)) {
                     String senderNum = smsMessage.getDisplayOriginatingAddress();
                    // Log.i("sender num", senderNum);
                     SMSBody1 += smsMessage.getMessageBody().toString();
-                    String[] lines = SMSBody1.split("\\r?\\n");
+                   String sms=SMSBody1;
+                   if(sms.length()>=153) {
+                       String[] lines = SMSBody1.split("\\r?\\n");
+                       Log.i("test", lines[1].toString());
 
                     if(lines[2].toString().contains("Spcmno")) {
                         for (int i = 3; i < lines.length - 2; i++) {
                             count += 1;
+
                         }
+                        Log.i("Count",String.valueOf(count));
                     }
+
+                   }
                     SMSBody1 ="";
 
                 }

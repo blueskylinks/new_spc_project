@@ -130,12 +130,14 @@ public class Main2Activity extends AppCompatActivity {
     private final BroadcastReceiver sms_notify_reciver = new BroadcastReceiver() {
 
         @Override
-        public void onReceive(Context context, Intent intent) {
-            if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent.getAction())) {
-                for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent)) {
+        public void onReceive(Context context, Intent intent2) {
+            if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent2.getAction())) {
+                for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent2)) {
                     String senderNum = smsMessage.getDisplayOriginatingAddress();
                   //  Log.i("sender num", senderNum);
                     SMSBody1 += smsMessage.getMessageBody().toString();
+
+                    Log.i("length",String.valueOf(SMSBody1.length()));
                     Log.i("Received SMS:",SMSBody1);
                     String[] lines = SMSBody1.split("\\r?\\n");
                     int l=lines.length-1;
@@ -160,7 +162,6 @@ public class Main2Activity extends AppCompatActivity {
                         tv.setText("OFF");
                         tv9.setText(s4.substring(10));
                     }
-
                     else return;
                    SMSBody1 ="";
 

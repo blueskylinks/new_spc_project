@@ -26,7 +26,9 @@
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ON_OFFActivity" />
         <activity android:name=".UsersActivity" />
-        <activity android:name=".ManualActivity"></activity>
+        <activity android:name=".ManualActivity" />
+        <activity android:name=".FeedbackCallActivity" />
+        <activity android:name=".FeedbackActivity"></activity>
     </application>
 
 </manifest>
