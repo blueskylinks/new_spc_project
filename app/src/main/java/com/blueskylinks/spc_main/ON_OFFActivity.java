@@ -115,6 +115,12 @@ public class ON_OFFActivity extends AppCompatActivity {
         startActivity(it3);
     }
 
+    public void manual(View view){
+        //starting another activity..
+        Intent it4 = new Intent(ON_OFFActivity.this, ManualActivity.class);
+        startActivity(it4);
+    }
+
 
     private final BroadcastReceiver toastOrNotificationCatcherReceiver = new BroadcastReceiver() {
 

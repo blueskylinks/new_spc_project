@@ -6,11 +6,18 @@
     <string-array name="spc_function_arrays">
         <item>Feedback</item>
         <item>DryRun</item>
-        <item>General</item>
-        <item>Menu3</item>
-        <item>Menu4</item>
-        <item>Menu5</item>
-        <item>Menu6</item>
-        <item>Menu7</item>
+        <item>NoLoad (Dry Run)</item>
+        <item>Restart (Dry Run)</item>
+        <item>Under Voltage</item>
+        <item>Over Voltage</item>
+        <item>SPP Voltage</item>
+        <item>SSP Current</item>
+        <item>Reverse Phase</item>
+        <item>Two Phase Mode</item>
+        <item>General Settings</item>
+        <item>Stolen Protection</item>
+        <item>Check Message</item>
     </string-array>
+
+
 </resources>

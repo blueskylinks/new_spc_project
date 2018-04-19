@@ -163,6 +163,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -171,8 +172,7 @@
                     android:id="@+id/imageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/icon1"
-                    android:onClick="home"/>
+                    app:srcCompat="@mipmap/icon1" />
             </TableRow>
 
             <TableRow
@@ -194,7 +194,7 @@
 
         <TableLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -204,6 +204,7 @@
                     android:id="@+id/imageButton11"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:onClick="ON_OFF"
                     app:srcCompat="@mipmap/icons8" />
             </TableRow>
 
@@ -224,6 +225,7 @@
 
         </TableLayout>
 
+
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
@@ -236,8 +238,8 @@
                     android:id="@+id/imageButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/icon_set"
-                    android:onClick="settings"/>
+                    android:onClick="settings"
+                    app:srcCompat="@mipmap/icon_set" />
             </TableRow>
 
             <TableRow
@@ -253,6 +255,7 @@
                     android:textColor="@android:color/black"
                     android:textSize="10sp"
                     android:textStyle="bold" />
+
             </TableRow>
 
         </TableLayout>
@@ -269,8 +272,8 @@
                     android:id="@+id/usr1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/icon_user"
-                    android:onClick="Users"/>
+                    android:onClick="Users"
+                    app:srcCompat="@mipmap/icon_user" />
             </TableRow>
 
             <TableRow
@@ -322,5 +325,39 @@
             </TableRow>
 
         </TableLayout>
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/imageButton21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="manual"
+                    app:srcCompat="@mipmap/manual" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView324"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Functions"
+                    android:textColor="@android:color/black"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+        </TableLayout>
     </LinearLayout>
+
 </LinearLayout>

@@ -42,6 +42,8 @@ public class Main2Activity extends AppCompatActivity {
                 new String[]{Manifest.permission.READ_SMS}, 200);
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.RECEIVE_SMS}, 200);
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_PHONE_STATE}, 200);
         tv = findViewById(R.id.textView11);
         tv1 = findViewById(R.id.textView12);
         tv2 = findViewById(R.id.textView13);
@@ -49,6 +51,11 @@ public class Main2Activity extends AppCompatActivity {
         tv4 = findViewById(R.id.textView18);
         tv9=findViewById(R.id.textView29);
 
+        /*String message = "Statue sms by 7337619279\n" +
+                "Motor is on in 3 phase mode\n" +
+                "RY:-389.40\n" +
+                "YB:-393.20\n" +
+                "BR:-392.20\n"; */
         String message = "SPC,25";
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phoneNumber, null, message, null, null);
@@ -136,14 +143,12 @@ public class Main2Activity extends AppCompatActivity {
                     String senderNum = smsMessage.getDisplayOriginatingAddress();
                   //  Log.i("sender num", senderNum);
                     SMSBody1 += smsMessage.getMessageBody().toString();
-
+                    abortBroadcast();
                     Log.i("length",String.valueOf(SMSBody1.length()));
                     Log.i("Received SMS:",SMSBody1);
                     String[] lines = SMSBody1.split("\\r?\\n");
                     int l=lines.length-1;
-
                     Log.i("lines length",String.valueOf(l));
-
                     String s4=lines[l].toString();
                     if(lines[1].toString().contains("on")){
                         tv.setText("ON");

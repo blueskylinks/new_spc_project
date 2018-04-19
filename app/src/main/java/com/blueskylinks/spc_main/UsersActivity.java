@@ -54,9 +54,15 @@ public class UsersActivity extends AppCompatActivity {
         startActivity(it2);
     }
 
+    public void manual(View view){
+        //starting another activity..
+        Intent it4 = new Intent(UsersActivity.this, ManualActivity.class);
+        startActivity(it4);
+    }
+
     //Add users
     public void Add_users(View view) {
-        text1=findViewById(R.id.text1);
+        //text1=findViewById(R.id.text1);
         Log.i("count",String.valueOf(count));
         if(count<4) {
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);

@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
                 new String[]{Manifest.permission.READ_SMS},200);
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.RECEIVE_SMS},200);
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_PHONE_STATE}, 200);
         et1=findViewById(R.id.Et1);
         et2=findViewById(R.id.Et2);
 
