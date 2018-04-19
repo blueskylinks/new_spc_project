@@ -58,7 +58,7 @@ public class Main2Activity extends AppCompatActivity {
                 "BR:-392.20\n"; */
         String message = "SPC,25";
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+       // smsManager.sendTextMessage(phoneNumber, null, message, null, null);
         Log.i("Test", "SMS sent!");
         progress();
 
@@ -134,6 +134,7 @@ public class Main2Activity extends AppCompatActivity {
         startActivity(it4);
     }
 
+
     private final BroadcastReceiver sms_notify_reciver = new BroadcastReceiver() {
 
         @Override
@@ -174,4 +175,11 @@ public class Main2Activity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        unregisterReceiver(sms_notify_reciver);
+    }
+
 }

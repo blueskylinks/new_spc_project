@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spc_main.iml" filepath="$PROJECT_DIR$/spc_main.iml" />
       <module fileurl="file://C:\ccc\AndroidStudioProjects\spc_main_master\spc_main.iml" filepath="C:\ccc\AndroidStudioProjects\spc_main_master\spc_main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/spc_main_master.iml" filepath="$PROJECT_DIR$/spc_main_master.iml" />
       <module fileurl="file://C:\Users\omsai\AndroidStudioProjects\spc_main\spc_main_master.iml" filepath="C:\Users\omsai\AndroidStudioProjects\spc_main\spc_main_master.iml" />
     </modules>
   </component>

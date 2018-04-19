@@ -150,4 +150,11 @@ public class ON_OFFActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    public void onStop(){
+        super.onStop();
+        unregisterReceiver(toastOrNotificationCatcherReceiver);
+    }
+
+
 }
