@@ -90,7 +90,6 @@ public class ManualActivity extends AppCompatActivity {
     }
 
     public void Call_SMS(){
-
         myButton1.setText("CALL");
         myButton2.setText("SMS");
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);

@@ -62,15 +62,16 @@ public class Main2Activity extends AppCompatActivity {
         Log.i("Test", "SMS sent!");
         progress();
 
-        final IntentFilter mIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-        registerReceiver(sms_notify_reciver, mIntentFilter);
-        registerReceiver(sms_notify_reciver,mIntentFilter);
     }
 
     @Override
     protected void onResume(){
         super.onResume();
         SMSBody1="";
+
+        final IntentFilter mIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
+        registerReceiver(sms_notify_reciver, mIntentFilter);
+        registerReceiver(sms_notify_reciver,mIntentFilter);
     }
 
     public void refresh(View view){
@@ -113,7 +114,6 @@ public class Main2Activity extends AppCompatActivity {
             //starting another activity..
             Intent it1 = new Intent(Main2Activity.this, SettingsActivity.class);
             startActivity(it1);
-
     }
 
     public void ON_OFF(View view){
@@ -144,7 +144,6 @@ public class Main2Activity extends AppCompatActivity {
                     String senderNum = smsMessage.getDisplayOriginatingAddress();
                   //  Log.i("sender num", senderNum);
                     SMSBody1 += smsMessage.getMessageBody().toString();
-                    abortBroadcast();
                     Log.i("length",String.valueOf(SMSBody1.length()));
                     Log.i("Received SMS:",SMSBody1);
                     String[] lines = SMSBody1.split("\\r?\\n");
@@ -177,9 +176,8 @@ public class Main2Activity extends AppCompatActivity {
     };
 
     @Override
-    public void onStop(){
-        super.onStop();
+    public void onPause(){
+        super.onPause();
         unregisterReceiver(sms_notify_reciver);
     }
-
 }

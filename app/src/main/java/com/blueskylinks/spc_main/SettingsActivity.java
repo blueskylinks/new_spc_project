@@ -20,6 +20,23 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
+    public void overLoad(View view){
+        Intent in1 = new Intent(SettingsActivity.this, OverLoadActivity.class);
+        startActivity(in1);
+    }
+
+    public void overVoltage(View view){
+        Intent in2 = new Intent(SettingsActivity.this, Over_voltage_funtion.class);
+        startActivity(in2);
+    }
+
+    public void NoLoad(View view){
+        Intent in3 = new Intent(SettingsActivity.this, No_load_activity.class);
+        startActivity(in3);
+    }
+
+
+
     //Hoome functions
     public void home(View view){
 

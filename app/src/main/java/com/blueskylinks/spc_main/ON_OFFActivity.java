@@ -42,6 +42,9 @@ public class ON_OFFActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         SMSBody1="";
+        final IntentFilter MIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
+        registerReceiver(toastOrNotificationCatcherReceiver, MIntentFilter);
+        registerReceiver(toastOrNotificationCatcherReceiver,MIntentFilter);
     }
 
     @Override
@@ -54,9 +57,7 @@ public class ON_OFFActivity extends AppCompatActivity {
         mot_st_text1 = findViewById(R.id.mot_st);
         onoff_rb1=findViewById(R.id.radioButton);
         onoff_rb2=findViewById(R.id.radioButton);
-        final IntentFilter mIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-        registerReceiver(toastOrNotificationCatcherReceiver, mIntentFilter);
-        registerReceiver(toastOrNotificationCatcherReceiver,mIntentFilter);
+
     }
 
     public void turnsOn(View view){
@@ -132,7 +133,7 @@ public class ON_OFFActivity extends AppCompatActivity {
                     Log.i("sender num", senderNum);
                     SMSBody1 += smsMessage.getMessageBody().toString();
                     String[] lines = SMSBody1.split("\\r?\\n");
-
+                    Log.i("received sms",SMSBody1);
                     if(lines[2].toString().contains("on")){
                         onoffpg1.setVisibility(View.INVISIBLE);
                         textView1.setText(lines[4]);
@@ -151,10 +152,8 @@ public class ON_OFFActivity extends AppCompatActivity {
     };
 
     @Override
-    public void onStop(){
-        super.onStop();
+    public void onPause(){
+        super.onPause();
         unregisterReceiver(toastOrNotificationCatcherReceiver);
     }
-
-
 }

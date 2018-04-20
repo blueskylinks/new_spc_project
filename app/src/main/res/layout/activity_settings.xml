@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
-                android:text="2pahse" />
+                android:text="2phase" />
 
             <View
                 android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
-                android:text="Single page preventer(Current)" />
+                android:text="Single phase preventer(Current)" />
 
             <View
                 android:layout_width="match_parent"
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
-                android:text="Single page Preventer(Voltage)" />
+                android:text="Single phase Preventer(Voltage)" />
 
             <View
                 android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
-                android:text="Reverse pase" />
+                android:text="Reverse phase" />
 
             <View
                 android:layout_width="match_parent"
@@ -118,6 +118,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Over Load"
+                android:onClick="overLoad"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <View
@@ -134,6 +135,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:text="No Load(Dry Run)"
+                android:onClick="NoLoad"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <View
@@ -191,6 +193,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Over voltage"
                 android:layout_marginBottom="20dp"
+                android:onClick="overVoltage"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         </LinearLayout>

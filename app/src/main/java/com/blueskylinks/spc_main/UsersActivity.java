@@ -18,6 +18,7 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -48,17 +49,27 @@ public class UsersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
-        final IntentFilter mIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-        registerReceiver(addorremovereceiver, mIntentFilter);
-        registerReceiver(addorremovereceiver,mIntentFilter);
 
         String message = "SPC,92";
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+       // smsManager.sendTextMessage(phoneNumber, null, message, null, null);
         Log.i("Test", "SMS sent!");
         progress();
+        text1 = findViewById(R.id.u_text11);
+        text2 = findViewById(R.id.u_text22);
+        text3 = findViewById(R.id.u_text33);
+        text4 = findViewById(R.id.u_text44);
+        text5 = findViewById(R.id.u_text55);
     }
+@Override
+public void onResume(){
+        super.onResume();
+        SMSBody1="";
+    final IntentFilter IntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
+    registerReceiver(addorremovereceiver, IntentFilter);
+    registerReceiver(addorremovereceiver,IntentFilter);
 
+}
 
     public void settings(View view){
         //starting another activity..
@@ -153,6 +164,8 @@ public class UsersActivity extends AppCompatActivity {
           textView1.setText("Command Sent, Please Wait...For 2 minutes");
         }
         else et1.setError("you reached maximum limit!!...");
+
+       et1.getText().clear();
     }
 
     public void refresh(View view){
@@ -208,6 +221,8 @@ public class UsersActivity extends AppCompatActivity {
        else{
             et2.setError("please Enter valid number");
        }
+
+       et2.getText().clear();
     }
 
     private final BroadcastReceiver addorremovereceiver = new BroadcastReceiver() {
@@ -219,34 +234,26 @@ public class UsersActivity extends AppCompatActivity {
                     String senderNum = smsMessage.getDisplayOriginatingAddress();
                    // Log.i("sender num", senderNum);
                     SMSBody1 += smsMessage.getMessageBody().toString();
+                    Log.i("Received sms",SMSBody1);
                    String sms=SMSBody1;
-                   if(sms.length()>=153) {
-                       String[] lines = SMSBody1.split("\\r?\\n");
-                       Log.i("test", lines[1].toString());
-                       text1 = findViewById(R.id.u_text11);
-                       text2 = findViewById(R.id.u_text22);
-                       text3 = findViewById(R.id.u_text33);
-                       text4 = findViewById(R.id.u_text44);
-                       text5 = findViewById(R.id.u_text55);
-                       if (lines[2].toString().contains("Spcmno")) {
-                           text1.setText(lines[2].toString().substring(9));
-                       } else return;
-                       for (int i = 3; i <= 6; i++) {
-                           if (lines[i].toString().contains("Spcbno")) {
-                               text2.setText(lines[i].toString().substring(9));
-                           }
-                          else if (lines[i].toString().contains("Spccno")) {
-                               text3.setText(lines[i].toString().substring(9));
-                           }
-                           else if (lines[i].toString().contains("Spcdno")) {
-                               text4.setText(lines[i].toString().substring(9));
-                           }
-                         else if (lines[i].toString().contains("Spceno")) {
-                               text5.setText(lines[i].toString().substring(9));
-                           }
-                           else return;
-                       }
-                   }
+                    String[] lines = SMSBody1.split("\\r?\\n");
+                    if(sms.length()>100) {
+                        if (lines[2].toString().contains("Spcmno")) {
+                            text1.setText(lines[2].toString().substring(9));
+                            for (int i = 3; i <= 6; i++) {
+                                if (lines[i].toString().contains("Spcbno")) {
+                                    text2.setText(lines[i].toString().substring(9));
+                                } else if (lines[i].toString().contains("Spccno")) {
+                                    text3.setText(lines[i].toString().substring(9));
+                                } else if (lines[i].toString().contains("Spcdno")) {
+                                    text4.setText(lines[i].toString().substring(9));
+                                } else if (lines[i].toString().contains("Spceno")) {
+                                    text5.setText(lines[i].toString().substring(9));
+                                } else return;
+                            }
+                        }
+                        else return;
+                    }
                    else return;
                     SMSBody1 ="";
 
@@ -256,10 +263,8 @@ public class UsersActivity extends AppCompatActivity {
     };
 
     @Override
-    public void onStop(){
-        super.onStop();
+   public void onPause(){
+        super.onPause();
         unregisterReceiver(addorremovereceiver);
     }
-
-
 }
