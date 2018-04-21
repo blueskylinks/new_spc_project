@@ -17,7 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-public class Over_voltage_funtion extends AppCompatActivity {
+public class RestartDryrunActivity extends AppCompatActivity {
     RadioButton rbutton1;
     RadioButton rbutton2;
     String phoneNumber = "9663261329";
@@ -29,25 +29,23 @@ public class Over_voltage_funtion extends AppCompatActivity {
     TextView tv1;
     EditText et2;
     String SMSBody1;
-    EditText et3;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_over_voltage_funtion);
-        rbutton1=findViewById(R.id.radioButton);
+        setContentView(R.layout.activity_restart_dryrun);
         rbutton2=findViewById(R.id.radioButton2);
+        rbutton1=findViewById(R.id.radioButton);
         pbar=findViewById(R.id.onoff_pgbar1);
-        textView1=findViewById(R.id.onoff_status_text1);
         tv=findViewById(R.id.mot_st);
-        tv1=findViewById(R.id.maxvoltage);
-        pbar1=findViewById(R.id.set);
+        textView1=findViewById(R.id.onoff_status_text1);
         textView2=findViewById(R.id.onoff_status_text3);
+        tv1=findViewById(R.id.time);
+        pbar1=findViewById(R.id.set);
         et2=findViewById(R.id.et11);
-        et3=findViewById(R.id.et12);
-    }
 
+    }
 
 
     @Override
@@ -55,16 +53,15 @@ public class Over_voltage_funtion extends AppCompatActivity {
         super.onResume();
         SMSBody1 = "";
 
-        final IntentFilter volIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-        registerReceiver(overvoltageReceiver, volIntentFilter);
-        registerReceiver(overvoltageReceiver, volIntentFilter);
+        final IntentFilter resIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
+        registerReceiver(RestartReceiver, resIntentFilter);
+        registerReceiver(RestartReceiver, resIntentFilter);
     }
-
 
     public void turnsOn(View view) {
         String message = "";
         if (rbutton1.isChecked()) {
-            message = "SPC,14,1";
+            message = "SPC,10,1";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             Log.i("message", message);
@@ -73,7 +70,7 @@ public class Over_voltage_funtion extends AppCompatActivity {
             textView1.setText("Command Sent, Please Wait...For 2 minutes");
         }
         else if (rbutton2.isChecked()) {
-            message = "SPC,14,0";
+            message = "SPC,10,0";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             Log.i("message", message);
@@ -81,22 +78,17 @@ public class Over_voltage_funtion extends AppCompatActivity {
             pbar.setVisibility(View.VISIBLE);
             textView1.setText("Command Sent, Please Wait...For 2 minutes");
         } else return;
-
     }
 
     public void set_maxvoltage(View view) {
 
         String text = et2.getText().toString();
         Log.i("..", text);
-
-        String text2 = et3.getText().toString();
-        Log.i("..", text2);
         String message = " ";
-        if (TextUtils.isEmpty(text) || TextUtils.isEmpty(text2)) {
-            if (TextUtils.isEmpty(text)) et2.setError("please provide 3phase trip current!..");
-            else et3.setError("please provide 2phase trip current!..");
+        if (TextUtils.isEmpty(text)) {
+           et2.setError("please provide 3phase trip current!..");
         }
-        message = "SPC,15" + "," + text + "," + text2;
+        message = "SPC,11" + "," + text ;
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phoneNumber, null, message, null, null);
         pbar1.setVisibility(View.VISIBLE);
@@ -105,39 +97,38 @@ public class Over_voltage_funtion extends AppCompatActivity {
         textView2.setText("Command Sent, Please Wait...For 2 minutes");
 
         et2.getText().clear();
-        et3.getText().clear();
     }
 
     public void settings(View view) {
         //starting another activity..
-        Intent it1 = new Intent(Over_voltage_funtion.this, SettingsActivity.class);
+        Intent it1 = new Intent(RestartDryrunActivity.this, SettingsActivity.class);
         startActivity(it1);
     }
 
     public void ON_OFF(View view) {
         //starting another activity..
-        Intent it2 = new Intent(Over_voltage_funtion.this, ON_OFFActivity.class);
+        Intent it2 = new Intent(RestartDryrunActivity.this, ON_OFFActivity.class);
         startActivity(it2);
     }
 
     public void Users(View view) {
         //starting another activity..
-        Intent it3 = new Intent(Over_voltage_funtion.this, UsersActivity.class);
+        Intent it3 = new Intent(RestartDryrunActivity.this, UsersActivity.class);
         startActivity(it3);
     }
 
     public void manual(View view) {
         //starting another activity..
-        Intent it4 = new Intent(Over_voltage_funtion.this, ManualActivity.class);
+        Intent it4 = new Intent(RestartDryrunActivity.this, ManualActivity.class);
         startActivity(it4);
     }
 
     public void home(View view) {
-        Intent it5 = new Intent(Over_voltage_funtion.this, Main2Activity.class);
+        Intent it5 = new Intent(RestartDryrunActivity.this, Main2Activity.class);
         startActivity(it5);
     }
 
-    private final BroadcastReceiver overvoltageReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver RestartReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent4) {
@@ -156,7 +147,7 @@ public class Over_voltage_funtion extends AppCompatActivity {
                         tv.setText("OFF");
                         pbar.setVisibility(View.INVISIBLE);
                     }
-                    else if(lines[2].toString().contains("voltage setting")){
+                    else if(lines[2].toString().contains("Restart time")){
                         tv1.setText(lines[2]);
                         pbar1.setVisibility(View.INVISIBLE);
                     }
@@ -170,6 +161,7 @@ public class Over_voltage_funtion extends AppCompatActivity {
     @Override
     public void onPause(){
         super.onPause();
-        unregisterReceiver(overvoltageReceiver);
+        unregisterReceiver(RestartReceiver);
     }
+
 }

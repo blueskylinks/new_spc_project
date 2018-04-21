@@ -142,34 +142,35 @@ public class Main2Activity extends AppCompatActivity {
             if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent2.getAction())) {
                 for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent2)) {
                     String senderNum = smsMessage.getDisplayOriginatingAddress();
-                  //  Log.i("sender num", senderNum);
+                    //  Log.i("sender num", senderNum);
                     SMSBody1 += smsMessage.getMessageBody().toString();
-                    Log.i("length",String.valueOf(SMSBody1.length()));
-                    Log.i("Received SMS:",SMSBody1);
+                    Log.i("length", String.valueOf(SMSBody1.length()));
+                    Log.i("Received SMS:", SMSBody1);
                     String[] lines = SMSBody1.split("\\r?\\n");
-                    int l=lines.length-1;
-                    Log.i("lines length",String.valueOf(l));
-                    String s4=lines[l].toString();
-                    if(lines[1].toString().contains("on")){
-                        tv.setText("ON");
-                        if(lines[1].toString().contains("3")) tv1.setText("3 Phase Mode");
-                        else tv1.setText("2 Phase Mode");
-                        String s1=lines[2].toString();
-                        String s2=lines[3].toString();
-                        String s3=lines[4].toString();
-                        tv2.setText(s1.substring(4));
-                        tv3.setText(s2.substring(4));
-                        tv4.setText(s3.substring(4));
-                        tv9.setText(s4.substring(6));
-                    }
+                    int l = lines.length - 1;
+                    Log.i("lines length", String.valueOf(l));
+                    String s4 = lines[l].toString();
+                    String sms = SMSBody1;
 
-                    else if(lines[1].toString().contains("off")) {
-                        tv.setText("OFF");
-                        tv9.setText(s4.substring(10));
-                    }
-                    else return;
-                   SMSBody1 ="";
+                    if (sms.length() > 153) {
+                        if (lines[1].toString().contains("on")) {
+                            tv.setText("ON");
+                            if (lines[1].toString().contains("3")) tv1.setText("3 Phase Mode");
+                            else tv1.setText("2 Phase Mode");
+                            String s1 = lines[2].toString();
+                            String s2 = lines[3].toString();
+                            String s3 = lines[4].toString();
+                            tv2.setText(s1.substring(4));
+                            tv3.setText(s2.substring(4));
+                            tv4.setText(s3.substring(4));
+                            tv9.setText(s4.substring(6));
+                        } else if (lines[1].toString().contains("off")) {
+                            tv.setText("OFF");
+                            tv9.setText(s4.substring(10));
+                        } else return;
+                        SMSBody1 = "";
 
+                    }
                 }
             }
         }

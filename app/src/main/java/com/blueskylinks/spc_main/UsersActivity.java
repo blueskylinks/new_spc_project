@@ -231,31 +231,28 @@ public void onResume(){
         public void onReceive(Context context, Intent intent1) {
             if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent1.getAction())) {
                 for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent1)) {
-                    String senderNum = smsMessage.getDisplayOriginatingAddress();
-                   // Log.i("sender num", senderNum);
                     SMSBody1 += smsMessage.getMessageBody().toString();
-                    Log.i("Received sms",SMSBody1);
-                   String sms=SMSBody1;
+                    Log.i("Received sms", SMSBody1);
+                    String sms = SMSBody1;
                     String[] lines = SMSBody1.split("\\r?\\n");
-                    if(sms.length()>100) {
-                        if (lines[2].toString().contains("Spcmno")) {
-                            text1.setText(lines[2].toString().substring(9));
-                            for (int i = 3; i <= 6; i++) {
-                                if (lines[i].toString().contains("Spcbno")) {
-                                    text2.setText(lines[i].toString().substring(9));
-                                } else if (lines[i].toString().contains("Spccno")) {
-                                    text3.setText(lines[i].toString().substring(9));
-                                } else if (lines[i].toString().contains("Spcdno")) {
-                                    text4.setText(lines[i].toString().substring(9));
-                                } else if (lines[i].toString().contains("Spceno")) {
-                                    text5.setText(lines[i].toString().substring(9));
-                                } else return;
-                            }
+                       if(sms.length()>=153) {
+                    if (lines[2].toString().contains("Spcmno")) {
+                        text1.setText(lines[2].toString().substring(9));
+                        for (int i = 3; i <= 6; i++) {
+                            if (lines[i].toString().contains("Spcbno")) {
+                                text2.setText(lines[i].toString().substring(9));
+                            } else if (lines[i].toString().contains("Spccno")) {
+                                text3.setText(lines[i].toString().substring(9));
+                            } else if (lines[i].toString().contains("Spcdno")) {
+                                text4.setText(lines[i].toString().substring(9));
+                            } else if (lines[i].toString().contains("Spceno")) {
+                                text5.setText(lines[i].toString().substring(9));
+                            } else return;
                         }
-                        else return;
-                    }
-                   else return;
-                    SMSBody1 ="";
+
+                    } else return;
+                           SMSBody1 ="";
+                }
 
                 }
             }

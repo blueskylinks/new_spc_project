@@ -35,7 +35,15 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(in3);
     }
 
+    public void Restart(View view){
+        Intent in3 = new Intent(SettingsActivity.this, RestartDryrunActivity.class);
+        startActivity(in3);
+    }
 
+    public void underVoltage(View view){
+        Intent in2 = new Intent(SettingsActivity.this, UnderVoltageActivity.class);
+        startActivity(in2);
+    }
 
     //Hoome functions
     public void home(View view){
