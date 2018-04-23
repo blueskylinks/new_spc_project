@@ -88,15 +88,17 @@ public class RestartDryrunActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(text)) {
            et2.setError("please provide 3phase trip current!..");
         }
-        message = "SPC,11" + "," + text ;
-        SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-        pbar1.setVisibility(View.VISIBLE);
-        Log.i("message", message);
-        Log.i("Test", "SMS sent!");
-        textView2.setText("Command Sent, Please Wait...For 2 minutes");
+        else {
+            message = "SPC,11" + "," + text;
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            pbar1.setVisibility(View.VISIBLE);
+            Log.i("message", message);
+            Log.i("Test", "SMS sent!");
+            textView2.setText("Command Sent, Please Wait...For 2 minutes");
 
-        et2.getText().clear();
+            et2.getText().clear();
+        }
     }
 
     public void settings(View view) {
@@ -139,15 +141,15 @@ public class RestartDryrunActivity extends AppCompatActivity {
                     Log.i("length", String.valueOf(SMSBody1.length()));
                     Log.i("Received SMS:", SMSBody1);
                     String[] lines = SMSBody1.split("\\r?\\n");
-                    if(lines[2].toString().contains("on")){
+                    if(lines[2].toString().contains("function is on")){
                         tv.setText("ON");
                         pbar.setVisibility(View.INVISIBLE);
                     }
-                    else if(lines[2].toString().contains("off")){
+                    else if(lines[2].toString().contains("function is off")){
                         tv.setText("OFF");
                         pbar.setVisibility(View.INVISIBLE);
                     }
-                    else if(lines[2].toString().contains("Restart time")){
+                    else if(lines[2].toString().contains("noload restart")){
                         tv1.setText(lines[2]);
                         pbar1.setVisibility(View.INVISIBLE);
                     }

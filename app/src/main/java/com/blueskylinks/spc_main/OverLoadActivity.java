@@ -86,7 +86,6 @@ public class OverLoadActivity extends AppCompatActivity {
              pbar.setVisibility(View.VISIBLE);
             textView1.setText("Command Sent, Please Wait...For 2 minutes");
         } else return;
-
     }
 
     public void set_tripTime(View view) {
@@ -119,16 +118,18 @@ public class OverLoadActivity extends AppCompatActivity {
             if (TextUtils.isEmpty(text)) et2.setError("please provide 3phase trip current!..");
             else et3.setError("please provide 2phase trip current!..");
         }
-        message = "SPC,5" + "," + text + "," + text2;
-        SmsManager smsManager = SmsManager.getDefault();
-         smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-         pbar2.setVisibility(View.VISIBLE);
-        Log.i("message", message);
-        Log.i("Test", "SMS sent!");
-        textView3.setText("Command Sent, Please Wait...For 2 minutes");
+        else {
+            message = "SPC,5" + "," + text + "," + text2;
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            pbar2.setVisibility(View.VISIBLE);
+            Log.i("message", message);
+            Log.i("Test", "SMS sent!");
+            textView3.setText("Command Sent, Please Wait...For 2 minutes");
 
-        et2.getText().clear();
-        et3.getText().clear();
+            et2.getText().clear();
+            et3.getText().clear();
+        }
     }
 
     public void settings(View view) {
@@ -172,11 +173,11 @@ public class OverLoadActivity extends AppCompatActivity {
                     Log.i("Received SMS:", SMSBody1);
                     String[] lines = SMSBody1.split("\\r?\\n");
                     Log.i("sms",lines[3]);
-                    if(lines[3].toString().contains("on")){
+                    if(lines[3].toString().contains("function is on")){
                         tv.setText("ON");
                         pbar.setVisibility(View.INVISIBLE);
                     }
-                    else if(lines[3].toString().contains("off")){
+                    else if(lines[3].toString().contains("function is off")){
                         tv.setText("OFF");
                         pbar.setVisibility(View.INVISIBLE);
                     }

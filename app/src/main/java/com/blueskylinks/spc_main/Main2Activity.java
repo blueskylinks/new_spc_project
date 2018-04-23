@@ -151,7 +151,6 @@ public class Main2Activity extends AppCompatActivity {
                     Log.i("lines length", String.valueOf(l));
                     String s4 = lines[l].toString();
                     String sms = SMSBody1;
-
                     if (sms.length() > 153) {
                         if (lines[1].toString().contains("on")) {
                             tv.setText("ON");
@@ -169,7 +168,6 @@ public class Main2Activity extends AppCompatActivity {
                             tv9.setText(s4.substring(10));
                         } else return;
                         SMSBody1 = "";
-
                     }
                 }
             }

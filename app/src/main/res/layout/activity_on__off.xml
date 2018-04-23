@@ -172,6 +172,7 @@
                     android:id="@+id/imageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="home"
                     app:srcCompat="@mipmap/icon1" />
             </TableRow>
 
@@ -204,7 +205,6 @@
                     android:id="@+id/imageButton11"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:onClick="ON_OFF"
                     app:srcCompat="@mipmap/icons8" />
             </TableRow>
 
