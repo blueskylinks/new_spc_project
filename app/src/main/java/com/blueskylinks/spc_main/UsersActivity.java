@@ -24,13 +24,14 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static com.blueskylinks.spc_main.Main2Activity.progressDialog;
 
 public class UsersActivity extends AppCompatActivity {
     int count=0;
     SharedPreferences sharedPreferences1;
-    String ms="00";
+    String no;
     String SMSBody1;
     TextView text1;
     TextView text2;
@@ -40,6 +41,7 @@ public class UsersActivity extends AppCompatActivity {
     TextView textView1;
     TextView textView2;
     TextView textView3;
+    String user1;
     String user2;
     String user3;
     String user4;
@@ -66,6 +68,12 @@ public class UsersActivity extends AppCompatActivity {
         text3 = findViewById(R.id.u_text33);
         text4 = findViewById(R.id.u_text44);
         text5 = findViewById(R.id.u_text55);
+
+        textView2 = findViewById(R.id.onoff_status_text_2);
+        pbar2 = findViewById(R.id.onoff_pgbar_1);
+        et1 = findViewById(R.id.add_us_t3);
+        pbar3 = findViewById(R.id.onoff_pgbar1);
+        textView3 = findViewById(R.id.onoff_status_text1);
     }
 
 @Override
@@ -123,56 +131,54 @@ public void onResume(){
 
     //Add users
     public void Add_users(View view) {
-        user2=text2.getText().toString();
-        user3=text3.getText().toString();
-        user4=text4.getText().toString();
-        user5=text5.getText().toString();
-        String no ;
-       textView2=findViewById(R.id.onoff_status_text_2);
-      pbar2=findViewById(R.id.onoff_pgbar_1);
-        et1=findViewById(R.id.add_us_t3);
-        no=et1.getText().toString();
-
-
-      if(TextUtils.isEmpty(user2)){
-          String message = "SPC,38,1,"+no;
-          Log.i("added no",message);
-          SmsManager smsManager = SmsManager.getDefault();
-           smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-          Log.i("Test", "SMS sent!");
-          pbar2.setVisibility(View.VISIBLE);
-          textView2.setText("Command Sent, Please Wait...For 2 minutes");
-      }
-       else if(TextUtils.isEmpty(user3)){
-            String message = "SPC,39,1,"+no;
-            Log.i("added no",message);
-            SmsManager smsManager = SmsManager.getDefault();
-             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            Log.i("Test", "SMS sent!");
-          pbar2.setVisibility(View.VISIBLE);
-          textView2.setText("Command Sent, Please Wait...For 2 minutes");
+        user2 = text2.getText().toString();
+        user3 = text3.getText().toString();
+        user4 = text4.getText().toString();
+        user5 = text5.getText().toString();
+        no = et1.getText().toString();
+        if(TextUtils.isEmpty(no)) {et1.setError("enter valid number");}
+        else{
+            Log.i("test", user2);
+            if (no.equals(user2) || no.equals(user3) || no.equals(user4) || no.equals(user5) || no.equals(user1)) {
+                Toast.makeText(this, "User already added", Toast.LENGTH_SHORT).show();
+                Log.i("..", "Error msg");
+            } else {
+                if (user2.equals(" ")) {
+                    String message = "SPC,38,1," + no;
+                    Log.i("added no", message);
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                    Log.i("Test", "SMS sent!");
+                    pbar2.setVisibility(View.VISIBLE);
+                    textView2.setText("Command Sent, Please Wait...For 2 minutes");
+                } else if (user3.equals(" ")) {
+                    String message = "SPC,39,1," + no;
+                    Log.i("added no", message);
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                    Log.i("Test", "SMS sent!");
+                    pbar2.setVisibility(View.VISIBLE);
+                    textView2.setText("Command Sent, Please Wait...For 2 minutes");
+                } else if (user4.equals(" ")) {
+                    String message = "SPC,40,1," + no;
+                    Log.i("added no", message);
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                    Log.i("Test", "SMS sent!");
+                    pbar2.setVisibility(View.VISIBLE);
+                    textView2.setText("Command Sent, Please Wait...For 2 minutes");
+                } else if (user5.equals(" ")) {
+                    String message = "SPC,41,1," + no;
+                    Log.i("added no", message);
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                    Log.i("Test", "SMS sent!");
+                    pbar2.setVisibility(View.VISIBLE);
+                    textView2.setText("Command Sent, Please Wait...For 2 minutes");
+                } else et1.setError("you reached maximum limit!!...");
+            }
+            et1.getText().clear();
         }
-       else if(TextUtils.isEmpty(user4)){
-            String message = "SPC,40,1,"+no;
-            Log.i("added no",message);
-            SmsManager smsManager = SmsManager.getDefault();
-             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            Log.i("Test", "SMS sent!");
-          pbar2.setVisibility(View.VISIBLE);
-          textView2.setText("Command Sent, Please Wait...For 2 minutes");
-        }
-       else if(TextUtils.isEmpty(user5)){
-            String message = "SPC,41,1,"+no;
-            Log.i("added no",message);
-            SmsManager smsManager = SmsManager.getDefault();
-             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            Log.i("Test", "SMS sent!");
-          pbar2.setVisibility(View.VISIBLE);
-          textView2.setText("Command Sent, Please Wait...For 2 minutes");
-        }
-        else et1.setError("you reached maximum limit!!...");
-
-       et1.getText().clear();
     }
 
     public void refresh(View view){
@@ -183,63 +189,60 @@ public void onResume(){
         Log.i("Test", "SMS sent!");
       pbar1.setVisibility(View.VISIBLE);
     //  textView1.setText("Command Sent, Please Wait...For 2 minutes");
+
+        text2.setText(" ");
+        text3.setText(" ");
+        text4.setText(" ");
+        text5.setText(" ");
     }
 
 
-    public void remove(View view){
-        user2=text2.getText().toString();
-        user3=text3.getText().toString();
-        user4=text4.getText().toString();
-        user5=text5.getText().toString();
-        et2=findViewById(R.id.add_us_t1);
-        String Rno=et2.getText().toString();
-         Log.i("Rno",Rno);
-         pbar3=findViewById(R.id.onoff_pgbar1);
-     textView3=findViewById(R.id.onoff_status_text1);
-        Log.i("USer1",user2);
-        Log.i("USer2",user4);
-       if(Rno.equals(user2)){
-           String message = "SPC,38,0";
-           SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-           Log.i("Test", "SMS sent!");
-           pbar3.setVisibility(View.VISIBLE);
-           textView3.setText("Command Sent, Please Wait...For 2 minutes");
-       }
+    public void remove(View view) {
+        user2 = text2.getText().toString();
+        user3 = text3.getText().toString();
+        user4 = text4.getText().toString();
+        user5 = text5.getText().toString();
+        et2 = findViewById(R.id.add_us_t1);
+        String Rno = et2.getText().toString();
 
-       else if(Rno.equals(user3)){
-           String message = "SPC,39,0";
-           SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-           Log.i("Test", "SMS sent!");
-           pbar3.setVisibility(View.VISIBLE);
-           textView3.setText("Command Sent, Please Wait...For 2 minutes");
-       }
-
-       else if(Rno.equals(user4)){
-           String message = "SPC,40,0";
-           SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-           Log.i("Test", "SMS sent!");
-           pbar3.setVisibility(View.VISIBLE);
-           textView3.setText("Command Sent, Please Wait...For 2 minutes");
-       }
-
-
-        else if(Rno.equals(user5)){
-           String message = "SPC,41,0";
-           SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-           Log.i("Test", "SMS sent!");
-           pbar3.setVisibility(View.VISIBLE);
-           textView3.setText("Command Sent, Please Wait...For 2 minutes");
-       }
-       else{
-            et2.setError("please Enter valid number");
-       }
-       et2.getText().clear();
+        if (TextUtils.isEmpty(Rno)) {
+          et2.setError("enter valid number");
+        }
+        else {
+            if (Rno.equals(user2)) {
+                String message = "SPC,38,0";
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                Log.i("Test", "SMS sent!");
+                pbar3.setVisibility(View.VISIBLE);
+                textView3.setText("Command Sent, Please Wait...For 2 minutes");
+            } else if (Rno.equals(user3)) {
+                String message = "SPC,39,0";
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                Log.i("Test", "SMS sent!");
+                pbar3.setVisibility(View.VISIBLE);
+                textView3.setText("Command Sent, Please Wait...For 2 minutes");
+            } else if (Rno.equals(user4)) {
+                String message = "SPC,40,0";
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                Log.i("Test", "SMS sent!");
+                pbar3.setVisibility(View.VISIBLE);
+                textView3.setText("Command Sent, Please Wait...For 2 minutes");
+            } else if (Rno.equals(user5)) {
+                String message = "SPC,41,0";
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                Log.i("Test", "SMS sent!");
+                pbar3.setVisibility(View.VISIBLE);
+                textView3.setText("Command Sent, Please Wait...For 2 minutes");
+            } else {
+                et2.setError("please Enter valid number");
+            }
+            et2.getText().clear();
+        }
     }
-
 
     private final BroadcastReceiver addorremovereceiver = new BroadcastReceiver() {
 
@@ -252,38 +255,35 @@ public void onResume(){
                     String sms = SMSBody1;
                     Log.i("length",String.valueOf(SMSBody1.length()));
                     String[] lines = SMSBody1.split("\\r?\\n");
-                    if(sms.length()>21){
-                        if (lines[2].toString().contains("Spcmno")){
-                            text1.setText(lines[2].toString().substring(9));
-                            Log.i("test",lines[2].toString().substring(9));
+                    if(sms.length()>21) {
+                        if (lines[2].toString().contains("Spcmno")) {
+                            text1.setText(lines[2].toString().substring(10));
+                            Log.i("test", lines[2].toString().substring(10));
                             //  pbar1.setVisibility(View.INVISIBLE);
                             // textView1.setVisibility(View.INVISIBLE);
-                            for(int i=3;i<=6;i++) {
-                                if (lines[i].toString().contains("Spcbno")) {
-                                    text2.setText(lines[i].toString().substring(9));
-                                    Log.i("test", lines[i].toString().substring(9));
+                            for (int i = 3; i <= 6; i++) {
+                                    if (lines[i].toString().contains("Spcbno")) {
+                                        text2.setText(lines[i].toString().substring(10));
+                                        Log.i("test", lines[i].toString().substring(10));
+                                    } else if (lines[i].toString().contains("Spccno")) {
+                                        text3.setText(lines[i].toString().substring(10));
+                                        Log.i("test", lines[i].toString().substring(10));
+                                    } else if (lines[i].toString().contains("Spcdno")) {
+                                        text4.setText(lines[i].toString().substring(10));
+                                        Log.i("test", lines[i].toString().substring(10));
+                                    } else if (lines[i].toString().contains("Spceno")) {
+                                        text5.setText(lines[i].toString().substring(10));
+                                        Log.i("test", lines[i].toString().substring(10));
+                                    } else return;
                                 }
-                             else if (lines[i].toString().contains("Spccno")) {
-                                    text3.setText(lines[i].toString().substring(9));
-                                    Log.i("test", lines[i].toString().substring(9));
-                                }
-                               else if (lines[i].toString().contains("Spcdno")) {
-                                    text4.setText(lines[i].toString().substring(9));
-                                    Log.i("test", lines[i].toString().substring(9));
-                                }
-                                else if (lines[i].toString().contains("Spceno")) {
-                                    text5.setText(lines[i].toString().substring(9));
-                                    Log.i("test", lines[i].toString().substring(9));
-                                } else return;
-                            }
-                        }else if (lines[2].toString().contains("New")) {
+                            }else if (lines[2].toString().contains("New")) {
                             textView2.setVisibility(View.INVISIBLE);
                             pbar2.setVisibility(View.INVISIBLE);
                         }
+                        }
+                    }
                         SMSBody1 = "";
                     }
-                }
-            }
         }
     };
 
