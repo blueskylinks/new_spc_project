@@ -10,14 +10,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="4"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="96dp"
-            android:layout_weight="0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_weight=".5"
             android:orientation="vertical">
 
             <Spinner
@@ -25,39 +26,99 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:entries="@array/spc_function_arrays"
+                android:entries="@array/spc_function_arrays1"
                 android:prompt="@string/spc_function_prompt" />
-
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/buttonlayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/spinnerLayout"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/button4"
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/black"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textview1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-              android:layout_gravity="center"
-                android:onClick="move_nextlayout"
-                android:text="ok" />
+                android:layout_weight="1"
+                android:textSize="14pt"/>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="submit_function"
+                android:text="submit" />
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                android:id="@+id/pbar"/>
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="2dp"
+            android:background="@android:color/black"/>
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5"
+        android:background="?attr/editTextBackground"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/onoff_status_text_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/colorButtonNormal"
+            android:text="!!" />
+
     </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/black"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:background="?attr/editTextBackground"
-        android:orientation="horizontal"></LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
         android:gravity="center_horizontal">
 
         <TableLayout
@@ -96,7 +157,7 @@
 
         <TableLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -106,8 +167,8 @@
                     android:id="@+id/imageButton11"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    app:srcCompat="@mipmap/icons8"
-                    android:onClick="ON_OFF"/>
+                    android:onClick="ON_OFF"
+                    app:srcCompat="@mipmap/icons8" />
             </TableRow>
 
             <TableRow
@@ -139,8 +200,8 @@
                     android:id="@+id/imageButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/icon_set"
-                    android:onClick="settings"/>
+                    android:onClick="settings"
+                    app:srcCompat="@mipmap/icon_set" />
             </TableRow>
 
             <TableRow
@@ -172,6 +233,7 @@
                     android:id="@+id/usr1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="Users"
                     app:srcCompat="@mipmap/icon_user" />
             </TableRow>
 
@@ -227,7 +289,7 @@
 
         <TableLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -258,5 +320,4 @@
         </TableLayout>
 
     </LinearLayout>
-
 </LinearLayout>

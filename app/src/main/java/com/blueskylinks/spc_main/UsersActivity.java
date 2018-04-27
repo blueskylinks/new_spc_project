@@ -29,8 +29,6 @@ import android.widget.Toast;
 import static com.blueskylinks.spc_main.Main2Activity.progressDialog;
 
 public class UsersActivity extends AppCompatActivity {
-    int count=0;
-    SharedPreferences sharedPreferences1;
     String no;
     String SMSBody1;
     TextView text1;
@@ -60,8 +58,10 @@ public class UsersActivity extends AppCompatActivity {
 
         String message = "SPC,92";
         SmsManager smsManager = SmsManager.getDefault();
-    //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+     smsManager.sendTextMessage(phoneNumber, null, message, null, null);
         Log.i("Test", "SMS sent!");
+        pbar1.setVisibility(View.VISIBLE);
+        textView1.setText("Command Sent, Please Wait...For 2 minutes");
         progress();
         text1 = findViewById(R.id.u_text11);
         text2 = findViewById(R.id.u_text22);
@@ -69,6 +69,7 @@ public class UsersActivity extends AppCompatActivity {
         text4 = findViewById(R.id.u_text44);
         text5 = findViewById(R.id.u_text55);
 
+        textView1=findViewById(R.id.onoff_status_text_1);
         textView2 = findViewById(R.id.onoff_status_text_2);
         pbar2 = findViewById(R.id.onoff_pgbar_1);
         et1 = findViewById(R.id.add_us_t3);
@@ -188,7 +189,7 @@ public void onResume(){
          smsManager.sendTextMessage(phoneNumber, null, message, null, null);
         Log.i("Test", "SMS sent!");
       pbar1.setVisibility(View.VISIBLE);
-    //  textView1.setText("Command Sent, Please Wait...For 2 minutes");
+      textView1.setText("Command Sent, Please Wait...For 2 minutes");
 
         text2.setText(" ");
         text3.setText(" ");
@@ -238,7 +239,7 @@ public void onResume(){
                 pbar3.setVisibility(View.VISIBLE);
                 textView3.setText("Command Sent, Please Wait...For 2 minutes");
             } else {
-                et2.setError("please Enter valid number");
+                Toast.makeText(this, "please enter valid number", Toast.LENGTH_SHORT).show();
             }
             et2.getText().clear();
         }
@@ -259,8 +260,8 @@ public void onResume(){
                         if (lines[2].toString().contains("Spcmno")) {
                             text1.setText(lines[2].toString().substring(10));
                             Log.i("test", lines[2].toString().substring(10));
-                            //  pbar1.setVisibility(View.INVISIBLE);
-                            // textView1.setVisibility(View.INVISIBLE);
+                              pbar1.setVisibility(View.INVISIBLE);
+                             textView1.setText("users list updated");
                             for (int i = 3; i <= 6; i++) {
                                     if (lines[i].toString().contains("Spcbno")) {
                                         text2.setText(lines[i].toString().substring(10));
@@ -277,8 +278,11 @@ public void onResume(){
                                     } else return;
                                 }
                             }else if (lines[2].toString().contains("New")) {
-                            textView2.setVisibility(View.INVISIBLE);
+                            textView2.setText(lines[2]);
                             pbar2.setVisibility(View.INVISIBLE);
+                        }else if(lines[1].toString().contains("deleted")){
+                            textView3.setText(lines[1].substring(11));
+                            pbar3.setVisibility(View.INVISIBLE);
                         }
                         }
                     }

@@ -33,7 +33,8 @@
         <activity android:name=".No_load_activity" />
         <activity android:name=".Over_voltage_funtion" />
         <activity android:name=".RestartDryrunActivity" />
-        <activity android:name=".UnderVoltageActivity"></activity>
+        <activity android:name=".UnderVoltageActivity" />
+        <activity android:name=".expandable_hide_activity"></activity>
     </application>
 
 </manifest>
