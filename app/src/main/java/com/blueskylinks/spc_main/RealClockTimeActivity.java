@@ -1,11 +1,9 @@
 package com.blueskylinks.spc_main;
 
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.RotateDrawable;
 import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,30 +16,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static com.blueskylinks.spc_main.Main2Activity.progressDialog;
-import static com.blueskylinks.spc_main.Main2Activity.tv;
-
-public class ON_OFFActivity extends AppCompatActivity {
-
-    public static TextView textView1;
-    public static TextView textView2;
-    public static TextView mot_st_text1;
-    public ProgressBar onoffpg1;
-    String phoneNumber1;
-    RadioButton onoff_rb1;
-    RadioButton onoff_rb2;
+public class RealClockTimeActivity extends AppCompatActivity {
     String phoneNumber = "9663261329";
     Spinner spinner;
     Spinner spinner1;
@@ -58,31 +42,10 @@ public class ON_OFFActivity extends AppCompatActivity {
     String s2;
     int number;
 
-    public void getSmsDetails(String phoneNumber, String SMSBody) {
-        phoneNumber1 = phoneNumber;
-        SMSBody1 = SMSBody;
-    }
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-        SMSBody1="";
-        final IntentFilter MIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-        registerReceiver(toastOrNotificationCatcherReceiver, MIntentFilter);
-        registerReceiver(toastOrNotificationCatcherReceiver,MIntentFilter);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_on__off);
-        onoffpg1 = findViewById(R.id.onoff_pgbar1);
-        onoffpg1.setVisibility(View.INVISIBLE);
-        textView1=findViewById(R.id.onoff_status_text1);
-        mot_st_text1 = findViewById(R.id.mot_st);
-        onoff_rb1=findViewById(R.id.radioButton);
-        onoff_rb2=findViewById(R.id.radioButton);
-
+        setContentView(R.layout.activity_real_clock_time);
         spinner=findViewById(R.id.spinner1);
         et1=findViewById(R.id.et1);
         et2=findViewById(R.id.et2);
@@ -103,8 +66,8 @@ public class ON_OFFActivity extends AppCompatActivity {
                     number  = Integer.parseInt(added_number);
 
                     if (number > 59)
-                        Toast.makeText(ON_OFFActivity.this, "Not more than 59", Toast.LENGTH_SHORT).show();
-                    // et2.setError("Enter mins less than 60");
+                        Toast.makeText(RealClockTimeActivity.this, "Not more than 59", Toast.LENGTH_SHORT).show();
+                      // et2.setError("Enter mins less than 60");
                     et2.setMaxEms(1);
                 }
 
@@ -119,7 +82,7 @@ public class ON_OFFActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // TODO Auto-generated method stub
             }
-        });
+            });
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -150,7 +113,7 @@ public class ON_OFFActivity extends AppCompatActivity {
                         et1.setVisibility(View.VISIBLE);
                         et2.setVisibility(View.VISIBLE);
                         setRTC3();
-                        break;
+                         break;
                     default:
                         mainLayout.removeView(spinner1);
                         et1.setVisibility(View.INVISIBLE);
@@ -180,8 +143,17 @@ public class ON_OFFActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        SMSBody1="";
+        final IntentFilter cintentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
+        registerReceiver(RealClockReceiver, cintentFilter);
+        registerReceiver(RealClockReceiver,cintentFilter);
+    }
+
     public void set_function(View view){
-        if(selectedItem.equals("RTC function on")){
+        if(selectedItem.equals("RTC Function on")){
             String message = "SPC,27,1";
             SmsManager smsManager = SmsManager.getDefault();
             //smsManager.sendTextMessage(phoneNumber, null, message, null, null);
@@ -189,10 +161,10 @@ public class ON_OFFActivity extends AppCompatActivity {
             pbar.setVisibility(View.VISIBLE);
             text.setText("Command Sent, Please Wait...For 2 minutes");
         }
-        else if(selectedItem.equals("RTC function off")){
+        else if(selectedItem.equals("RTC Function off")){
             String message = "SPC,27,0";
             SmsManager smsManager = SmsManager.getDefault();
-            // smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+           // smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             Log.i("Test", message);
             pbar.setVisibility(View.VISIBLE);
             text.setText("Command Sent, Please Wait...For 2 minutes");
@@ -204,13 +176,13 @@ public class ON_OFFActivity extends AppCompatActivity {
                 if(TextUtils.isEmpty(s1)) et1.setError("please enter time!!");
                 else et2.setError("please enter time!!");
             }else{
-                String message = "SPC,28,"+s1+","+s2;
-                SmsManager smsManager = SmsManager.getDefault();
-                // smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-                Log.i("Test", message);
-                pbar.setVisibility(View.VISIBLE);
-                text.setText("Command Sent, Please Wait...For 2 minutes");
-            }
+            String message = "SPC,28,"+s1+","+s2;
+            SmsManager smsManager = SmsManager.getDefault();
+           // smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            Log.i("Test", message);
+            pbar.setVisibility(View.VISIBLE);
+            text.setText("Command Sent, Please Wait...For 2 minutes");
+           }
             et1.getText().clear();
             et2.getText().clear();
         }
@@ -227,7 +199,7 @@ public class ON_OFFActivity extends AppCompatActivity {
                 Log.i("Test", message);
                 pbar.setVisibility(View.VISIBLE);
                 text.setText("Command Sent, Please Wait...For 2 minutes");
-            } et1.getText().clear();
+               } et1.getText().clear();
             et2.getText().clear();
         }
         else if(selectedItem.equals("RTC_2 on")){
@@ -243,7 +215,7 @@ public class ON_OFFActivity extends AppCompatActivity {
                 Log.i("Test", message);
                 pbar.setVisibility(View.VISIBLE);
                 text.setText("Command Sent, Please Wait...For 2 minutes");
-            }  et1.getText().clear();
+              }  et1.getText().clear();
             et2.getText().clear();
         }
         else if(selectedItem.equals("RTC_2 off")){
@@ -259,7 +231,7 @@ public class ON_OFFActivity extends AppCompatActivity {
                 Log.i("Test", message);
                 pbar.setVisibility(View.VISIBLE);
                 text.setText("Command Sent, Please Wait...For 2 minutes");
-            }et1.getText().clear();
+                }et1.getText().clear();
             et2.getText().clear();
         }
         else if(selectedItem.equals("RTC_3 on")){
@@ -275,7 +247,7 @@ public class ON_OFFActivity extends AppCompatActivity {
                 Log.i("Test", message);
                 pbar.setVisibility(View.VISIBLE);
                 text.setText("Command Sent, Please Wait...For 2 minutes");
-            }et1.getText().clear();
+                }et1.getText().clear();
             et2.getText().clear();
         }
         else if(selectedItem.equals("RTC_3 off")){
@@ -291,7 +263,7 @@ public class ON_OFFActivity extends AppCompatActivity {
                 Log.i("Test", message);
                 pbar.setVisibility(View.VISIBLE);
                 text.setText("Command Sent, Please Wait...For 2 minutes");
-            } et1.getText().clear();
+               } et1.getText().clear();
             et2.getText().clear();
         }
     }
@@ -329,93 +301,48 @@ public class ON_OFFActivity extends AppCompatActivity {
         spinner1.setAdapter(spinnerArrayAdapter);
         mainLayout.addView(spinner1);
     }
-
-    public void turnsOn(View view){
-        String message = "";
-        if(onoff_rb1.isChecked()){
-            message = "SPC,24";
-        }
-        else{
-            message = "SPC,26";
-        }
-
-        SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-        Log.i("Test", "SMS sent!");
-        onoffpg1.setVisibility(View.VISIBLE);
-        textView1.setText("Command Sent, Please Wait...For 2 minutes");
-    }
-
-    //Progress Dialog
-    public void progress(){
-        progressDialog = new ProgressDialog(ON_OFFActivity.this);
-        progressDialog.setMessage("Loading..."); // Setting Message
-        progressDialog.setTitle("ProgressDialog"); // Setting Title
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
-        progressDialog.show(); // Display Progress Dialog
-        progressDialog.setCancelable(false);
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Thread.sleep(15000);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                progressDialog.dismiss();
-            }
-        }).start();
-    }
-
+public void home(View view){
+        Intent it=new Intent(RealClockTimeActivity.this,Main2Activity.class);
+        startActivity(it);
+}
 
     public void settings(View view){
         //starting another activity..
-        Intent it1 = new Intent(ON_OFFActivity.this, SettingsActivity.class);
+        Intent it1 = new Intent(RealClockTimeActivity.this, SettingsActivity.class);
         startActivity(it1);
-
     }
 
-    //Hoome functions
-    public void home(View view){
-        Intent it1 = new Intent(ON_OFFActivity.this, Main2Activity.class);
-        startActivity(it1);
+    public void ON_OFF(View view){
+        //starting another activity..
+        Intent it2 = new Intent(RealClockTimeActivity.this, ON_OFFActivity.class);
+        startActivity(it2);
     }
 
     public void Users(View view){
         //starting another activity..
-        Intent it3 = new Intent(ON_OFFActivity.this, UsersActivity.class);
+        Intent it3 = new Intent(RealClockTimeActivity.this, UsersActivity.class);
         startActivity(it3);
     }
 
     public void manual(View view){
         //starting another activity..
-        Intent it4 = new Intent(ON_OFFActivity.this, ManualActivity.class);
+        Intent it4 = new Intent(RealClockTimeActivity.this, ManualActivity.class);
         startActivity(it4);
     }
 
-
-    private final BroadcastReceiver toastOrNotificationCatcherReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver RealClockReceiver = new BroadcastReceiver() {
 
         @Override
-        public void onReceive(Context context, Intent intent) {
-            if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent.getAction())) {
-                for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent)) {
-                    String senderNum = smsMessage.getDisplayOriginatingAddress();
-                    Log.i("sender num", senderNum);
-                    SMSBody1 += smsMessage.getMessageBody().toString();
+        public void onReceive(Context context, Intent intent8) {
+            if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent8.getAction())) {
+                for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent8)) {
+                    SMSBody1 = smsMessage.getMessageBody().toString();
+                    Log.i("Received sms", SMSBody1);
+                    String sms = SMSBody1;
+                    Log.i("length", String.valueOf(SMSBody1.length()));
                     String[] lines = SMSBody1.split("\\r?\\n");
-                    Log.i("received sms",SMSBody1);
-                    if(lines[2].toString().contains("on")){
-                        onoffpg1.setVisibility(View.INVISIBLE);
-                        textView1.setText(lines[4]);
-                        mot_st_text1.setText("ON");
-                    }
-                    else {
-                        onoffpg1.setVisibility(View.INVISIBLE);
-                        textView1.setText(lines[2]+lines[3]);
-                        mot_st_text1.setText("OFF");
-                    }
-                    SMSBody1 ="";
 
+                    SMSBody1 = "";
                 }
             }
         }
@@ -424,6 +351,7 @@ public class ON_OFFActivity extends AppCompatActivity {
     @Override
     public void onPause(){
         super.onPause();
-        unregisterReceiver(toastOrNotificationCatcherReceiver);
+        unregisterReceiver(RealClockReceiver);
     }
+
 }

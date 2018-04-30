@@ -15,4 +15,13 @@
         <item>Reverse Phase</item>
         <item>Stolen protection</item>
     </string-array>
+
+
+    <string-array name="spc_function_arrays2">
+        <item>select item from list</item>
+        <item>Real Clock Time(RTC)</item>
+        <item>RTC 1</item>
+         <item>RTC 2</item>
+         <item>RTC 3</item>
+    </string-array>
 </resources>

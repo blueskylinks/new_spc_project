@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@mipmap/image7"
-    tools:context="com.blueskylinks.spc_main.expandable_hide_activity">
+    tools:context="com.blueskylinks.spc_main.com.blueskylinks.expandablelist.expandable_hide_activity">
     <ImageButton
         android:id="@+id/setting"
         android:layout_width="wrap_content"

@@ -55,12 +55,13 @@ public class UsersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
-
+        pbar1=findViewById(R.id.onoff_pgbar11);
+        textView1=findViewById(R.id.onoff_status_text_1);
         String message = "SPC,92";
         SmsManager smsManager = SmsManager.getDefault();
-     smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+   //  smsManager.sendTextMessage(phoneNumber, null, message, null, null);
         Log.i("Test", "SMS sent!");
-        pbar1.setVisibility(View.VISIBLE);
+       pbar1.setVisibility(View.VISIBLE);
         textView1.setText("Command Sent, Please Wait...For 2 minutes");
         progress();
         text1 = findViewById(R.id.u_text11);
@@ -69,7 +70,6 @@ public class UsersActivity extends AppCompatActivity {
         text4 = findViewById(R.id.u_text44);
         text5 = findViewById(R.id.u_text55);
 
-        textView1=findViewById(R.id.onoff_status_text_1);
         textView2 = findViewById(R.id.onoff_status_text_2);
         pbar2 = findViewById(R.id.onoff_pgbar_1);
         et1 = findViewById(R.id.add_us_t3);
@@ -183,7 +183,6 @@ public void onResume(){
     }
 
     public void refresh(View view){
-        pbar1=findViewById(R.id.onoff_pgbar11);
         String message = "SPC,92";
         SmsManager smsManager = SmsManager.getDefault();
          smsManager.sendTextMessage(phoneNumber, null, message, null, null);

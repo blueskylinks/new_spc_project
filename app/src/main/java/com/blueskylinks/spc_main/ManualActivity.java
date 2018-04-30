@@ -393,9 +393,9 @@ public void setFeedbackCall(){
     private final BroadcastReceiver manualReceiver = new BroadcastReceiver() {
 
         @Override
-        public void onReceive(Context context, Intent intent1) {
-            if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent1.getAction())) {
-                for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent1)) {
+        public void onReceive(Context context, Intent intent9) {
+            if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent9.getAction())) {
+                for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent9)) {
                     SMSBody1 = smsMessage.getMessageBody().toString();
                     Log.i("Received sms", SMSBody1);
                     String sms = SMSBody1;

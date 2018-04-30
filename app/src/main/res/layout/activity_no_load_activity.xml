@@ -242,7 +242,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="Trip Time:"
+                    android:text="Trip Current:"
                     android:textStyle="bold" />
 
                 <EditText
@@ -251,7 +251,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:hint="3 phase"
+                    android:hint="Amp in \n 3 phase"
                     android:inputType="numberDecimal"
                     android:maxLength="3" />
 
@@ -261,7 +261,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:hint="2 phase"
+                    android:hint="Amp in \n 2 phase"
                     android:inputType="numberDecimal"
                     android:maxLength="3" />
 
