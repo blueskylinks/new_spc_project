@@ -4,7 +4,6 @@
     <string name="spc_function_prompt">Choose a country</string>
 
     <string-array name="spc_function_arrays1">
-        <item>select item from list</item>
         <item>Feedback_Call</item>
         <item>Feedback_SMS</item>
         <item>OverLoad</item>
@@ -18,7 +17,6 @@
 
 
     <string-array name="spc_function_arrays2">
-        <item>select item from list</item>
         <item>Real Clock Time(RTC)</item>
         <item>RTC 1</item>
          <item>RTC 2</item>

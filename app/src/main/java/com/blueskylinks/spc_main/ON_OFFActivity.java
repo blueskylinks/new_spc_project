@@ -127,25 +127,25 @@ public class ON_OFFActivity extends AppCompatActivity {
                 // selectedItem = parent.getItemAtPosition(position).toString();
                 Log.i("position ", String.valueOf(position));
                 switch (position){
-                    case 1:
+                    case 0:
                         mainLayout.removeView(spinner1);
                         et1.setVisibility(View.INVISIBLE);
                         et2.setVisibility(View.INVISIBLE);
                         setRTC();
                         break;
-                    case 2:
+                    case 1:
                         mainLayout.removeView(spinner1);
                         et1.setVisibility(View.VISIBLE);
                         et2.setVisibility(View.VISIBLE);
                         setRTC1();
                         break;
-                    case 3:
+                    case 2:
                         mainLayout.removeView(spinner1);
                         et1.setVisibility(View.VISIBLE);
                         et2.setVisibility(View.VISIBLE);
                         setRTC2();
                         break;
-                    case 4:
+                    case 3:
                         mainLayout.removeView(spinner1);
                         et1.setVisibility(View.VISIBLE);
                         et2.setVisibility(View.VISIBLE);
