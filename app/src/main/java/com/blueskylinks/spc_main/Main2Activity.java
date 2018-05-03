@@ -29,7 +29,8 @@ public class Main2Activity extends AppCompatActivity {
     public static  TextView textView6;
     TextView tv9;
     public static ProgressDialog progressDialog;
-  //  String phoneNumber = "9880760642";
+  //  String phoneNumber = "9880760642"
+    //changes made
     String SMSBody1;
 
     @Override
