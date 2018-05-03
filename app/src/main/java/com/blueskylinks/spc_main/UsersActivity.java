@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static com.blueskylinks.spc_main.Main2Activity.progressDialog;
+import static com.blueskylinks.spc_main.MainActivity.phoneNumber;
 
 public class UsersActivity extends AppCompatActivity {
     String no;
@@ -44,7 +45,7 @@ public class UsersActivity extends AppCompatActivity {
     String user3;
     String user4;
     String user5;
-    String phoneNumber = "9663261329";
+   // String phoneNumber = "9880760642";
     EditText et1;
     EditText et2;
     ProgressBar pbar1;

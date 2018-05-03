@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences settings;
     SharedPreferences sharedPreferences1;
     boolean value1 = true;
-    public String phoneNumber;
+    public static String phoneNumber;
     TextView textView;
 
     @Override
@@ -89,19 +89,6 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(s.length()==10){text.setText(" ");}
                 //Your query to fetch Data
-                if (c1.isChecked()){
-                    sharedPreferences1.edit().putBoolean("isChecked1", true).apply();
-                    // update your model (or other business logic) based on isChecked
-                    settings = getSharedPreferences("PREFS_NAME", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = settings.edit();
-                    subId = et1.getText().toString();
-                    pass = et2.getText().toString();
-                    // Edit and commit
-                    System.out.println("onPause save name: " + subId);
-                    System.out.println("onPause save password: " + pass);
-                    editor.putString("PREF_UNAME", subId);
-                    editor.putString("PREF_PASSWORD", pass);
-                    editor.commit();}
             }
 
             @Override
@@ -111,30 +98,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
-
                     //Your query to fetch Data
 
             }
         });
         et2.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Log.i("test",s.toString());
                 if(s.toString().equals("1234")){text.setText(" ");}
-                if(c1.isChecked()){sharedPreferences1.edit().putBoolean("isChecked1", true).apply();
-                    // update your model (or other business logic) based on isChecked
-                    settings = getSharedPreferences("PREFS_NAME", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = settings.edit();
-                    subId = et1.getText().toString();
-                    pass = et2.getText().toString();
-                    // Edit and commit
-                    System.out.println("onPause save name: " + subId);
-                    System.out.println("onPause save password: " + pass);
-                    editor.putString("PREF_UNAME", subId);
-                    editor.putString("PREF_PASSWORD", pass);
-                    editor.commit();}
                 //Your query to fetch Data
             }
 
@@ -145,14 +117,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
-
                 //Your query to fetch Data
-
             }
         });
 
         if(c1.isChecked()){
+
             settings = getSharedPreferences("PREFS_NAME",Context.MODE_PRIVATE);
             // Get value
             subId = settings.getString("PREF_UNAME", " ");
@@ -174,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(subId) || TextUtils.isEmpty(pass)) {
             if (TextUtils.isEmpty(subId)) et1.setError("please Enter subscriber Id");
             else et2.setError("please Enter password");
-        } else if (subId.length() != 10) {
+        } else if (!subId.equals("9880760642")) {
             text.setText("Incorrect subscribe ID!!..");
         } else if (!pass.equals("1234")) {
             text.setText("Incorrect  password!!..");

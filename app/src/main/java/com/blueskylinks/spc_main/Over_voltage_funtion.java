@@ -17,10 +17,12 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import static com.blueskylinks.spc_main.MainActivity.phoneNumber;
+
 public class Over_voltage_funtion extends AppCompatActivity {
     RadioButton rbutton1;
     RadioButton rbutton2;
-    String phoneNumber = "9663261329";
+   // String phoneNumber = "9880760642";
     ProgressBar pbar;
     ProgressBar pbar1;
     TextView textView1;

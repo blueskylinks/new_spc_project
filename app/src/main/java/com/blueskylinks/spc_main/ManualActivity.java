@@ -24,9 +24,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static com.blueskylinks.spc_main.MainActivity.phoneNumber;
+
 public class ManualActivity extends AppCompatActivity {
     int pos;
-    String phoneNumber = "9663261329";
+   // String phoneNumber = "9880760642";
     Spinner spinner;
     Spinner spinner1;
     LinearLayout layout;

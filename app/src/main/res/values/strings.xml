@@ -4,6 +4,7 @@
     <string name="spc_function_prompt">Choose a country</string>
 
     <string-array name="spc_function_arrays1">
+        <item>select one from list</item>
         <item>Feedback_Call</item>
         <item>Feedback_SMS</item>
         <item>OverLoad</item>

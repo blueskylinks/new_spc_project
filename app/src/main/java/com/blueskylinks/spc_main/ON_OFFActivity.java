@@ -32,6 +32,7 @@ import java.util.ArrayList;
 
 import static com.blueskylinks.spc_main.Main2Activity.progressDialog;
 import static com.blueskylinks.spc_main.Main2Activity.tv;
+import static com.blueskylinks.spc_main.MainActivity.phoneNumber;
 
 public class ON_OFFActivity extends AppCompatActivity {
 
@@ -42,7 +43,7 @@ public class ON_OFFActivity extends AppCompatActivity {
     String phoneNumber1;
     RadioButton onoff_rb1;
     RadioButton onoff_rb2;
-    String phoneNumber = "9663261329";
+  //  String phoneNumber = "9880760642";
     Spinner spinner;
     Spinner spinner1;
     String selectedItem;
@@ -401,7 +402,7 @@ public class ON_OFFActivity extends AppCompatActivity {
                 for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent)) {
                     String senderNum = smsMessage.getDisplayOriginatingAddress();
                     Log.i("sender num", senderNum);
-                    SMSBody1 += smsMessage.getMessageBody().toString();
+                    SMSBody1 = smsMessage.getMessageBody().toString();
                     String[] lines = SMSBody1.split("\\r?\\n");
                     Log.i("received sms",SMSBody1);
                     if(lines[2].toString().contains("on")){
@@ -409,11 +410,12 @@ public class ON_OFFActivity extends AppCompatActivity {
                         textView1.setText(lines[4]);
                         mot_st_text1.setText("ON");
                     }
-                    else {
+                    else if(lines[2].toString().contains("off")) {
                         onoffpg1.setVisibility(View.INVISIBLE);
                         textView1.setText(lines[2]+lines[3]);
                         mot_st_text1.setText("OFF");
                     }
+                    else return;
                     SMSBody1 ="";
 
                 }

@@ -23,7 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
     Switch s3;
     Switch s4;
     Switch s5;
-    String phoneNumber = "9663261329";
+   // String phoneNumber = "9880760642";
     ProgressBar pbar;
     TextView text;
     TextView tv;
