@@ -149,7 +149,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:layout_weight=".5"
             android:orientation="vertical">
 
@@ -174,35 +174,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/et1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Time(HH)"
-                android:inputType="numberDecimal"
-                android:maxLength="2"
-                android:visibility="invisible" />
-
-            <EditText
-                android:id="@+id/et2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Time(MM)"
-                android:inputType="numberDecimal"
-                android:maxLength="2"
-                android:visibility="invisible" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_weight=".5"
+            android:layout_weight=".4"
             android:orientation="horizontal">
 
             <TextView
@@ -249,96 +222,166 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="RTC1 Setting">
-            </TextView>
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="RTC2 Setting"></TextView>
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="RTC3 Setting"></TextView>
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="RTC1 Setting:"></TextView>
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="RTC2 Setting:"></TextView>
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="RTC3 Setting:"></TextView>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="ON time"
-                       android:gravity="center"/>
+                        android:gravity="center"
+                        android:text="ON time" />
+
                     <TextView
+                        android:id="@+id/tv1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:id="@+id/tv1"/>
+                        android:drawableLeft="@mipmap/add1"
+                        android:drawablePadding="5dp"
+                       android:gravity="center_vertical"
+                        android:onClick="ontime" />
+
                     <TextView
+                        android:id="@+id/tv2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:id="@+id/tv2"/>
+                        android:drawableLeft="@mipmap/add1"
+                        android:drawablePadding="5dp"
+                      android:gravity="center_vertical"
+                        android:onClick="ontime1" />
+
                     <TextView
+                        android:id="@+id/tv3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:id="@+id/tv3"/>
+                        android:drawableLeft="@mipmap/add1"
+                        android:drawablePadding="5dp"
+                       android:gravity="center_vertical"
+                        android:onClick="ontime2" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="OFF time"
-                     android:gravity="center"/>
+                        android:gravity="center"
+                        android:text="OFF time" />
+
                     <TextView
+                        android:id="@+id/tv4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:id="@+id/tv4"/>
+                        android:drawableLeft="@mipmap/add1"
+                        android:drawablePadding="5dp"
+                     android:gravity="center_vertical"
+                        android:onClick="offtime" />
+
                     <TextView
+                        android:id="@+id/tv5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:id="@+id/tv5"/>
+                        android:drawableLeft="@mipmap/add1"
+                        android:drawablePadding="5dp"
+                       android:gravity="center_vertical"
+                        android:onClick="offtime1" />
+
                     <TextView
+                        android:id="@+id/tv6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:id="@+id/tv6"/>
+                        android:drawableLeft="@mipmap/add1"
+                        android:drawablePadding="5dp"
+                      android:gravity="center_vertical"
+                        android:onClick="offtime2" />
                 </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight=".5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textview111"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="14pt" />
+
+            <Button
+                android:id="@+id/button11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="set" />
+
+            <ProgressBar
+                android:id="@+id/pbar11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="invisible" />
+        </LinearLayout>
+
 
     </LinearLayout>
 
