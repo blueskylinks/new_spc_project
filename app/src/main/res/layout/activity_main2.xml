@@ -262,11 +262,32 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView11"
+            <TableRow
+                android:id="@+id/tb_44"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_height="47dp">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="50dp"
+                    android:layout_height="43dp"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/image_rot"
+                    android:layout_width="43dp"
+                    android:layout_height="43dp"
+                    android:background="@drawable/image_change" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:onClick="refresh"
+                    android:text="Refresh"
+                    android:textSize="10sp" />
+
+            </TableRow>
 
             <TextView
                 android:id="@+id/bar_r"
@@ -282,7 +303,9 @@
                 android:id="@+id/textView12"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/bar_r3"
@@ -298,19 +321,28 @@
                 android:id="@+id/textView13"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="0.00"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/textView17"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="0.00"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/textView18"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="0.00"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/bar_r2"
@@ -327,21 +359,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="0" />
+                android:text="0.00"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/textView24"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="0" />
+                android:text="0.00"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/textView25"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="0" />
+                android:text="0.00"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/bar_r4"
@@ -357,8 +395,7 @@
                 android:id="@+id/textView28"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="9164470717" />
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/bar_r6"

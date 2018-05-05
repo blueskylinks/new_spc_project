@@ -25,7 +25,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     EditText et1;
     EditText et2;
-    String subId;
+    public static String subId;
     String csubId;
     String cpass;
     String pass;

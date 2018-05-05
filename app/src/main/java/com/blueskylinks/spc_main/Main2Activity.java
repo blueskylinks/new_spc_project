@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.AnimationDrawable;
 import android.provider.Telephony;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,22 +15,28 @@ import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import static com.blueskylinks.spc_main.MainActivity.phoneNumber;
+import static com.blueskylinks.spc_main.MainActivity.subId;
 
 public class Main2Activity extends AppCompatActivity {
- public static  TextView tv;
+    public static  TextView tv;
     public static  TextView tv1;
     public static  TextView tv2;
     public static  TextView tv3;
     public static  TextView tv4;
     public static  TextView tv5;
     public static  TextView textView6;
+    public static  TextView tc1;
+    public static  TextView tc2;
+    public static  TextView tc3;
+
     TextView tv9;
     public static ProgressDialog progressDialog;
-  //  String phoneNumber = "9880760642"
+    String phoneNumber = subId;
     //changes made
     String SMSBody1;
 
@@ -50,11 +57,18 @@ public class Main2Activity extends AppCompatActivity {
         tv2 = findViewById(R.id.textView13);
         tv3 = findViewById(R.id.textView17);
         tv4 = findViewById(R.id.textView18);
+
+        tc1 = findViewById(R.id.textView23);
+        tc2 = findViewById(R.id.textView24);
+        tc3 = findViewById(R.id.textView25);
+
         tv9=findViewById(R.id.textView29);
 
         String message = "SPC,25";
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+        ImageView mImageViewFilling = findViewById(R.id.image_rot);
+        ((AnimationDrawable) mImageViewFilling.getBackground()).stop();
         Log.i("Test", "SMS sent!");
         progress();
     }
@@ -148,6 +162,8 @@ public class Main2Activity extends AppCompatActivity {
                     String sms = SMSBody1;
 
                         if (lines[1].toString().contains("on ")) {
+                            ImageView mImageViewFilling = findViewById(R.id.image_rot);
+                            ((AnimationDrawable) mImageViewFilling.getBackground()).start();
                             tv.setText("ON");
                             if (lines[1].toString().contains("3")) tv1.setText("3 Phase Mode");
                             else tv1.setText("2 Phase Mode");
@@ -158,11 +174,15 @@ public class Main2Activity extends AppCompatActivity {
                             tv2.setText(s1.substring(4));
                             tv3.setText(s2.substring(4));
                             tv4.setText(s3.substring(4));
-                            tv9.setText(s4.substring(6));
+
+                            tc1.setText(lines[6].toString().substring(3));
+                            tc2.setText(lines[7].toString().substring(3));
+                            tc3.setText(lines[8].toString().substring(3));
+                            //tv9.setText(s4.substring(6));
                         } else if (lines[1].toString().contains("off")) {
                             tv.setText("OFF");
                             String s4 = lines[5].toString();
-                            tv9.setText(s4.substring(6));
+                            //tv9.setText(s4.substring(6));
                         } else return;
                         SMSBody1 = "";
 
