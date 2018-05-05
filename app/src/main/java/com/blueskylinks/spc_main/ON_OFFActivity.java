@@ -51,7 +51,12 @@ public class ON_OFFActivity extends AppCompatActivity {
     RadioButton onoff_rb1;
     RadioButton onoff_rb2;
     Long diffMin;
-    int count=0;
+   String message1;
+    String message2;
+    String message3;
+    String message4;
+    String message5;
+    String message6;
     String on;
     String off;
     Spinner spinner;
@@ -60,7 +65,7 @@ public class ON_OFFActivity extends AppCompatActivity {
     String SMSBody1;
     TextView text;
     LinearLayout mainLayout;
-    TextView tv;
+    TextView textv;
     TextView tv2;
     ProgressBar pbar;
     TextView et1;
@@ -87,6 +92,9 @@ public class ON_OFFActivity extends AppCompatActivity {
     Date offtime;
     SharedPreferences sharedPreferences;
   SharedPreferences.Editor editor;
+  TextView remove1;
+  TextView remove2;
+  TextView remove3;
 
 
     @Override
@@ -94,22 +102,23 @@ public class ON_OFFActivity extends AppCompatActivity {
         super.onResume();
         SMSBody1="";
         final IntentFilter MIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-        registerReceiver(toastOrNotificationCatcherReceiver, MIntentFilter);
-        registerReceiver(toastOrNotificationCatcherReceiver,MIntentFilter);
+      //  registerReceiver(toastOrNotificationCatcherReceiver, MIntentFilter);
+      //  registerReceiver(toastOrNotificationCatcherReceiver,MIntentFilter);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on__off);
-        onoffpg1 = findViewById(R.id.onoff_pgbar1);
-        onoffpg1.setVisibility(View.INVISIBLE);
         textView1=findViewById(R.id.onoff_status_text1);
-        mot_st_text1 = findViewById(R.id.mot_st);
+        mot_st_text1 = findViewById(R.id.on_off_status);
         onoff_rb1=findViewById(R.id.radioButton);
         onoff_rb2=findViewById(R.id.radioButton);
         sharedPreferences=getSharedPreferences("mypref",0);
         editor= sharedPreferences.edit();
+        remove1=findViewById(R.id.textView11);
+        remove2=findViewById(R.id.textView12);
+        remove3=findViewById(R.id.textView13);
 
 
         spinner=findViewById(R.id.spinner1);
@@ -119,10 +128,9 @@ public class ON_OFFActivity extends AppCompatActivity {
         et11=findViewById(R.id.tv4);
         et12=findViewById(R.id.tv5);
         et13=findViewById(R.id.tv6);
-        tv=findViewById(R.id.textView1);
+        textv=findViewById(R.id.textview1);
         text=findViewById(R.id.onoff_status_text_1);
         tv2=findViewById(R.id.textView2);
-        pbar=findViewById(R.id.pbar);
         mainLayout=findViewById(R.id.spinnerLayout);
         spinner1 = new Spinner(this);
         image=findViewById(R.id.image);
@@ -178,104 +186,24 @@ public class ON_OFFActivity extends AppCompatActivity {
         et3.setText(text5);
         String text6=sharedPreferences.getString("RTC_3",null);
         et13.setText(text6);
+
+       message1=sharedPreferences.getString("msg1",null);
+       message2=sharedPreferences.getString("msg2",null);
+       message3=sharedPreferences.getString("msg3",null);
+       message4=sharedPreferences.getString("msg4",null);
+       message5=sharedPreferences.getString("msg5",null);
+       message6=sharedPreferences.getString("msg6",null);
+
+        if(!et11.getText().toString().equals("")) remove1.setVisibility(View.VISIBLE);
+        if(!et12.getText().toString().equals("")) remove2.setVisibility(View.VISIBLE);
+        if(!et13.getText().toString().equals("")) remove3.setVisibility(View.VISIBLE);
     }
+
+
 //-----------------------------------------------------------------------------------------|
     //RTC1 Settings
     public void ontime(View v) {
-        Calendar mcurrentTime = Calendar.getInstance();
-        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-        int minute = mcurrentTime.get(Calendar.MINUTE);
-        TimePickerDialog mTimePicker;
-        mTimePicker = new TimePickerDialog(ON_OFFActivity.this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                String Hour;
-                String Minute;
-                if(selectedHour>=10) Hour=String.valueOf(selectedHour);
-                else {
-                   Hour= ("0"+String.valueOf(selectedHour));
-                    Log.i("hour",Hour);
-                }
-                if(selectedMinute>=10) Minute=String.valueOf(selectedMinute);
-                else{
-                  Minute=("0"+String.valueOf(selectedMinute));
-                    Log.i("minute",Minute);
-                }
-
-                et1.setText(Hour + ":" + Minute);
-                ntime = et1.getText().toString();
-                editor.putString("RTC1",ntime);
-                editor.commit();
-                String h=et1.getText().toString().substring(0,2);
-                String m=et1.getText().toString().substring(3);
-                String message="SPC,28,"+h+","+m;
-                Log.i("message",message);
-            }
-        }, hour, minute, true);//Yes 24 hour time
-        mTimePicker.setTitle("Select Time");
-        mTimePicker.show();
-    }
-
-
-    public void offtime(View v) {
-        if (!et1.getText().toString().equals("")) {
-            Calendar mcurrentTime = Calendar.getInstance();
-            int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-            int minute = mcurrentTime.get(Calendar.MINUTE);
-            TimePickerDialog mTimePicker;
-            mTimePicker = new TimePickerDialog(ON_OFFActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                    String Hour;
-                    String Minute;
-                    if(selectedHour>=10) Hour=String.valueOf(selectedHour);
-                    else {
-                        Hour= ("0"+String.valueOf(selectedHour));
-                        Log.i("hour",Hour);
-                    }
-                    if(selectedMinute>=10) Minute=String.valueOf(selectedMinute);
-                    else{
-                        Minute=("0"+String.valueOf(selectedMinute));
-                        Log.i("minute",Minute);
-                    }
-                    et11.setText(Hour + ":" + Minute);
-                    SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-
-                    ftime = et11.getText().toString();
-                    ntime = et1.getText().toString();
-                    try {
-                        d1 = format.parse(ntime);
-                        d2 = format.parse(ftime);
-                        long diff = d2.getTime() - d1.getTime();
-                        diffMin = diff / (60 * 1000);
-                        Log.i("difference", String.valueOf(diffMin));
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    if (diffMin >= 30.0) {
-                        String h = ftime.substring(0, 2);
-                        String m = ftime.substring(3);
-                        String message = "SPC,29," + h + "," + m;
-                        editor.putString("RTC_1",ftime);
-                        editor.commit();
-                        Log.i("message", message);
-                    } else {
-                        Toast.makeText(ON_OFFActivity.this, "off time must be 30 mins greater than ontime", Toast.LENGTH_SHORT).show();
-                        et11.setText("");
-                        et11.setError("please choose off time!..");
-                    }
-                }
-            }, hour, minute, true);//Yes 24 hour time
-            mTimePicker.setTitle("Select Time");
-            mTimePicker.show();
-        }
-        else Toast.makeText(this, "Please set onTime..", Toast.LENGTH_SHORT).show();
-    }
-    //------------------------------------------------------------------------------------|
-    //RTC2 Settings
-    public void ontime1(View v) {
-        if (!et11.getText().toString().equals("")) {
+        if (textv.getText().toString().equals("ON")) {
             Calendar mcurrentTime = Calendar.getInstance();
             int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
             int minute = mcurrentTime.get(Calendar.MINUTE);
@@ -286,231 +214,438 @@ public class ON_OFFActivity extends AppCompatActivity {
                     String Hour;
                     String Minute;
                     if (selectedHour >= 10) Hour = String.valueOf(selectedHour);
-                    else {
-                        Hour = ("0" + String.valueOf(selectedHour));
-                        Log.i("hour", Hour);
-                    }
+                    else Hour = ("0" + String.valueOf(selectedHour));
+
                     if (selectedMinute >= 10) Minute = String.valueOf(selectedMinute);
-                    else {
-                        Minute = ("0" + String.valueOf(selectedMinute));
-                        Log.i("minute", Minute);
-                    }
-                    et2.setText(Hour + ":" + Minute);
-                    try {
-                        ontime = format.parse(et2.getText().toString());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    if (ontime.after(d2)) {
-                        ntime1 = et2.getText().toString();
-                        String h = et2.getText().toString().substring(0, 2);
-                        String m = et2.getText().toString().substring(3);
-                        String message = "SPC,30," + h + "," + m;
-                        editor.putString("RTC2", ntime1);
-                        editor.commit();
-                        Log.i("message", message);
-                    } else {
-                        et2.setText("");
-                        Toast.makeText(ON_OFFActivity.this, "RTC2 must be out of RTC1 range..", Toast.LENGTH_LONG).show();
-                    }
+                    else Minute = ("0" + String.valueOf(selectedMinute));
+
+                    et1.setText(Hour + ":" + Minute);
+                    ntime = et1.getText().toString();
+                    editor.putString("RTC1", ntime);
+                    editor.commit();
+                    String h = et1.getText().toString().substring(0, 2);
+                    String m = et1.getText().toString().substring(3);
+                    message1 = "SPC,28," + h + "," + m;
+                    editor.putString("msg1", message1);
+                    editor.commit();
                 }
             }, hour, minute, true);//Yes 24 hour time
             mTimePicker.setTitle("Select Time");
             mTimePicker.show();
-        }
-        else Toast.makeText(this, "complete RTC1 Settings..", Toast.LENGTH_SHORT).show();
+        }else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
     }
 
-    public void offtime1(View v) {
-        if (!et2.getText().toString().equals("")) {
-            Calendar mcurrentTime = Calendar.getInstance();
-            int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-            int minute = mcurrentTime.get(Calendar.MINUTE);
-            TimePickerDialog mTimePicker;
-            mTimePicker = new TimePickerDialog(ON_OFFActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                    String Hour;
-                    String Minute;
-                    if(selectedHour>=10) Hour=String.valueOf(selectedHour);
-                    else {
-                        Hour= ("0"+String.valueOf(selectedHour));
-                        Log.i("hour",Hour);
-                    }
-                    if(selectedMinute>=10) Minute=String.valueOf(selectedMinute);
-                    else{
-                        Minute=("0"+String.valueOf(selectedMinute));
-                        Log.i("minute",Minute);
-                    }
-                    et12.setText(Hour + ":" + Minute);
-                    SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+    public void offtime(View v) {
+        if (textv.getText().toString().equals("ON")) {
+            if (!et1.getText().toString().equals("")) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(ON_OFFActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String Hour;
+                        String Minute;
+                        if (selectedHour >= 10) Hour = String.valueOf(selectedHour);
+                        else Hour = ("0" + String.valueOf(selectedHour));
 
-                    ftime1 = et12.getText().toString();
-                    ntime1 = et2.getText().toString();
-                    try {
-                        date1 = format.parse(ntime1);
-                        date2 = format.parse(ftime1);
-                        offtime = format.parse(et12.getText().toString());
-                        long diff = date2.getTime() - date1.getTime();
-                        diffMin = diff / (60 * 1000);
-                        Log.i("difference", String.valueOf(diffMin));
+                        if (selectedMinute >= 10) Minute = String.valueOf(selectedMinute);
+                        else Minute = ("0" + String.valueOf(selectedMinute));
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    if (diffMin >= 30.0) {
-                        if(offtime.after(d2)){
-                            String h = ftime1.substring(0, 2);
-                            String m = ftime1.substring(3);
-                            String message = "SPC,31," + h + "," + m;
-                            editor.putString("RTC_2",ftime1);
+                        et11.setText(Hour + ":" + Minute);
+                        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+
+                        ftime = et11.getText().toString();
+                        ntime = et1.getText().toString();
+                        editor.putString("RTC_1", ftime);
+                        editor.commit();
+                        try {
+                            d1 = format.parse(ntime);
+                            d2 = format.parse(ftime);
+                            long diff = d2.getTime() - d1.getTime();
+                            diffMin = diff / (60 * 1000);
+                            Log.i("difference", String.valueOf(diffMin));
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        if (diffMin >= 30.0) {
+                            String h = ftime.substring(0, 2);
+                            String m = ftime.substring(3);
+                            message2 = "SPC,29," + h + "," + m;
+                            editor.putString("msg2", message2);
                             editor.commit();
-                            Log.i("message", message);
+                            remove1.setVisibility(View.VISIBLE);
                         } else {
-                            et12.setText("");
-                            Toast.makeText(ON_OFFActivity.this, "Unable to set off time..", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ON_OFFActivity.this, "off time must be 30 mins greater than ontime", Toast.LENGTH_SHORT).show();
+                            et11.setText("");
                         }
                     }
-                 else {
-                        Toast.makeText(ON_OFFActivity.this, "off time must be 30 mins greater than ontime", Toast.LENGTH_SHORT).show();
-                        et12.setText("");
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            } else Toast.makeText(this, "Please set onTime..", Toast.LENGTH_SHORT).show();
+        }else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
+    }
+    //------------------------------------------------------------------------------------|
+    //RTC2 Settings
+    public void ontime1(View v) {
+        if (textv.getText().toString().equals("ON")) {
+            if (!et11.getText().toString().equals("")) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(ON_OFFActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String Hour;
+                        String Minute;
+                        if (selectedHour >= 10) Hour = String.valueOf(selectedHour);
+                        else Hour = ("0" + String.valueOf(selectedHour));
+
+                        if (selectedMinute >= 10) Minute = String.valueOf(selectedMinute);
+                        else Minute = ("0" + String.valueOf(selectedMinute));
+
+                        et2.setText(Hour + ":" + Minute);
+                        ntime1 = et2.getText().toString();
+                        editor.putString("RTC2", ntime1);
+                        editor.commit();
+                        try {
+                            ontime = format.parse(et2.getText().toString());
+                            d1 = format.parse(et1.getText().toString());
+                            d2 = format.parse(et11.getText().toString());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (ontime.after(d2)) {
+                            String h = et2.getText().toString().substring(0, 2);
+                            String m = et2.getText().toString().substring(3);
+                            message3 = "SPC,30," + h + "," + m;
+                            editor.putString("msg3", message3);
+                            editor.commit();
+                        } else {
+                            et2.setText("");
+                            Toast.makeText(ON_OFFActivity.this, "RTC2 must be out of RTC1 range..", Toast.LENGTH_LONG).show();
+                        }
                     }
-                }
-            }, hour, minute, true);//Yes 24 hour time
-            mTimePicker.setTitle("Select Time");
-            mTimePicker.show();
-        }
-        else Toast.makeText(this, "Please set onTime...", Toast.LENGTH_SHORT).show();
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            } else Toast.makeText(this, "complete RTC1 Settings..", Toast.LENGTH_SHORT).show();
+        }else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
+    }
+    public void offtime1(View v) {
+        if (textv.getText().toString().equals("ON")) {
+            if (!et2.getText().toString().equals("")) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(ON_OFFActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String Hour;
+                        String Minute;
+                        if (selectedHour >= 10) Hour = String.valueOf(selectedHour);
+                        else Hour = ("0" + String.valueOf(selectedHour));
+                        if (selectedMinute >= 10) Minute = String.valueOf(selectedMinute);
+                        else Minute = ("0" + String.valueOf(selectedMinute));
+
+                        et12.setText(Hour + ":" + Minute);
+                        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+
+                        ftime1 = et12.getText().toString();
+                        ntime1 = et2.getText().toString();
+                        editor.putString("RTC_2", ftime1);
+                        editor.commit();
+                        try {
+                            d1 = format.parse(et1.getText().toString());
+                            d2 = format.parse(et11.getText().toString());
+                            date1 = format.parse(ntime1);
+                            date2 = format.parse(ftime1);
+                            offtime = format.parse(et12.getText().toString());
+                            long diff = date2.getTime() - date1.getTime();
+                            diffMin = diff / (60 * 1000);
+                            Log.i("difference", String.valueOf(diffMin));
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        if (diffMin >= 30.0) {
+                            String h = ftime1.substring(0, 2);
+                            String m = ftime1.substring(3);
+                            message4 = "SPC,31," + h + "," + m;
+                            editor.putString("msg4", message4);
+                            editor.commit();
+                            remove2.setVisibility(View.VISIBLE);
+                        } else {
+                            Toast.makeText(ON_OFFActivity.this, "off time must be 30 mins greater than ontime", Toast.LENGTH_SHORT).show();
+                            et12.setText("");
+                        }
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            } else Toast.makeText(this, "Please set onTime...", Toast.LENGTH_SHORT).show();
+        }else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
     }
 
     //------------------------------------------------------------------------------------|
     //RTC3 Settings
     public void ontime2(View v) {
-        if (!et12.getText().toString().equals("")) {
-            Calendar mcurrentTime = Calendar.getInstance();
-            int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-            int minute = mcurrentTime.get(Calendar.MINUTE);
-            TimePickerDialog mTimePicker;
-            mTimePicker = new TimePickerDialog(ON_OFFActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                    String Hour;
-                    String Minute;
-                    if (selectedHour >= 10) Hour = String.valueOf(selectedHour);
-                    else {
-                        Hour = ("0" + String.valueOf(selectedHour));
-                        Log.i("hour", Hour);
-                    }
-                    if (selectedMinute >= 10) Minute = String.valueOf(selectedMinute);
-                    else {
-                        Minute = ("0" + String.valueOf(selectedMinute));
-                        Log.i("minute", Minute);
-                    }
-                    et3.setText(Hour + ":" + Minute);
-                    try {
-                        ontime = format.parse(et3.getText().toString());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    if (ontime.after(date2)) {
+        if (textv.getText().toString().equals("ON")) {
+            if (!et12.getText().toString().equals("")) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(ON_OFFActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String Hour;
+                        String Minute;
+                        if (selectedHour >= 10) Hour = String.valueOf(selectedHour);
+                        else Hour = ("0" + String.valueOf(selectedHour));
+                        if (selectedMinute >= 10) Minute = String.valueOf(selectedMinute);
+                        else Minute = ("0" + String.valueOf(selectedMinute));
+
+                        et3.setText(Hour + ":" + Minute);
                         ntime2 = et3.getText().toString();
-                        String h = et3.getText().toString().substring(0, 2);
-                        String m = et3.getText().toString().substring(3);
-                        String message = "SPC,32," + h + "," + m;
                         editor.putString("RTC3", ntime2);
                         editor.commit();
-                        Log.i("message", message);
-                    } else {
-                        et3.setText("");
-                        Toast.makeText(ON_OFFActivity.this, "RTC2 must be out of RTC1 range..", Toast.LENGTH_LONG).show();
+                        try {
+                            ontime = format.parse(et3.getText().toString());
+                            date1 = format.parse(et2.getText().toString());
+                            date2 = format.parse(et12.getText().toString());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        if (ontime.after(date2)) {
+                            String h = et3.getText().toString().substring(0, 2);
+                            String m = et3.getText().toString().substring(3);
+                            message5 = "SPC,32," + h + "," + m;
+                            editor.putString("msg5", message5);
+                            editor.commit();
+                        } else {
+                            et3.setText("");
+                            Toast.makeText(ON_OFFActivity.this, "RTC2 must be out of RTC1 range..", Toast.LENGTH_LONG).show();
+                        }
                     }
-                }
-            }, hour, minute, true);//Yes 24 hour time
-            mTimePicker.setTitle("Select Time");
-            mTimePicker.show();
-        }
-        else Toast.makeText(this, "complete RTC3 Settings..", Toast.LENGTH_SHORT).show();
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            } else Toast.makeText(this, "complete RTC3 Settings..", Toast.LENGTH_SHORT).show();
+        }else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
     }
 
     public void offtime2(View v) {
-        if (!et3.getText().toString().equals("")) {
-            Calendar mcurrentTime = Calendar.getInstance();
-            int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-            int minute = mcurrentTime.get(Calendar.MINUTE);
-            TimePickerDialog mTimePicker;
-            mTimePicker = new TimePickerDialog(ON_OFFActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                    String Hour;
-                    String Minute;
-                    if(selectedHour>=10) Hour=String.valueOf(selectedHour);
-                    else {
-                        Hour= ("0"+String.valueOf(selectedHour));
-                        Log.i("hour",Hour);
-                    }
-                    if(selectedMinute>=10) Minute=String.valueOf(selectedMinute);
-                    else{
-                        Minute=("0"+String.valueOf(selectedMinute));
-                        Log.i("minute",Minute);
-                    }
-                    et13.setText(Hour + ":" + Minute);
-                    SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        if (textv.getText().toString().equals("ON")) {
+            if (!et3.getText().toString().equals("")) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(ON_OFFActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String Hour;
+                        String Minute;
+                        if (selectedHour >= 10) Hour = String.valueOf(selectedHour);
+                        else Hour = ("0" + String.valueOf(selectedHour));
+                        if (selectedMinute >= 10) Minute = String.valueOf(selectedMinute);
+                        else Minute = ("0" + String.valueOf(selectedMinute));
 
-                    ftime2 = et13.getText().toString();
-                    ntime2 = et3.getText().toString();
-                    try {
-                        date_1= format.parse(ntime2);
-                        date_2 = format.parse(ftime2);
-                        offtime = format.parse(et13.getText().toString());
-                        long diff = date_2.getTime() - date_1.getTime();
-                        diffMin = diff / (60 * 1000);
-                        Log.i("difference", String.valueOf(diffMin));
+                        et13.setText(Hour + ":" + Minute);
+                        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    if (diffMin >= 30.0) {
-                        if(offtime.after(date2)){
+                        ftime2 = et13.getText().toString();
+                        ntime2 = et3.getText().toString();
+                        editor.putString("RTC_3", ftime2);
+                        editor.commit();
+                        try {
+                            date_1 = format.parse(ntime2);
+                            date_2 = format.parse(ftime2);
+                            offtime = format.parse(et13.getText().toString());
+                            long diff = date_2.getTime() - date_1.getTime();
+                            diffMin = diff / (60 * 1000);
+                            Log.i("difference", String.valueOf(diffMin));
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        if (diffMin >= 30.0) {
                             String h = ftime2.substring(0, 2);
                             String m = ftime2.substring(3);
-                            String message = "SPC,33," + h + "," + m;
-                            editor.putString("RTC_3",ftime2);
+                            message6 = "SPC,33," + h + "," + m;
+                            editor.putString("msg6", message6);
                             editor.commit();
-                            Log.i("message", message);
+                            remove3.setVisibility(View.VISIBLE);
                         } else {
+                            Toast.makeText(ON_OFFActivity.this, "off time must be 30 mins greater than ontime", Toast.LENGTH_SHORT).show();
                             et13.setText("");
-                            Toast.makeText(ON_OFFActivity.this, "Unable to set off time..", Toast.LENGTH_LONG).show();
                         }
-                    }
-                    else {
-                        Toast.makeText(ON_OFFActivity.this, "off time must be 30 mins greater than ontime", Toast.LENGTH_SHORT).show();
-                        et13.setText("");
-                    }
 
-                }
-            }, hour, minute, true);//Yes 24 hour time
-            mTimePicker.setTitle("Select Time");
-            mTimePicker.show();
-        }
-        else Toast.makeText(this, "Please set onTime...", Toast.LENGTH_SHORT).show();
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            } else Toast.makeText(this, "Please set onTime...", Toast.LENGTH_SHORT).show();
+        }else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
     }
 
+// setting RTC functions
+    public void set_RTCfunction(View view) {
+        if (textv.getText().toString().equals("ON")) {
+       /* if(et2.equals("") && et12.equals("") && et3.equals("") && et13.equals("")){
+            if(d2.after(d1)){
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(phoneNumber, null, message1, null, null);
+                smsManager.sendTextMessage(phoneNumber, null, message2, null, null);
+                Log.i("message", message1);
+                Log.i("message", message2);
+                ntime = et1.getText().toString();
+                editor.putString("RTC1",ntime);
+                editor.commit();
+                ftime = et11.getText().toString();
+                editor.putString("RTC_1",ftime);
+                editor.commit();
+              }
+        }
+        else if (et3.equals("")&& et13.equals("")){
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNumber, null, message1, null, null);
+            smsManager.sendTextMessage(phoneNumber, null, message2, null, null);
+            smsManager.sendTextMessage(phoneNumber, null, message3, null, null);
+            smsManager.sendTextMessage(phoneNumber, null, message4, null, null);
+            Log.i("message", message1);  Log.i("message", message2);  Log.i("message", message3);
+            Log.i("message", message4);
+            ntime = et1.getText().toString();
+            editor.putString("RTC1",ntime);
+            editor.commit();
+            ftime = et11.getText().toString();
+            editor.putString("RTC_1",ftime);
+            editor.commit();
+            ntime1 = et2.getText().toString();
+            editor.putString("RTC2", ntime1);
+            editor.commit();
+            ftime1 = et12.getText().toString();
+            editor.putString("RTC_2",ftime1);
+            editor.commit();
+        }*/
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNumber, null, message1, null, null);
+            smsManager.sendTextMessage(phoneNumber, null, message2, null, null);
+            smsManager.sendTextMessage(phoneNumber, null, message3, null, null);
+            smsManager.sendTextMessage(phoneNumber, null, message4, null, null);
+            smsManager.sendTextMessage(phoneNumber, null, message5, null, null);
+            smsManager.sendTextMessage(phoneNumber, null, message6, null, null);
+            Log.i("message", message1);
+            Log.i("message", message2);
+            Log.i("message", message3);
+            Log.i("message", message4);
+            Log.i("message", message5);
+            Log.i("message", message6);
+            ntime = et1.getText().toString();
+            editor.putString("RTC1", ntime);
+            editor.commit();
+            ftime = et11.getText().toString();
+            editor.putString("RTC_1", ftime);
+            editor.commit();
+            ntime1 = et2.getText().toString();
+            editor.putString("RTC2", ntime1);
+            editor.commit();
+            ftime1 = et12.getText().toString();
+            editor.putString("RTC_2", ftime1);
+            editor.commit();
+            ntime2 = et3.getText().toString();
+            editor.putString("RTC3", ntime2);
+            editor.commit();
+            ftime2 = et13.getText().toString();
+            editor.putString("RTC_3", ftime2);
+            editor.commit();
+        } else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
+    }
+
+public void remove1_fun(View v) {
+    if (textv.getText().toString().equals("ON")) {
+        if (remove2.getVisibility() == View.INVISIBLE && remove3.getVisibility() == View.INVISIBLE) {
+            et1.setText("");
+            et11.setText("");
+            message1 = "SPC,28,00,00";
+            message2 = "SPC,29,00,00";
+            ntime = et1.getText().toString();
+            editor.putString("RTC1", ntime);
+            editor.commit();
+            ftime = et11.getText().toString();
+            editor.putString("RTC_1", ftime);
+            editor.commit();
+            editor.putString("msg1", message1);
+            editor.commit();
+            editor.putString("msg2", message2);
+            editor.commit();
+            remove1.setVisibility(View.INVISIBLE);
+        } else Toast.makeText(this, "remove RTC2 and RTC3..", Toast.LENGTH_SHORT).show();
+    }else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
+}
+    public void remove2_fun(View v) {
+        if (textv.getText().toString().equals("ON")) {
+            if (remove3.getVisibility() == View.INVISIBLE) {
+                et2.setText("");
+                et12.setText("");
+                message3 = "SPC,30,00,00";
+                message4 = "SPC,31,00,00";
+                ntime1 = et2.getText().toString();
+                editor.putString("RTC2", ntime1);
+                editor.commit();
+                ftime1 = et12.getText().toString();
+                editor.putString("RTC_2", ftime1);
+                editor.commit();
+                editor.putString("msg3", message3);
+                editor.commit();
+                editor.putString("msg4", message4);
+                editor.commit();
+                remove2.setVisibility(View.INVISIBLE);
+            } else Toast.makeText(this, "remove RTC3..", Toast.LENGTH_SHORT).show();
+        }else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
+    }
+    public void remove3_fun(View v) {
+        if (textv.getText().toString().equals("ON")) {
+            et3.setText("");
+            et13.setText("");
+            message5 = "SPC,32,00,00";
+            message6 = "SPC,33,00,00";
+            ntime2 = et3.getText().toString();
+            editor.putString("RTC3", ntime2);
+            editor.commit();
+            ftime2 = et13.getText().toString();
+            editor.putString("RTC_3", ftime2);
+            editor.commit();
+            editor.putString("msg5", message5);
+            editor.commit();
+            editor.putString("msg6", message6);
+            editor.commit();
+            remove3.setVisibility(View.INVISIBLE);
+        }else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
+    }
 
     public void set_function(View view){
         if(selectedItem.equals("RTC function on")){
             String message = "SPC,27,1";
             SmsManager smsManager = SmsManager.getDefault();
-            //smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            textv.setText("ON");
             Log.i("Test", message);
-            pbar.setVisibility(View.VISIBLE);
             text.setText("Command Sent, Please Wait...For 2 minutes");
         }
         else if(selectedItem.equals("RTC function off")){
             String message = "SPC,27,0";
             SmsManager smsManager = SmsManager.getDefault();
-            // smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+          smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            textv.setText("OFF");
             Log.i("Test", message);
-            pbar.setVisibility(View.VISIBLE);
             text.setText("Command Sent, Please Wait...For 2 minutes");
         }
     }
@@ -528,15 +663,21 @@ public class ON_OFFActivity extends AppCompatActivity {
         String message = "";
         if(onoff_rb1.isChecked()){
             message = "SPC,24";
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            mot_st_text1.setText("ON");
+            Log.i("Test", "SMS sent!");
+            textView1.setText("Command Sent, Please Wait...");
         }
-        else{
+        else if( onoff_rb2.isChecked()){
             message = "SPC,26";
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            Log.i("Test", "SMS sent!");
+            textView1.setText("Command Sent, Please Wait...");
+            mot_st_text1.setText("OFF");
         }
-        SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-        Log.i("Test", "SMS sent!");
-        onoffpg1.setVisibility(View.VISIBLE);
-        textView1.setText("Command Sent, Please Wait...For 2 minutes");
+
     }
 
     //Progress Dialog
@@ -564,7 +705,6 @@ public class ON_OFFActivity extends AppCompatActivity {
         //starting another activity..
         Intent it1 = new Intent(ON_OFFActivity.this, SettingsActivity.class);
         startActivity(it1);
-
     }
 
     //Hoome functions
@@ -586,7 +726,7 @@ public class ON_OFFActivity extends AppCompatActivity {
     }
 
 
-    private final BroadcastReceiver toastOrNotificationCatcherReceiver = new BroadcastReceiver() {
+   /* private final BroadcastReceiver toastOrNotificationCatcherReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -613,11 +753,11 @@ public class ON_OFFActivity extends AppCompatActivity {
                 }
             }
         }
-    };
+    };*/
 
     @Override
     public void onPause(){
         super.onPause();
-        unregisterReceiver(toastOrNotificationCatcherReceiver);
+      //  unregisterReceiver(toastOrNotificationCatcherReceiver);
     }
 }
