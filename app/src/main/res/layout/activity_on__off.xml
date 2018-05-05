@@ -83,37 +83,32 @@
                         android:layout_weight="1"
                         android:text="OFF" />
                 </RadioGroup>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                >
+
 
                 <Button
                     android:id="@+id/button3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_marginRight="10dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/mybutton"
                     android:onClick="turnsOn"
                     android:text="submit" />
 
-                <TableRow
-                    android:id="@+id/tb3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/on_off_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18dp"/>
+            </LinearLayout>
 
-                    <ProgressBar
-                        android:id="@+id/onoff_pgbar1"
-                        style="?android:attr/progressBarStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/mot_st"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                </TableRow>
 
             </LinearLayout>
 
@@ -182,23 +177,20 @@
                 android:id="@+id/textview1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:textSize="14pt" />
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/mybutton"
                 android:onClick="set_function"
                 android:text="set" />
 
-            <ProgressBar
-                android:id="@+id/pbar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:visibility="invisible" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -239,21 +231,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="RTC1 Setting:"></TextView>
+                    android:text="RTC 1:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"></TextView>
 
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="RTC2 Setting:"></TextView>
+                    android:text="RTC 2:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"></TextView>
 
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="RTC3 Setting:"></TextView>
+                    android:text="RTC 3:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"></TextView>
             </LinearLayout>
 
             <LinearLayout
@@ -273,7 +268,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="ON time" />
+                        android:text="ON time"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                     <TextView
                         android:id="@+id/tv1"
@@ -317,7 +313,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="OFF time" />
+                        android:text="OFF time"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                     <TextView
                         android:id="@+id/tv4"
@@ -348,9 +345,60 @@
                         android:drawablePadding="5dp"
                       android:gravity="center_vertical"
                         android:onClick="offtime2" />
+
+
                 </LinearLayout>
+
+
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                   />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="remove"
+                    android:onClick="remove1_fun"
+                    android:visibility="invisible"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="remove"
+                    android:onClick="remove2_fun"
+                    android:visibility="invisible"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="remove"
+                    android:onClick="remove3_fun"
+                    android:visibility="invisible"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_weight="1" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -364,22 +412,19 @@
                 android:id="@+id/textview111"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:textSize="14pt" />
 
             <Button
                 android:id="@+id/button11"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:onClick="set_RTCfunction"
+                android:background="@drawable/mybutton"
                 android:text="set" />
 
-            <ProgressBar
-                android:id="@+id/pbar11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:visibility="invisible" />
         </LinearLayout>
 
 
