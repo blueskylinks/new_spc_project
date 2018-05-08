@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import static com.blueskylinks.spc_main.Main2Activity.progressDialog;
 import static com.blueskylinks.spc_main.MainActivity.phoneNumber;
+import static com.blueskylinks.spc_main.MainActivity.subId;
 
 public class UsersActivity extends AppCompatActivity {
     String no;
@@ -45,7 +46,7 @@ public class UsersActivity extends AppCompatActivity {
     String user3;
     String user4;
     String user5;
-   // String phoneNumber = "9880760642";
+    String phoneNumber;
     EditText et1;
     EditText et2;
     ProgressBar pbar1;
@@ -55,12 +56,13 @@ public class UsersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        phoneNumber = subId;
         setContentView(R.layout.activity_users);
         pbar1=findViewById(R.id.onoff_pgbar11);
         textView1=findViewById(R.id.onoff_status_text_1);
         String message = "SPC,92";
         SmsManager smsManager = SmsManager.getDefault();
-   //  smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
         Log.i("Test", "SMS sent!");
        pbar1.setVisibility(View.VISIBLE);
         textView1.setText("Command Sent, Please Wait...For 2 minutes");

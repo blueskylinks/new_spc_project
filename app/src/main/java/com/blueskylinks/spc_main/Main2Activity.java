@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.provider.Telephony;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -34,11 +36,15 @@ public class Main2Activity extends AppCompatActivity {
     public static  TextView tc2;
     public static  TextView tc3;
 
+    private static TextView refresh_button;
+
     TextView tv9;
     public static ProgressDialog progressDialog;
     String phoneNumber = subId;
     //changes made
     String SMSBody1;
+
+    Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +69,10 @@ public class Main2Activity extends AppCompatActivity {
         tc3 = findViewById(R.id.textView25);
 
         tv9=findViewById(R.id.textView29);
-
+        refresh_button = findViewById(R.id.refresh_bt1);
         String message = "SPC,25";
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+        //smsManager.sendTextMessage(phoneNumber, null, message, null, null);
         ImageView mImageViewFilling = findViewById(R.id.image_rot);
         ((AnimationDrawable) mImageViewFilling.getBackground()).stop();
         Log.i("Test", "SMS sent!");
@@ -84,32 +90,26 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     public void refresh(View view){
-        String s=tv.getText().toString();
-        Log.i("test",s);
 
-        if(s.matches(" "))
-        {
-            String message = "SPC,25";
+        String message = "SPC,25";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             Log.i("Test", "SMS sent!");
             progress();
-        }
-        else return;
     }
 
     //Progress Dialog
     public void progress(){
         progressDialog = new ProgressDialog(Main2Activity.this);
-        progressDialog.setMessage("Loading..."); // Setting Message
-        progressDialog.setTitle(" "); // Setting Title
+        progressDialog.setMessage("Please wait for SMS feedback..."); // Setting Message
+        progressDialog.setTitle("Loading..!!"); // Setting Title
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
         progressDialog.show(); // Display Progress Dialog
         progressDialog.setCancelable(false);
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(3000);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
