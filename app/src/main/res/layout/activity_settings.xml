@@ -7,17 +7,14 @@
    android:layout_width="fill_parent"
     android:orientation="vertical"
     android:background="@mipmap/image7">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="4"
-    android:id="@+id/scrollView">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@drawable/divider"
-        android:showDividers="end"
+        android:layout_weight="4"
+        android:showDividers="end|beginning|middle"
         android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -104,37 +101,6 @@
                 android:onClick="submit_func"
                 android:text="Feed Back SMS"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textview1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="18pt"
-                    android:text=" " />
-
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="submit_func"
-                    android:text="submit" />
-
-                <ProgressBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:visibility="invisible"
-                    android:id="@+id/progress"/>
-
-            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
@@ -186,6 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:orientation="horizontal">
+
                 <View
                     android:layout_width="0.5dp"
                     android:layout_height="match_parent"
@@ -331,7 +298,6 @@
 
         </LinearLayout>
     </LinearLayout>
-</ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

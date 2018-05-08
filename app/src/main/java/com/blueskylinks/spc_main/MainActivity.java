@@ -136,15 +136,15 @@ public class MainActivity extends AppCompatActivity {
     public void set_activity(View view) {
         subId = et1.getText().toString();
         pass = et2.getText().toString();
-        Log.i("sub ID:", subId);
-        Log.i("password", pass);
+        Log.i("sub ID:",subId);
+        Log.i("password",pass);
         if (TextUtils.isEmpty(subId) || TextUtils.isEmpty(pass)) {
             if (TextUtils.isEmpty(subId)) et1.setError("please Enter subscriber Id");
             else et2.setError("please Enter password");
-       /* } else if (!subId.equals("9880760642")) {
+        } else if (!subId.equals("9880760642")) {
             text.setText("Incorrect subscribe ID!!..");
         } else if (!pass.equals("1234")) {
-            text.setText("Incorrect  password!!..");*/
+            text.setText("Incorrect  password!!..");
         } else {
             phoneNumber=subId;
             //starting another activity..

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.provider.Telephony;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import static com.blueskylinks.spc_main.MainActivity.phoneNumber;
+
 public class SettingsActivity extends AppCompatActivity {
     Switch s1;
     Switch s2;
@@ -24,10 +27,19 @@ public class SettingsActivity extends AppCompatActivity {
     Switch s4;
     Switch s5;
    // String phoneNumber = "9880760642";
-    ProgressBar pbar;
     TextView text;
     TextView tv;
     String SMSBody1;
+    boolean val1 = true;
+    boolean val2 = true;
+    boolean val3 = true;
+    boolean val4 = true;
+    boolean val5 = true;
+    SharedPreferences Preferences1;
+    SharedPreferences Preferences2;
+    SharedPreferences Preferences3;
+    SharedPreferences Preferences4;
+    SharedPreferences Preferences5;
 
 
     @Override
@@ -39,18 +51,37 @@ public class SettingsActivity extends AppCompatActivity {
         s3=findViewById(R.id.switch3);
         s4=findViewById(R.id.switch4);
         s5=findViewById(R.id.switch5);
-        pbar=findViewById(R.id.progress);
-        tv=findViewById(R.id.textView1);
-        text=findViewById(R.id.onoff_status_text_1);
+     //   tv=findViewById(R.id.textView1);
+       // text=findViewById(R.id.onoff_status_text_1);
+
+        Preferences1 = getSharedPreferences("Checked1", 0);
+        val1 = Preferences1.getBoolean("Checked1", val1); // retrieve the value of your key
+       s1.setChecked(val1);
+
+        Preferences2 = getSharedPreferences("Checked2", 0);
+        val2 = Preferences2.getBoolean("Checked2", val2); // retrieve the value of your key
+        s2.setChecked(val2);
+
+        Preferences3 = getSharedPreferences("Checked3", 0);
+        val3 = Preferences3.getBoolean("Checked3", val3); // retrieve the value of your key
+        s3.setChecked(val3);
+
+        Preferences4 = getSharedPreferences("Checked4", 0);
+        val4 = Preferences4.getBoolean("Checked4", val4); // retrieve the value of your key
+        s4.setChecked(val4);
+
+        Preferences5 = getSharedPreferences("Checked5", 0);
+        val5 = Preferences5.getBoolean("Checked5", val5); // retrieve the value of your key
+        s5.setChecked(val5);
     }
 
     @Override
     public void onResume(){
         super.onResume();
         SMSBody1="";
-        final IntentFilter SintentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
+       /* final IntentFilter SintentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
         registerReceiver(settingfunconoroffReceiver, SintentFilter);
-        registerReceiver(settingfunconoroffReceiver,SintentFilter);
+        registerReceiver(settingfunconoroffReceiver,SintentFilter);*/
     }
 
 public void submit_func(View view){
@@ -68,8 +99,7 @@ public void submit_func(View view){
                                     SmsManager smsManager = SmsManager.getDefault();
                                     //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                                     Log.i("Test", message);
-                                    pbar.setVisibility(View.VISIBLE);
-                                    text.setText("Command Sent, Please Wait...For 2 minutes");
+                                    Preferences1.edit().putBoolean("Checked1",true).apply();
                                 }
                             });
 
@@ -77,6 +107,8 @@ public void submit_func(View view){
                             "No",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+                                    s1.setChecked(false);
+                                    Preferences1.edit().putBoolean("Checked1",false).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -95,8 +127,7 @@ public void submit_func(View view){
                     SmsManager smsManager = SmsManager.getDefault();
                     //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                     Log.i("Test", message);
-                    pbar.setVisibility(View.VISIBLE);
-                    text.setText("Command Sent, Please Wait...For 2 minutes");
+                    Preferences1.edit().putBoolean("Checked1",false).apply();
                                 }
                             });
 
@@ -104,6 +135,8 @@ public void submit_func(View view){
                             "No",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+                                    s1.setChecked(true);
+                                    Preferences1.edit().putBoolean("Checked1",true).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -124,8 +157,7 @@ public void submit_func(View view){
                     SmsManager smsManager = SmsManager.getDefault();
                     //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                     Log.i("Test", message);
-                    pbar.setVisibility(View.VISIBLE);
-                    text.setText("Command Sent, Please Wait...For 2 minutes");
+                                    Preferences2.edit().putBoolean("Checked2",true).apply();
                                 }
                             });
 
@@ -133,6 +165,8 @@ public void submit_func(View view){
                             "No",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+                                    s2.setChecked(false);
+                                    Preferences2.edit().putBoolean("Checked2",false).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -151,8 +185,7 @@ public void submit_func(View view){
                     SmsManager smsManager = SmsManager.getDefault();
                     //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                     Log.i("Test", message);
-                    pbar.setVisibility(View.VISIBLE);
-                    text.setText("Command Sent, Please Wait...For 2 minutes");
+                                    Preferences2.edit().putBoolean("Checked2",false).apply();
                                 }
                             });
 
@@ -160,6 +193,8 @@ public void submit_func(View view){
                             "No",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+                                    s2.setChecked(true);
+                                    Preferences2.edit().putBoolean("Checked2",true).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -178,10 +213,9 @@ public void submit_func(View view){
                                 public void onClick(DialogInterface dialog, int id) {
                     String message = "SPC,17,1";
                     SmsManager smsManager = SmsManager.getDefault();
-                    //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                      smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                     Log.i("Test", message);
-                    pbar.setVisibility(View.VISIBLE);
-                    text.setText("Command Sent, Please Wait...For 2 minutes");
+                                    Preferences3.edit().putBoolean("Checked3",true).apply();
                                 }
                             });
 
@@ -189,6 +223,8 @@ public void submit_func(View view){
                             "No",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+                                    s3.setChecked(false);
+                                    Preferences2.edit().putBoolean("Checked3",false).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -205,10 +241,9 @@ public void submit_func(View view){
                                 public void onClick(DialogInterface dialog, int id) {
                     String message = "SPC,17,0";
                     SmsManager smsManager = SmsManager.getDefault();
-                    //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                       smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                     Log.i("Test", message);
-                    pbar.setVisibility(View.VISIBLE);
-                    text.setText("Command Sent, Please Wait...For 2 minutes");
+                    Preferences3.edit().putBoolean("Checked3",false).apply();
                                 }
                             });
 
@@ -216,6 +251,8 @@ public void submit_func(View view){
                             "No",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+                                    s3.setChecked(true);
+                                    Preferences3.edit().putBoolean("Checked3",true).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -234,10 +271,9 @@ public void submit_func(View view){
                                 public void onClick(DialogInterface dialog, int id) {
                     String message = "SPC,18,1";
                     SmsManager smsManager = SmsManager.getDefault();
-                    //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                     smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                     Log.i("Test", message);
-                    pbar.setVisibility(View.VISIBLE);
-                    text.setText("Command Sent, Please Wait...For 2 minutes");
+                    Preferences4.edit().putBoolean("Checked4",true).apply();
                                 }
                             });
 
@@ -245,6 +281,8 @@ public void submit_func(View view){
                             "No",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+                                    s4.setChecked(false);
+                                    Preferences1.edit().putBoolean("Checked4",false).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -261,10 +299,9 @@ public void submit_func(View view){
                                 public void onClick(DialogInterface dialog, int id) {
                     String message = "SPC,18,0";
                     SmsManager smsManager = SmsManager.getDefault();
-                    //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                      smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                     Log.i("Test", message);
-                    pbar.setVisibility(View.VISIBLE);
-                    text.setText("Command Sent, Please Wait...For 2 minutes");
+                                    Preferences4.edit().putBoolean("Checked4",false).apply();
                                 }
                             });
 
@@ -272,6 +309,8 @@ public void submit_func(View view){
                             "No",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+                                    s4.setChecked(true);
+                                    Preferences4.edit().putBoolean("Checked4",true).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -290,10 +329,9 @@ public void submit_func(View view){
                                 public void onClick(DialogInterface dialog, int id) {
                     String message = "SPC,1,1";
                     SmsManager smsManager = SmsManager.getDefault();
-                    //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                     smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                     Log.i("Test", message);
-                    pbar.setVisibility(View.VISIBLE);
-                    text.setText("Command Sent, Please Wait...For 2 minutes");
+                    Preferences5.edit().putBoolean("Checked5",true).apply();
                                 }
                             });
 
@@ -301,6 +339,8 @@ public void submit_func(View view){
                             "No",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+                                    s5.setChecked(false);
+                                    Preferences5.edit().putBoolean("Checked5",false).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -316,17 +356,18 @@ public void submit_func(View view){
                                 public void onClick(DialogInterface dialog, int id) {
                     String message = "SPC,1,0";
                     SmsManager smsManager = SmsManager.getDefault();
-                    //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                      smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                     Log.i("Test", message);
-                    pbar.setVisibility(View.VISIBLE);
-                    text.setText("Command Sent, Please Wait...For 2 minutes");
+                    Preferences5.edit().putBoolean("Checked5",false).apply();
                    }
                 });
                  builder1.setNegativeButton(
                           "No",
                       new DialogInterface.OnClickListener() {
                       public void onClick(DialogInterface dialog, int id) {
-                      dialog.cancel();
+                        s5.setChecked(true);
+                          Preferences5.edit().putBoolean("Checked5",true).apply();
+                          dialog.cancel();
                      }
                });
                  AlertDialog alert11 = builder1.create();
@@ -384,7 +425,7 @@ public void submit_func(View view){
         startActivity(it4);
     }
 
-    private final BroadcastReceiver settingfunconoroffReceiver = new BroadcastReceiver() {
+  /*  private final BroadcastReceiver settingfunconoroffReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent7) {
@@ -397,25 +438,22 @@ public void submit_func(View view){
                     String[] lines = SMSBody1.split("\\r?\\n");
                     if(lines[2].toString().contains("on")){
                         tv.setText("ON");
-                        pbar.setVisibility(View.INVISIBLE);
-                        text.setText(lines[2]);
                     }
                     else if(lines[2].toString().contains("off")){
                         tv.setText("OFF");
                         text.setText(lines[2]);
-                        pbar.setVisibility(View.INVISIBLE);
                     }
                     else return;
                     SMSBody1 = "";
                 }
             }
         }
-    };
+    };*/
 
     @Override
     public void onPause(){
         super.onPause();
-        unregisterReceiver(settingfunconoroffReceiver);
+       // unregisterReceiver(settingfunconoroffReceiver);
     }
 }
 
