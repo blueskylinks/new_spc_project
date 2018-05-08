@@ -90,6 +90,8 @@ public class ON_OFFActivity extends AppCompatActivity {
     Date offtime;
     SharedPreferences sharedPreferences;
   SharedPreferences.Editor editor;
+    SharedPreferences sharedPreferences2;
+    SharedPreferences.Editor editor2;
   TextView remove1;
   TextView remove2;
   TextView remove3;
@@ -116,6 +118,8 @@ public class ON_OFFActivity extends AppCompatActivity {
         onoff_rb2=findViewById(R.id.radioButton);
         sharedPreferences=getSharedPreferences("mypref",0);
         editor= sharedPreferences.edit();
+        sharedPreferences2=getSharedPreferences("pref",0);
+        editor2= sharedPreferences2.edit();
         remove1=findViewById(R.id.textView11);
         remove2=findViewById(R.id.textView12);
         remove3=findViewById(R.id.textView13);
@@ -179,35 +183,35 @@ public class ON_OFFActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("isChecked2", 0);
         value2 = sharedPreferences.getBoolean("isChecked2", value2); // retrieve the value of your key
         onoff_rb2.setChecked(value2);
-        String text9=sharedPreferences.getString("Motor",null);
-        Log.i("pStored",text9);
+        String text9=sharedPreferences2.getString("Motor",null);
+        Log.i("pStored",""+text9);
         mot_st_text1.setText(text9);
 
-        String text1=sharedPreferences.getString("RTC1",null);
+        String text1=sharedPreferences2.getString("RTC1",null);
         et1.setText(text1);
-        String text2=sharedPreferences.getString("RTC_1",null);
+        String text2=sharedPreferences2.getString("RTC_1",null);
         et11.setText(text2);
 
-        String text3=sharedPreferences.getString("RTC2",null);
+        String text3=sharedPreferences2.getString("RTC2",null);
         et2.setText(text3);
-        String text4=sharedPreferences.getString("RTC_2",null);
+        String text4=sharedPreferences2.getString("RTC_2",null);
         et12.setText(text4);
 
-        String text5=sharedPreferences.getString("RTC3",null);
+        String text5=sharedPreferences2.getString("RTC3",null);
         et3.setText(text5);
-        String text6=sharedPreferences.getString("RTC_3",null);
+        String text6=sharedPreferences2.getString("RTC_3",null);
         et13.setText(text6);
 
-        String text7=sharedPreferences.getString("RTC_func",null);
-        Log.i("pstored",text7);
+        String text7=sharedPreferences2.getString("RTC_func",null);
+        Log.i("pstored",""+text7);
         textv.setText(text7);
 
-       message1=sharedPreferences.getString("msg1",null);
-       message2=sharedPreferences.getString("msg2",null);
-       message3=sharedPreferences.getString("msg3",null);
-       message4=sharedPreferences.getString("msg4",null);
-       message5=sharedPreferences.getString("msg5",null);
-       message6=sharedPreferences.getString("msg6",null);
+       message1=sharedPreferences2.getString("msg1",null);
+       message2=sharedPreferences2.getString("msg2",null);
+       message3=sharedPreferences2.getString("msg3",null);
+       message4=sharedPreferences2.getString("msg4",null);
+       message5=sharedPreferences2.getString("msg5",null);
+       message6=sharedPreferences2.getString("msg6",null);
 
         if(!et11.getText().toString().equals("")) remove1.setVisibility(View.VISIBLE);
         if(!et12.getText().toString().equals("")) remove2.setVisibility(View.VISIBLE);
@@ -236,13 +240,13 @@ public class ON_OFFActivity extends AppCompatActivity {
 
                     et1.setText(Hour + ":" + Minute);
                     ntime = et1.getText().toString();
-                    editor.putString("RTC1", ntime);
-                    editor.commit();
+                    editor2.putString("RTC1", ntime);
+                    editor2.commit();
                     String h = et1.getText().toString().substring(0, 2);
                     String m = et1.getText().toString().substring(3);
                     message1 = "SPC,28," + h + "," + m;
-                    editor.putString("msg1", message1);
-                    editor.commit();
+                    editor2.putString("msg1", message1);
+                    editor2.commit();
                 }
             }, hour, minute, true);//Yes 24 hour time
             mTimePicker.setTitle("Select Time");
@@ -273,8 +277,8 @@ public class ON_OFFActivity extends AppCompatActivity {
 
                         ftime = et11.getText().toString();
                         ntime = et1.getText().toString();
-                        editor.putString("RTC_1", ftime);
-                        editor.commit();
+                        editor2.putString("RTC_1", ftime);
+                        editor2.commit();
                         try {
                             d1 = format.parse(ntime);
                             d2 = format.parse(ftime);
@@ -289,8 +293,8 @@ public class ON_OFFActivity extends AppCompatActivity {
                             String h = ftime.substring(0, 2);
                             String m = ftime.substring(3);
                             message2 = "SPC,29," + h + "," + m;
-                            editor.putString("msg2", message2);
-                            editor.commit();
+                            editor2.putString("msg2", message2);
+                            editor2.commit();
                             remove1.setVisibility(View.VISIBLE);
                         } else {
                             Toast.makeText(ON_OFFActivity.this, "off time must be 30 mins greater than ontime", Toast.LENGTH_SHORT).show();
@@ -325,8 +329,8 @@ public class ON_OFFActivity extends AppCompatActivity {
 
                         et2.setText(Hour + ":" + Minute);
                         ntime1 = et2.getText().toString();
-                        editor.putString("RTC2", ntime1);
-                        editor.commit();
+                        editor2.putString("RTC2", ntime1);
+                        editor2.commit();
                         try {
                             ontime = format.parse(et2.getText().toString());
                             d1 = format.parse(et1.getText().toString());
@@ -339,8 +343,8 @@ public class ON_OFFActivity extends AppCompatActivity {
                             String h = et2.getText().toString().substring(0, 2);
                             String m = et2.getText().toString().substring(3);
                             message3 = "SPC,30," + h + "," + m;
-                            editor.putString("msg3", message3);
-                            editor.commit();
+                            editor2.putString("msg3", message3);
+                            editor2.commit();
                         } else {
                             et2.setText("");
                             Toast.makeText(ON_OFFActivity.this, "RTC2 must be out of RTC1 range..", Toast.LENGTH_LONG).show();
@@ -374,8 +378,8 @@ public class ON_OFFActivity extends AppCompatActivity {
 
                         ftime1 = et12.getText().toString();
                         ntime1 = et2.getText().toString();
-                        editor.putString("RTC_2", ftime1);
-                        editor.commit();
+                        editor2.putString("RTC_2", ftime1);
+                        editor2.commit();
                         try {
                             d1 = format.parse(et1.getText().toString());
                             d2 = format.parse(et11.getText().toString());
@@ -393,8 +397,8 @@ public class ON_OFFActivity extends AppCompatActivity {
                             String h = ftime1.substring(0, 2);
                             String m = ftime1.substring(3);
                             message4 = "SPC,31," + h + "," + m;
-                            editor.putString("msg4", message4);
-                            editor.commit();
+                            editor2.putString("msg4", message4);
+                            editor2.commit();
                             remove2.setVisibility(View.VISIBLE);
                         } else {
                             Toast.makeText(ON_OFFActivity.this, "off time must be 30 mins greater than ontime", Toast.LENGTH_SHORT).show();
@@ -429,8 +433,8 @@ public class ON_OFFActivity extends AppCompatActivity {
 
                         et3.setText(Hour + ":" + Minute);
                         ntime2 = et3.getText().toString();
-                        editor.putString("RTC3", ntime2);
-                        editor.commit();
+                        editor2.putString("RTC3", ntime2);
+                        editor2.commit();
                         try {
                             ontime = format.parse(et3.getText().toString());
                             date1 = format.parse(et2.getText().toString());
@@ -442,8 +446,8 @@ public class ON_OFFActivity extends AppCompatActivity {
                             String h = et3.getText().toString().substring(0, 2);
                             String m = et3.getText().toString().substring(3);
                             message5 = "SPC,32," + h + "," + m;
-                            editor.putString("msg5", message5);
-                            editor.commit();
+                            editor2.putString("msg5", message5);
+                            editor2.commit();
                         } else {
                             et3.setText("");
                             Toast.makeText(ON_OFFActivity.this, "RTC2 must be out of RTC1 range..", Toast.LENGTH_LONG).show();
@@ -478,8 +482,8 @@ public class ON_OFFActivity extends AppCompatActivity {
 
                         ftime2 = et13.getText().toString();
                         ntime2 = et3.getText().toString();
-                        editor.putString("RTC_3", ftime2);
-                        editor.commit();
+                        editor2.putString("RTC_3", ftime2);
+                        editor2.commit();
                         try {
                             date_1 = format.parse(ntime2);
                             date_2 = format.parse(ftime2);
@@ -495,8 +499,8 @@ public class ON_OFFActivity extends AppCompatActivity {
                             String h = ftime2.substring(0, 2);
                             String m = ftime2.substring(3);
                             message6 = "SPC,33," + h + "," + m;
-                            editor.putString("msg6", message6);
-                            editor.commit();
+                            editor2.putString("msg6", message6);
+                            editor2.commit();
                             remove3.setVisibility(View.VISIBLE);
                         } else {
                             Toast.makeText(ON_OFFActivity.this, "off time must be 30 mins greater than ontime", Toast.LENGTH_SHORT).show();
@@ -563,23 +567,23 @@ public class ON_OFFActivity extends AppCompatActivity {
             Log.i("message",""+ message5);
             Log.i("message","" +message6);
             ntime = et1.getText().toString();
-            editor.putString("RTC1", ntime);
-            editor.commit();
+            editor2.putString("RTC1", ntime);
+            editor2.commit();
             ftime = et11.getText().toString();
-            editor.putString("RTC_1", ftime);
-            editor.commit();
+            editor2.putString("RTC_1", ftime);
+            editor2.commit();
             ntime1 = et2.getText().toString();
-            editor.putString("RTC2", ntime1);
-            editor.commit();
+            editor2.putString("RTC2", ntime1);
+            editor2.commit();
             ftime1 = et12.getText().toString();
-            editor.putString("RTC_2", ftime1);
-            editor.commit();
+            editor2.putString("RTC_2", ftime1);
+            editor2.commit();
             ntime2 = et3.getText().toString();
-            editor.putString("RTC3", ntime2);
-            editor.commit();
+            editor2.putString("RTC3", ntime2);
+            editor2.commit();
             ftime2 = et13.getText().toString();
-            editor.putString("RTC_3", ftime2);
-            editor.commit();
+            editor2.putString("RTC_3", ftime2);
+            editor2.commit();
         } else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
     }
 
@@ -591,15 +595,15 @@ public void remove1_fun(View v) {
             message1 = "SPC,28,00,00";
             message2 = "SPC,29,00,00";
             ntime = et1.getText().toString();
-            editor.putString("RTC1", ntime);
-            editor.commit();
+            editor2.putString("RTC1", ntime);
+            editor2.commit();
             ftime = et11.getText().toString();
-            editor.putString("RTC_1", ftime);
-            editor.commit();
-            editor.putString("msg1", message1);
-            editor.commit();
-            editor.putString("msg2", message2);
-            editor.commit();
+            editor2.putString("RTC_1", ftime);
+            editor2.commit();
+            editor2.putString("msg1", message1);
+            editor2.commit();
+            editor2.putString("msg2", message2);
+            editor2.commit();
             remove1.setVisibility(View.INVISIBLE);
         } else Toast.makeText(this, "remove RTC2 and RTC3..", Toast.LENGTH_SHORT).show();
     }else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
@@ -613,15 +617,15 @@ public void remove1_fun(View v) {
                 message3 = "SPC,30,00,00";
                 message4 = "SPC,31,00,00";
                 ntime1 = et2.getText().toString();
-                editor.putString("RTC2", ntime1);
-                editor.commit();
+                editor2.putString("RTC2", ntime1);
+                editor2.commit();
                 ftime1 = et12.getText().toString();
-                editor.putString("RTC_2", ftime1);
-                editor.commit();
-                editor.putString("msg3", message3);
-                editor.commit();
-                editor.putString("msg4", message4);
-                editor.commit();
+                editor2.putString("RTC_2", ftime1);
+                editor2.commit();
+                editor2.putString("msg3", message3);
+                editor2.commit();
+                editor2.putString("msg4", message4);
+                editor2.commit();
                 remove2.setVisibility(View.INVISIBLE);
             } else Toast.makeText(this, "remove RTC3..", Toast.LENGTH_SHORT).show();
         }else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
@@ -634,15 +638,15 @@ public void remove1_fun(View v) {
             message5 = "SPC,32,00,00";
             message6 = "SPC,33,00,00";
             ntime2 = et3.getText().toString();
-            editor.putString("RTC3", ntime2);
-            editor.commit();
+            editor2.putString("RTC3", ntime2);
+            editor2.commit();
             ftime2 = et13.getText().toString();
-            editor.putString("RTC_3", ftime2);
-            editor.commit();
-            editor.putString("msg5", message5);
-            editor.commit();
-            editor.putString("msg6", message6);
-            editor.commit();
+            editor2.putString("RTC_3", ftime2);
+            editor2.commit();
+            editor2.putString("msg5", message5);
+            editor2.commit();
+            editor2.putString("msg6", message6);
+            editor2.commit();
             remove3.setVisibility(View.INVISIBLE);
         }else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
     }
@@ -665,9 +669,8 @@ public void remove1_fun(View v) {
             Log.i("Test", message);
             text.setText("Command Sent, Please Wait...For 2 minutes");
         }
-        editor.putString("RTC_func",textv.getText().toString());
-        Log.i("stored",textv.getText().toString());
-        editor.commit();
+        editor2.putString("RTC_func",textv.getText().toString());
+        editor2.commit();
     }
 
     public void setRTC(){
@@ -679,37 +682,34 @@ public void remove1_fun(View v) {
         mainLayout.addView(spinner1);
     }
 
-    public void turnsOn(View view){
+    public void turnsOn(View view) {
         String message = "";
-        if(onoff_rb1.isChecked()){
+        if (onoff_rb1.isChecked()) {
             message = "SPC,24";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             mot_st_text1.setText("ON");
-            editor.putBoolean("ischecked1",true);
+            editor.putBoolean("ischecked1", true);
             editor.commit();
-            editor.putBoolean("ischecked2",false);
+            editor.putBoolean("ischecked2", false);
             editor.commit();
             Log.i("Test", "SMS sent!");
             textView1.setText("Command Sent, Please Wait...");
-        }
-
-        else{
+        } else {
             message = "SPC,26";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             mot_st_text1.setText("OFF");
             Log.i("Test", "SMS sent!");
-            editor.putBoolean("ischecked2",true);
+            editor.putBoolean("ischecked2", true);
             editor.commit();
-            editor.putBoolean("ischecked1",false);
+            editor.putBoolean("ischecked1", false);
             editor.commit();
             textView1.setText("Command Sent, Please Wait...");
             mot_st_text1.setText("OFF");
         }
-        editor.putString("Motor",mot_st_text1.getText().toString());
-        Log.i("stored",mot_st_text1.getText().toString());
-        editor.commit();
+        editor2.putString("Motor", mot_st_text1.getText().toString());
+        editor2.commit();
     }
 
     //Progress Dialog
