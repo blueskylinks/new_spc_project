@@ -104,8 +104,7 @@ public class ON_OFFActivity extends AppCompatActivity {
         super.onResume();
         SMSBody1="";
         final IntentFilter MIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-      //  registerReceiver(toastOrNotificationCatcherReceiver, MIntentFilter);
-      //  registerReceiver(toastOrNotificationCatcherReceiver,MIntentFilter);
+      registerReceiver(toastOrNotificationCatcherReceiver, MIntentFilter);
     }
 
     @Override
@@ -758,38 +757,40 @@ public void remove1_fun(View v) {
     }
 
 
-   /* private final BroadcastReceiver toastOrNotificationCatcherReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver toastOrNotificationCatcherReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.i("received sms","message received...");
             if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent.getAction())) {
                 for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent)) {
                     String senderNum = smsMessage.getDisplayOriginatingAddress();
                     Log.i("sender num", senderNum);
                     SMSBody1 = smsMessage.getMessageBody().toString();
-                    String[] lines = SMSBody1.split("\\r?\\n");
-                    Log.i("received sms",SMSBody1);
-                    if(lines[2].toString().contains("on")){
-                        onoffpg1.setVisibility(View.INVISIBLE);
-                        textView1.setText(lines[4]);
-                        mot_st_text1.setText("ON");
+                    if(SMSBody1.length() >= 50 &&  SMSBody1.length() < 80){
+                        String[] lines = SMSBody1.split("\\r?\\n");
+                        Log.i("received sms",SMSBody1);
+                        if(lines[2].toString().contains("on")){
+                            //onoffpg1.setVisibility(View.INVISIBLE);
+                            textView1.setText(lines[4]);
+                            mot_st_text1.setText("ON");
+                        }
+                        else if(lines[2].toString().contains("off")) {
+                            //onoffpg1.setVisibility(View.INVISIBLE);
+                            textView1.setText(lines[2]+lines[3]);
+                            mot_st_text1.setText("OFF");
+                        }
+                        else return;
+                        SMSBody1 ="";
                     }
-                    else if(lines[2].toString().contains("off")) {
-                        onoffpg1.setVisibility(View.INVISIBLE);
-                        textView1.setText(lines[2]+lines[3]);
-                        mot_st_text1.setText("OFF");
-                    }
-                    else return;
-                    SMSBody1 ="";
-
                 }
             }
         }
-    };*/
+    };
 
     @Override
     public void onPause(){
         super.onPause();
-      //  unregisterReceiver(toastOrNotificationCatcherReceiver);
+        unregisterReceiver(toastOrNotificationCatcherReceiver);
     }
 }

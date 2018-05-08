@@ -72,7 +72,7 @@ public class Main2Activity extends AppCompatActivity {
         refresh_button = findViewById(R.id.refresh_bt1);
         String message = "SPC,25";
         SmsManager smsManager = SmsManager.getDefault();
-        //smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
         ImageView mImageViewFilling = findViewById(R.id.image_rot);
         ((AnimationDrawable) mImageViewFilling.getBackground()).stop();
         Log.i("Test", "SMS sent!");
@@ -86,7 +86,6 @@ public class Main2Activity extends AppCompatActivity {
 
         final IntentFilter mIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
         registerReceiver(sms_notify_reciver, mIntentFilter);
-        registerReceiver(sms_notify_reciver,mIntentFilter);
     }
 
     public void refresh(View view){
@@ -161,7 +160,7 @@ public class Main2Activity extends AppCompatActivity {
 
                     String sms = SMSBody1;
 
-                        if (lines[1].toString().contains("on ")) {
+                        if (lines[1].toString().contains("on")) {
                             ImageView mImageViewFilling = findViewById(R.id.image_rot);
                             ((AnimationDrawable) mImageViewFilling.getBackground()).start();
                             tv.setText("ON");
