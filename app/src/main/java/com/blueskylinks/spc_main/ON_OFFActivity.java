@@ -58,7 +58,6 @@ public class ON_OFFActivity extends AppCompatActivity {
     String message5;
     String message6;
     String on;
-    String off;
     Spinner spinner;
     Spinner spinner1;
     String selectedItem;
@@ -67,7 +66,6 @@ public class ON_OFFActivity extends AppCompatActivity {
     LinearLayout mainLayout;
     TextView textv;
     TextView tv2;
-    ProgressBar pbar;
     TextView et1;
     TextView et2;
     TextView et3;
@@ -95,6 +93,8 @@ public class ON_OFFActivity extends AppCompatActivity {
   TextView remove1;
   TextView remove2;
   TextView remove3;
+    boolean value1 = true;
+    boolean value2 = true;
 
 
     @Override
@@ -172,6 +172,17 @@ public class ON_OFFActivity extends AppCompatActivity {
             }
         });
 
+        sharedPreferences = getSharedPreferences("isChecked1", 0);
+        value1 = sharedPreferences.getBoolean("isChecked1", value1); // retrieve the value of your key
+        onoff_rb1.setChecked(value1);
+
+        sharedPreferences = getSharedPreferences("isChecked2", 0);
+        value2 = sharedPreferences.getBoolean("isChecked2", value2); // retrieve the value of your key
+        onoff_rb2.setChecked(value2);
+        String text9=sharedPreferences.getString("Motor",null);
+        Log.i("pStored",text9);
+        mot_st_text1.setText(text9);
+
         String text1=sharedPreferences.getString("RTC1",null);
         et1.setText(text1);
         String text2=sharedPreferences.getString("RTC_1",null);
@@ -186,6 +197,10 @@ public class ON_OFFActivity extends AppCompatActivity {
         et3.setText(text5);
         String text6=sharedPreferences.getString("RTC_3",null);
         et13.setText(text6);
+
+        String text7=sharedPreferences.getString("RTC_func",null);
+        Log.i("pstored",text7);
+        textv.setText(text7);
 
        message1=sharedPreferences.getString("msg1",null);
        message2=sharedPreferences.getString("msg2",null);
@@ -487,7 +502,6 @@ public class ON_OFFActivity extends AppCompatActivity {
                             Toast.makeText(ON_OFFActivity.this, "off time must be 30 mins greater than ontime", Toast.LENGTH_SHORT).show();
                             et13.setText("");
                         }
-
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
@@ -542,12 +556,12 @@ public class ON_OFFActivity extends AppCompatActivity {
             smsManager.sendTextMessage(phoneNumber, null, message4, null, null);
             smsManager.sendTextMessage(phoneNumber, null, message5, null, null);
             smsManager.sendTextMessage(phoneNumber, null, message6, null, null);
-            Log.i("message", message1);
-            Log.i("message", message2);
-            Log.i("message", message3);
-            Log.i("message", message4);
-            Log.i("message", message5);
-            Log.i("message", message6);
+            Log.i("message",""+ message1);
+            Log.i("message", ""+message2);
+            Log.i("message",""+ message3);
+            Log.i("message",""+ message4);
+            Log.i("message",""+ message5);
+            Log.i("message","" +message6);
             ntime = et1.getText().toString();
             editor.putString("RTC1", ntime);
             editor.commit();
@@ -590,6 +604,7 @@ public void remove1_fun(View v) {
         } else Toast.makeText(this, "remove RTC2 and RTC3..", Toast.LENGTH_SHORT).show();
     }else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
 }
+
     public void remove2_fun(View v) {
         if (textv.getText().toString().equals("ON")) {
             if (remove3.getVisibility() == View.INVISIBLE) {
@@ -611,6 +626,7 @@ public void remove1_fun(View v) {
             } else Toast.makeText(this, "remove RTC3..", Toast.LENGTH_SHORT).show();
         }else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
     }
+
     public void remove3_fun(View v) {
         if (textv.getText().toString().equals("ON")) {
             et3.setText("");
@@ -640,6 +656,7 @@ public void remove1_fun(View v) {
             Log.i("Test", message);
             text.setText("Command Sent, Please Wait...For 2 minutes");
         }
+
         else if(selectedItem.equals("RTC function off")){
             String message = "SPC,27,0";
             SmsManager smsManager = SmsManager.getDefault();
@@ -648,6 +665,9 @@ public void remove1_fun(View v) {
             Log.i("Test", message);
             text.setText("Command Sent, Please Wait...For 2 minutes");
         }
+        editor.putString("RTC_func",textv.getText().toString());
+        Log.i("stored",textv.getText().toString());
+        editor.commit();
     }
 
     public void setRTC(){
@@ -666,18 +686,30 @@ public void remove1_fun(View v) {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             mot_st_text1.setText("ON");
+            editor.putBoolean("ischecked1",true);
+            editor.commit();
+            editor.putBoolean("ischecked2",false);
+            editor.commit();
             Log.i("Test", "SMS sent!");
             textView1.setText("Command Sent, Please Wait...");
         }
-        else if( onoff_rb2.isChecked()){
+
+        else{
             message = "SPC,26";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            mot_st_text1.setText("OFF");
             Log.i("Test", "SMS sent!");
+            editor.putBoolean("ischecked2",true);
+            editor.commit();
+            editor.putBoolean("ischecked1",false);
+            editor.commit();
             textView1.setText("Command Sent, Please Wait...");
             mot_st_text1.setText("OFF");
         }
-
+        editor.putString("Motor",mot_st_text1.getText().toString());
+        Log.i("stored",mot_st_text1.getText().toString());
+        editor.commit();
     }
 
     //Progress Dialog
