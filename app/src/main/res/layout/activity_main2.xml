@@ -234,6 +234,14 @@
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -265,11 +273,11 @@
             <TableRow
                 android:id="@+id/tb_44"
                 android:layout_width="match_parent"
-                android:layout_height="47dp">
+                android:layout_height="43dp">
 
                 <TextView
                     android:id="@+id/textView11"
-                    android:layout_width="50dp"
+                    android:layout_width="100dp"
                     android:layout_height="43dp"
                     android:textColor="@android:color/holo_red_dark"
                     android:textSize="24sp" />
@@ -279,13 +287,6 @@
                     android:layout_width="43dp"
                     android:layout_height="43dp"
                     android:background="@drawable/image_change" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:onClick="refresh"
-                    android:text="Refresh"
-                    android:textSize="10sp" />
 
             </TableRow>
 
@@ -413,6 +414,16 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="HH:MM:SS" />
+
+            <TextView
+                android:id="@+id/refresh_bt1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/mybutton"
+                android:gravity="center"
+                android:onClick="refresh"
+                android:text="Refresh" />
         </LinearLayout>
     </LinearLayout>
 
