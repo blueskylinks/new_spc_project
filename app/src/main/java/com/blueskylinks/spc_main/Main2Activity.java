@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.provider.Telephony;
 import android.support.v4.app.ActivityCompat;
@@ -40,8 +41,14 @@ public class Main2Activity extends AppCompatActivity {
     //changes made
     String SMSBody1;
 
+    public static SharedPreferences mt_status_pref;
+    public static SharedPreferences.Editor editor;
+    public static int mot_st;
+    public static int app_status;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mt_status_pref = getSharedPreferences("status1", 0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         ActivityCompat.requestPermissions(this,
@@ -63,20 +70,36 @@ public class Main2Activity extends AppCompatActivity {
         tc3 = findViewById(R.id.textView25);
 
         tv9=findViewById(R.id.textView29);
+        if(app_status!=1){
+            String message = "SPC,25";
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            ImageView mImageViewFilling = findViewById(R.id.image_rot);
+            ((AnimationDrawable) mImageViewFilling.getBackground()).stop();
+            Log.i("Test", "SMS sent!");
+            progress();
+            app_status =1;
+        }
 
-        String message = "SPC,25";
-        SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-        ImageView mImageViewFilling = findViewById(R.id.image_rot);
-        ((AnimationDrawable) mImageViewFilling.getBackground()).stop();
-        Log.i("Test", "SMS sent!");
-        progress();
     }
 
     @Override
     protected void onResume(){
         super.onResume();
         SMSBody1="";
+        editor = mt_status_pref.edit();
+        app_status = mt_status_pref.getInt("a1",0);
+        Log.i("aaaaa", Integer.toString(app_status));
+        if(mot_st != mt_status_pref.getInt("m1",0)){
+            editor.putInt("m1",mot_st);
+            editor.commit();
+        }
+
+        mot_st = mt_status_pref.getInt("m1",0);
+        if(mot_st==1)
+            tv.setText("ON");
+        if(mot_st==0)
+            tv.setText("OFF");
 
         final IntentFilter mIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
         registerReceiver(sms_notify_reciver, mIntentFilter);
@@ -84,25 +107,18 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     public void refresh(View view){
-        String s=tv.getText().toString();
-        Log.i("test",s);
-
-        if(s.matches(" "))
-        {
             String message = "SPC,25";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             Log.i("Test", "SMS sent!");
             progress();
-        }
-        else return;
     }
 
     //Progress Dialog
     public void progress(){
         progressDialog = new ProgressDialog(Main2Activity.this);
-        progressDialog.setMessage("Loading..."); // Setting Message
-        progressDialog.setTitle(" "); // Setting Title
+        progressDialog.setMessage("Please Wait......"); // Setting Message
+        progressDialog.setTitle("Loading!!!"); // Setting Title
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
         progressDialog.show(); // Display Progress Dialog
         progressDialog.setCancelable(false);
@@ -132,8 +148,8 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     public void Users(View view){
-        //starting another activity..
         Intent it3 = new Intent(Main2Activity.this, UsersActivity.class);
+        //starting another activity..
         startActivity(it3);
     }
 
@@ -165,6 +181,10 @@ public class Main2Activity extends AppCompatActivity {
                             ImageView mImageViewFilling = findViewById(R.id.image_rot);
                             ((AnimationDrawable) mImageViewFilling.getBackground()).start();
                             tv.setText("ON");
+                            editor = mt_status_pref.edit();
+                            editor.putInt("m1",1);
+                            editor.commit();
+                            mot_st=1;
                             if (lines[1].toString().contains("3")) tv1.setText("3 Phase Mode");
                             else tv1.setText("2 Phase Mode");
                             String s1 = lines[2].toString();
@@ -181,6 +201,10 @@ public class Main2Activity extends AppCompatActivity {
                             //tv9.setText(s4.substring(6));
                         } else if (lines[1].toString().contains("off")) {
                             tv.setText("OFF");
+                            editor = mt_status_pref.edit();
+                            editor.putInt("m1",0);
+                            editor.commit();
+                            mot_st=0;
                             String s4 = lines[5].toString();
                             //tv9.setText(s4.substring(6));
                         } else return;
@@ -196,4 +220,6 @@ public class Main2Activity extends AppCompatActivity {
         super.onPause();
         unregisterReceiver(sms_notify_reciver);
     }
+
+
 }

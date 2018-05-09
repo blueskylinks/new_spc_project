@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
                 new String[]{Manifest.permission.READ_SMS}, 200);
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.RECEIVE_SMS}, 200);
-        ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.READ_PHONE_STATE}, 200);
         et1 = findViewById(R.id.Et1);
         et2 = findViewById(R.id.Et2);
         text = findViewById(R.id.textView7);
@@ -58,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         textView.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
         sharedPreferences1 = getSharedPreferences("isChecked1", 0);
+
+
         value1 = sharedPreferences1.getBoolean("isChecked1", value1); // retrieve the value of your key
 
         c1.setChecked(value1);
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(subId) || TextUtils.isEmpty(pass)) {
             if (TextUtils.isEmpty(subId)) et1.setError("please Enter subscriber Id");
             else et2.setError("please Enter password");
-        } else if (!subId.equals("9880760642")) {
+        } else if (subId.length()!=10) {
             text.setText("Incorrect subscribe ID!!..");
         } else if (!pass.equals("1234")) {
             text.setText("Incorrect  password!!..");

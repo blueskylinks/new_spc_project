@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import static com.blueskylinks.spc_main.Main2Activity.mot_st;
 import static com.blueskylinks.spc_main.Main2Activity.progressDialog;
 import static com.blueskylinks.spc_main.Main2Activity.tv;
 import static com.blueskylinks.spc_main.MainActivity.phoneNumber;
@@ -103,6 +104,16 @@ public class ON_OFFActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         SMSBody1="";
+        if(mot_st==1){
+            onoff_rb1.setChecked(true);
+            mot_st_text1.setText("ON");
+            Log.i("tttt", "on...");
+        }
+        else{
+            onoff_rb2.setChecked(true);
+            mot_st_text1.setText("OFF");
+            Log.i("tttt", "off...");
+        }
         final IntentFilter MIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
       registerReceiver(toastOrNotificationCatcherReceiver, MIntentFilter);
     }
@@ -114,7 +125,7 @@ public class ON_OFFActivity extends AppCompatActivity {
         textView1=findViewById(R.id.onoff_status_text1);
         mot_st_text1 = findViewById(R.id.on_off_status);
         onoff_rb1=findViewById(R.id.radioButton);
-        onoff_rb2=findViewById(R.id.radioButton);
+        onoff_rb2=findViewById(R.id.radioButton2);
         sharedPreferences=getSharedPreferences("mypref",0);
         editor= sharedPreferences.edit();
         sharedPreferences2=getSharedPreferences("pref",0);
@@ -688,6 +699,7 @@ public void remove1_fun(View v) {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             mot_st_text1.setText("ON");
+            mot_st=1;
             editor.putBoolean("ischecked1", true);
             editor.commit();
             editor.putBoolean("ischecked2", false);
@@ -699,6 +711,7 @@ public void remove1_fun(View v) {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             mot_st_text1.setText("OFF");
+            mot_st=0;
             Log.i("Test", "SMS sent!");
             editor.putBoolean("ischecked2", true);
             editor.commit();
