@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("onResume load password: " + pass);
         }
             else return;
+
     }
 
     public void set_activity(View view) {

@@ -152,7 +152,7 @@ public class Main2Activity extends AppCompatActivity {
                 for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent2)) {
                     String senderNum = smsMessage.getDisplayOriginatingAddress();
                     //  Log.i("sender num", senderNum);
-                    SMSBody1 += smsMessage.getMessageBody().toString();
+                    SMSBody1 = smsMessage.getMessageBody().toString();
                     Log.i("length", String.valueOf(SMSBody1.length()));
                     Log.i("Received SMS:", SMSBody1);
                     String[] lines = SMSBody1.split("\\r?\\n");
@@ -160,7 +160,7 @@ public class Main2Activity extends AppCompatActivity {
                     Log.i("lines length", String.valueOf(l));
 
                     String sms = SMSBody1;
-
+                    if(sms.length()>60) {
                         if (lines[1].toString().contains("on ")) {
                             ImageView mImageViewFilling = findViewById(R.id.image_rot);
                             ((AnimationDrawable) mImageViewFilling.getBackground()).start();
@@ -185,7 +185,8 @@ public class Main2Activity extends AppCompatActivity {
                             //tv9.setText(s4.substring(6));
                         } else return;
                         SMSBody1 = "";
-
+                    }
+                    else return;
                 }
             }
         }
