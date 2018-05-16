@@ -26,20 +26,26 @@ public class SettingsActivity extends AppCompatActivity {
     Switch s3;
     Switch s4;
     Switch s5;
+    Switch s6;
+    Switch s7;
    // String phoneNumber = "9880760642";
     TextView text;
     TextView tv;
     String SMSBody1;
-    boolean val1 = true;
-    boolean val2 = true;
-    boolean val3 = true;
-    boolean val4 = true;
-    boolean val5 = true;
+    boolean val1 = false;
+    boolean val2 = false;
+    boolean val3 = false;
+    boolean val4 = false;
+    boolean val5 = false;
+    Boolean val6=false;
+    Boolean val7=false;
     SharedPreferences Preferences1;
     SharedPreferences Preferences2;
     SharedPreferences Preferences3;
     SharedPreferences Preferences4;
     SharedPreferences Preferences5;
+    SharedPreferences Preferences6;
+    SharedPreferences Preferences7;
 
 
     @Override
@@ -51,6 +57,8 @@ public class SettingsActivity extends AppCompatActivity {
         s3=findViewById(R.id.switch3);
         s4=findViewById(R.id.switch4);
         s5=findViewById(R.id.switch5);
+        s6=findViewById(R.id.switch6);
+        s7=findViewById(R.id.switchp2);
      //   tv=findViewById(R.id.textView1);
        // text=findViewById(R.id.onoff_status_text_1);
 
@@ -73,6 +81,14 @@ public class SettingsActivity extends AppCompatActivity {
         Preferences5 = getSharedPreferences("Checked5", 0);
         val5 = Preferences5.getBoolean("Checked5", val5); // retrieve the value of your key
         s5.setChecked(val5);
+
+        Preferences6 = getSharedPreferences("Checked6", 0);
+        val6 = Preferences6.getBoolean("Checked6", val6); // retrieve the value of your key
+        s6.setChecked(val6);
+
+        Preferences7 = getSharedPreferences("Checked7", 0);
+        val7 = Preferences7.getBoolean("Checked7", val7); // retrieve the value of your key
+        s7.setChecked(val7);
     }
 
     @Override
@@ -282,7 +298,7 @@ public void submit_func(View view){
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     s4.setChecked(false);
-                                    Preferences1.edit().putBoolean("Checked4",false).apply();
+                                    Preferences4.edit().putBoolean("Checked4",false).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -373,6 +389,127 @@ public void submit_func(View view){
                  AlertDialog alert11 = builder1.create();
                  alert11.show();
                 }
+            case R.id.switch6:
+                if(s6.isChecked()){
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                    builder1.setMessage("Are you sure want to switch on!.");
+                    builder1.setCancelable(true);
+                    builder1.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    String message = "SPC,0,1";
+                                    SmsManager smsManager = SmsManager.getDefault();
+                                    smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                                    Log.i("Test", message);
+                                    Log.i("Test", message);
+                                    Preferences6.edit().putBoolean("Checked6",true).apply();
+                                }
+                            });
+
+                    builder1.setNegativeButton(
+                            "No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    s6.setChecked(false);
+                                    Preferences6.edit().putBoolean("Checked6",false).apply();
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
+                else{
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                    builder1.setMessage("Are you sure want to switch off!.");
+                    builder1.setCancelable(true);
+                    builder1.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    String message = "SPC,0,0";
+                                    SmsManager smsManager = SmsManager.getDefault();
+                                    smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                                    Log.i("Test", message);
+                                    Log.i("Test", message);
+                                    Preferences6.edit().putBoolean("Checked6",false).apply();
+                                }
+                            });
+
+                    builder1.setNegativeButton(
+                            "No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    s6.setChecked(true);
+                                    Preferences6.edit().putBoolean("Checked6",true).apply();
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
+                break;
+            case R.id.switchp2:
+                if(s7.isChecked()){
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                    builder1.setMessage("Are you sure want to switch on!.");
+                    builder1.setCancelable(true);
+                    builder1.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    String message = "SPC,46,1";
+                                    SmsManager smsManager = SmsManager.getDefault();
+                                    smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                                    Log.i("Test", message);
+                                    Log.i("Test", message);
+                                    Preferences7.edit().putBoolean("Checked7",true).apply();
+                                }
+                            });
+
+                    builder1.setNegativeButton(
+                            "No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    s7.setChecked(false);
+                                    Preferences7.edit().putBoolean("Checked7",false).apply();
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
+                else{
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                    builder1.setMessage("Are you sure want to switch off!.");
+                    builder1.setCancelable(true);
+                    builder1.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    String message = "SPC,46,0";
+                                    SmsManager smsManager = SmsManager.getDefault();
+                                    smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                                    Log.i("Test", message);
+                                    Log.i("Test", message);
+                                    Preferences7.edit().putBoolean("Checked7",false).apply();
+                                }
+                            });
+
+                    builder1.setNegativeButton(
+                            "No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    s7.setChecked(true);
+                                    Preferences7.edit().putBoolean("Checked7",true).apply();
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
+                break;
+
         }
     }
 

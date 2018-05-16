@@ -98,6 +98,8 @@ public class ON_OFFActivity extends AppCompatActivity {
   TextView remove3;
     boolean value1 = true;
     boolean value2 = true;
+    Date currenttime;
+    String ctime;
 
 
     @Override
@@ -149,7 +151,8 @@ public class ON_OFFActivity extends AppCompatActivity {
         spinner1 = new Spinner(this);
         image=findViewById(R.id.image);
         format = new SimpleDateFormat("HH:mm");
-
+        ctime=format.format(Calendar.getInstance().getTime());
+        Log.i("current time",ctime);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -299,7 +302,7 @@ public class ON_OFFActivity extends AppCompatActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        if (diffMin >= 30.0) {
+                        if (diffMin >= 5.0) {
                             String h = ftime.substring(0, 2);
                             String m = ftime.substring(3);
                             message2 = "SPC,29," + h + "," + m;
@@ -307,7 +310,7 @@ public class ON_OFFActivity extends AppCompatActivity {
                             editor2.commit();
                             remove1.setVisibility(View.VISIBLE);
                         } else {
-                            Toast.makeText(ON_OFFActivity.this, "off time must be 30 mins greater than ontime", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ON_OFFActivity.this, "off time must be 5 mins greater than ontime", Toast.LENGTH_SHORT).show();
                             et11.setText("");
                         }
                     }
@@ -403,7 +406,7 @@ public class ON_OFFActivity extends AppCompatActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        if (diffMin >= 30.0) {
+                        if (diffMin >= 5.0) {
                             String h = ftime1.substring(0, 2);
                             String m = ftime1.substring(3);
                             message4 = "SPC,31," + h + "," + m;
@@ -505,7 +508,7 @@ public class ON_OFFActivity extends AppCompatActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        if (diffMin >= 30.0) {
+                        if (diffMin >= 5.0) {
                             String h = ftime2.substring(0, 2);
                             String m = ftime2.substring(3);
                             message6 = "SPC,33," + h + "," + m;

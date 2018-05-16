@@ -423,7 +423,7 @@
                 android:background="@drawable/mybutton"
                 android:gravity="center"
                 android:onClick="refresh"
-                android:text="Refresh" />
+                android:text="enquire" />
         </LinearLayout>
     </LinearLayout>
 

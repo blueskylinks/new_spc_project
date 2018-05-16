@@ -35,7 +35,8 @@
         <activity android:name=".RestartDryrunActivity" />
         <activity android:name=".UnderVoltageActivity" />
         <activity android:name="com.blueskylinks.expandablelist.expandable_hide_activity" />
-        <activity android:name=".RealClockTimeActivity"></activity>
+        <activity android:name=".RealClockTimeActivity" />
+        <activity android:name=".splashActivity"></activity>
     </application>
 
 </manifest>

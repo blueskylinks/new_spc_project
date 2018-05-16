@@ -113,6 +113,11 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Main User:"/>
                     <TextView
                         android:id="@+id/u_text1"
                         android:layout_width="wrap_content"
@@ -148,37 +153,50 @@
                         android:layout_weight="1"
                         android:text="User5:" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="5"
+                        android:layout_weight="3"
                         android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/u_text01"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:text=" " />
+
                         <TextView
                             android:id="@+id/u_text11"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="left"
-                            android:text=" "/>
+                            android:text=" " />
+
                         <TextView
                             android:id="@+id/u_text22"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text=""/>
+                            android:text=" " />
+
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:id="@+id/u_text33"
-                            android:text=""/>
-                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text=" " />
+
+                        <TextView
                             android:id="@+id/u_text44"
-                           android:text="" />
-                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text=" " />
+
+                        <TextView
                             android:id="@+id/u_text55"
-                            android:text=""/>
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=" " />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -238,6 +256,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Add"
+                        android:enabled="false"
                         android:onClick="Add_users"/>
 
                     <TableRow
@@ -314,6 +333,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Remove"
+                        android:enabled="false"
                         android:onClick="remove"/>
 
                     <TableRow

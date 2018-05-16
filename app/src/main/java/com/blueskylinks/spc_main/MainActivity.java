@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             phoneNumber=subId;
             //starting another activity..
-            Intent it = new Intent(MainActivity.this, Main2Activity.class);
+            Intent it = new Intent(MainActivity.this, splashActivity.class);
             startActivity(it);
         }
     }

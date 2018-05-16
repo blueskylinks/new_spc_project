@@ -7,11 +7,15 @@
    android:layout_width="fill_parent"
     android:orientation="vertical"
     android:background="@mipmap/image7">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         android:layout_weight="4">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@drawable/divider"
-        android:layout_weight="4"
         android:showDividers="end|beginning|middle"
         android:orientation="vertical">
 
@@ -41,6 +45,21 @@
                 android:layout_height="0.5dp"
                 android:layout_marginTop="10dp"
               android:layout_marginLeft="20dp"
+                android:background="@android:color/black"/>
+            <Switch
+                android:id="@+id/switchp2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:onClick="submit_func"
+                android:text="External Change Over"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
                 android:background="@android:color/black"/>
 
             <Switch
@@ -106,6 +125,21 @@
                 android:layout_height="0.5dp"
                 android:layout_marginTop="2dp"
                 android:background="@android:color/black"/>
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:id="@+id/switch6"
+                android:onClick="submit_func"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="Feed Back Call"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="2dp"
+                android:background="@android:color/black"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -298,6 +332,7 @@
 
         </LinearLayout>
     </LinearLayout>
+    </ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
