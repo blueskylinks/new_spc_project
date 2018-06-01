@@ -1,12 +1,15 @@
 package com.blueskylinks.spc_main;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.provider.Telephony;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         et1 = findViewById(R.id.Et1);
         et2 = findViewById(R.id.Et2);
         text = findViewById(R.id.textView7);
+
         Paint p = new Paint();
         p.setColor(Color.BLUE);
         c1 = findViewById(R.id.checkBox);
@@ -153,5 +157,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(it);
         }
     }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+
 }
 

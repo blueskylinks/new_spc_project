@@ -36,7 +36,8 @@
         <activity android:name=".UnderVoltageActivity" />
         <activity android:name="com.blueskylinks.expandablelist.expandable_hide_activity" />
         <activity android:name=".RealClockTimeActivity" />
-        <activity android:name=".splashActivity"></activity>
+        <activity android:name=".splashActivity" />
+
     </application>
 
 </manifest>

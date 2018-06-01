@@ -320,30 +320,33 @@
 
             <TextView
                 android:id="@+id/textView13"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="?attr/colorButtonNormal"
                 android:text="0.00"
                 android:textColor="@android:color/holo_red_dark"
-                android:textSize="24sp" />
+                android:textSize="36sp" />
 
             <TextView
                 android:id="@+id/textView17"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="?attr/colorButtonNormal"
                 android:text="0.00"
                 android:textColor="@android:color/holo_red_dark"
-                android:textSize="24sp" />
+                android:textSize="36sp" />
 
             <TextView
                 android:id="@+id/textView18"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="?attr/colorButtonNormal"
                 android:text="0.00"
                 android:textColor="@android:color/holo_red_dark"
-                android:textSize="24sp" />
+                android:textSize="36sp" />
 
             <TextView
                 android:id="@+id/bar_r2"
@@ -357,30 +360,33 @@
 
             <TextView
                 android:id="@+id/textView23"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="?attr/colorButtonNormal"
                 android:text="0.00"
                 android:textColor="@android:color/holo_blue_dark"
-                android:textSize="24sp" />
+                android:textSize="36sp" />
 
             <TextView
                 android:id="@+id/textView24"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="?attr/colorButtonNormal"
                 android:text="0.00"
                 android:textColor="@android:color/holo_blue_dark"
-                android:textSize="24sp" />
+                android:textSize="36sp" />
 
             <TextView
                 android:id="@+id/textView25"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="?attr/colorButtonNormal"
                 android:text="0.00"
                 android:textColor="@android:color/holo_blue_dark"
-                android:textSize="24sp" />
+                android:textSize="36sp" />
 
             <TextView
                 android:id="@+id/bar_r4"
