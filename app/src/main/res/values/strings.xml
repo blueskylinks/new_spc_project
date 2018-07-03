@@ -20,4 +20,6 @@
     <string-array name="spc_function_arrays2">
         <item>Real Clock Time(RTC)</item>
     </string-array>
+
+
 </resources>
