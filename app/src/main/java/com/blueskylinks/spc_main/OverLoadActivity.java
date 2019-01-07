@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,12 +19,11 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import static com.blueskylinks.spc_main.MainActivity.phoneNumber;
 
 public class OverLoadActivity extends AppCompatActivity {
     RadioButton rbutton1;
     RadioButton rbutyon2;
-   // String phoneNumber = "9880760642";
+    String phoneNumber ;
     ProgressBar pbar;
     ProgressBar pbar1;
     ProgressBar pbar2;
@@ -56,6 +56,9 @@ public class OverLoadActivity extends AppCompatActivity {
         pbar2=findViewById(R.id.set2);
         tv1=findViewById(R.id.time);
         tv2=findViewById(R.id.current);
+        //get Destination address
+        SharedPreferences sp1=getSharedPreferences("login",0);
+        phoneNumber=sp1.getString("subId","0");
     }
 
     @Override

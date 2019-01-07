@@ -18,7 +18,6 @@ import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import static com.blueskylinks.spc_main.MainActivity.phoneNumber;
 
 public class SettingsActivity extends AppCompatActivity {
     Switch s1;
@@ -32,6 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
     TextView text;
     TextView tv;
     String SMSBody1;
+    String phoneNumber;
     boolean val1 = false;
     boolean val2 = false;
     boolean val3 = false;
@@ -61,6 +61,9 @@ public class SettingsActivity extends AppCompatActivity {
         s7=findViewById(R.id.switchp2);
      //   tv=findViewById(R.id.textView1);
        // text=findViewById(R.id.onoff_status_text_1);
+
+        SharedPreferences sp1=getSharedPreferences("login",0);
+        phoneNumber=sp1.getString("subId","0");
 
         Preferences1 = getSharedPreferences("Checked1", 0);
         val1 = Preferences1.getBoolean("Checked1", val1); // retrieve the value of your key
@@ -100,7 +103,7 @@ public class SettingsActivity extends AppCompatActivity {
         registerReceiver(settingfunconoroffReceiver,SintentFilter);*/
     }
 
-public void submit_func(View view){
+    public void submit_func(View view){
         switch(view.getId()){
             case R.id.switch1:
                 if(s1.isChecked()){
@@ -139,11 +142,11 @@ public void submit_func(View view){
                             "Yes",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                    String message = "SPC,36,0";
-                    SmsManager smsManager = SmsManager.getDefault();
-                    //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-                    Log.i("Test", message);
-                    Preferences1.edit().putBoolean("Checked1",false).apply();
+                                    String message = "SPC,36,0";
+                                    SmsManager smsManager = SmsManager.getDefault();
+                                    //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                                    Log.i("Test", message);
+                                    Preferences1.edit().putBoolean("Checked1",false).apply();
                                 }
                             });
 

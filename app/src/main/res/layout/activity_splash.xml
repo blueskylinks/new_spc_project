@@ -21,16 +21,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        ></com.blueskylinks.spc_main.HorizontalDottedProgress>
+        android:layout_marginTop="20dp"></com.blueskylinks.spc_main.HorizontalDottedProgress>
 
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/logo"
-        />
+        android:src="@mipmap/logo" />
 
 
 </LinearLayout>

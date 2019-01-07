@@ -9,21 +9,19 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/logo1"
         android:label="SPC"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo1"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Main2Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Main2Activity"
-            android:parentActivityName=".MainActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ON_OFFActivity" />
         <activity android:name=".UsersActivity" />
@@ -34,9 +32,9 @@
         <activity android:name=".Over_voltage_funtion" />
         <activity android:name=".RestartDryrunActivity" />
         <activity android:name=".UnderVoltageActivity" />
-        <activity android:name="com.blueskylinks.expandablelist.expandable_hide_activity" />
         <activity android:name=".RealClockTimeActivity" />
-        <activity android:name=".splashActivity"></activity>
+        <activity android:name=".splashActivity" />
+
     </application>
 
 </manifest>

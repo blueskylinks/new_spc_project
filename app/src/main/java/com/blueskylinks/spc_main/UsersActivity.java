@@ -28,8 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static com.blueskylinks.spc_main.Main2Activity.progressDialog;
-import static com.blueskylinks.spc_main.MainActivity.phoneNumber;
-import static com.blueskylinks.spc_main.MainActivity.subId;
+
 
 public class UsersActivity extends AppCompatActivity {
     String no;
@@ -64,7 +63,7 @@ public class UsersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        phoneNumber = subId;
+
         setContentView(R.layout.activity_users);
         pbar1=findViewById(R.id.onoff_pgbar11);
         textView1=findViewById(R.id.onoff_status_text_1);
@@ -83,6 +82,9 @@ public class UsersActivity extends AppCompatActivity {
         textView3 = findViewById(R.id.onoff_status_text1);
         addbutton=findViewById(R.id.au_bt1);
         removebutton=findViewById(R.id.au_bt3);
+        //get Destination address
+        SharedPreferences sp1=getSharedPreferences("login",0);
+        phoneNumber=sp1.getString("subId","0");
 
      MainUser=text01.getText().toString();
         Preferences=getSharedPreferences("pref",0);

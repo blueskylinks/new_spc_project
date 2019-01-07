@@ -24,11 +24,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import static com.blueskylinks.spc_main.MainActivity.phoneNumber;
 
 public class ManualActivity extends AppCompatActivity {
     int pos;
-   // String phoneNumber = "9880760642";
+    String phoneNumber ;
     Spinner spinner;
     Spinner spinner1;
     LinearLayout layout;
@@ -53,6 +52,10 @@ public class ManualActivity extends AppCompatActivity {
          tv=findViewById(R.id.textview1);
          tv2=findViewById(R.id.textView2);
          pbar=findViewById(R.id.pbar);
+        //get Destination address
+        SharedPreferences sp1=getSharedPreferences("login",0);
+        phoneNumber=sp1.getString("subId","0");
+
       spinner1 = new Spinner(this);
        mainLayout = (LinearLayout)findViewById(R.id.spinnerLayout);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

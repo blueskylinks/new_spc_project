@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class RealClockTimeActivity extends AppCompatActivity {
-    String phoneNumber = "9663261329";
+    String phoneNumber ;
     Spinner spinner;
     Spinner spinner1;
     String selectedItem;
@@ -55,6 +56,10 @@ public class RealClockTimeActivity extends AppCompatActivity {
         pbar=findViewById(R.id.pbar);
         mainLayout=findViewById(R.id.spinnerLayout);
         spinner1 = new Spinner(this);
+
+        //get Destination address
+        SharedPreferences sp1=getSharedPreferences("login",0);
+        phoneNumber=sp1.getString("subId","0");
 
         et2.addTextChangedListener(new TextWatcher() {
             @Override

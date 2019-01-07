@@ -55,11 +55,18 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
 
-                    <TextView
+                   <!-- <TextView
                         android:id="@+id/mot_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Motor 1" />
+                        android:text="Motor 1" />-->
+                    <Spinner
+                        android:id="@+id/spinner111"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_alignLeft="@+id/editText1"
+                        android:layout_below="@+id/editText1" />
 
                 </TableRow>
 

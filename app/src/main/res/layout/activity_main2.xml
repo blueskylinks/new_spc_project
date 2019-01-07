@@ -1,100 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.blueskylinks.spc_main.Main2Activity"
+    android:id="@+id/swiperefresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@mipmap/image7"
-    android:orientation="vertical"
-    tools:context="com.blueskylinks.spc_main.Main2Activity">
-
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="4"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView_l1"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:text="Last synced"
+                    android:textAlignment="textEnd" />
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:orientation="horizontal">
+
+                <!-- R -->
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/roundborderr"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="0.00"
+                        android:textColor="#000000"
+                        android:gravity="center"
+                        android:textSize="35sp" />
+
+                    <!-- Black divider line -->
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:background="#000000" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:textColor="#000000"
+                        android:text="0.00"
+                        android:gravity="center"
+                        android:textSize="38sp" />
+                </LinearLayout>
+
+                <!-- Y -->
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/roundbordery"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView21"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="0.00"
+                        android:textColor="#000000"
+                        android:gravity="center"
+                        android:textSize="35sp" />
+
+                   <!-- Black divider line -->
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:background="#000000" />
+
+                    <TextView
+                        android:id="@+id/textView22"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="0.00"
+                        android:textColor="#000000"
+                        android:gravity="center"
+                        android:textSize="38sp" />
+                </LinearLayout>
+
+               <!-- B -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/roundborderb"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView31"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="0.00"
+                        android:textColor="#000000"
+
+                        android:gravity="center"
+                        android:textSize="35sp" />
+                    <!--Black divider line -->
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:background="#000000" />
+
+                    <TextView
+                        android:id="@+id/textView32"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:textColor="#000000"
+                        android:gravity="center"
+                        android:text="0.00"
+                        android:textSize="38sp" />
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
+        <!-- Blue divider line -->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:background="#3377FF" />
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.7"
-                android:text="Functions"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_weight="4"
+                android:orientation="horizontal">
+               <!-- Motor image -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/motorborder"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/bar1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-                android:background="@android:color/darker_gray"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:src="@drawable/pump" />
+                </LinearLayout>
+                <!-- Off -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/motorborder"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="Motor."
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bott_bord"
+                        android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/bar2"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.05"
-                android:background="@android:color/darker_gray"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/on_off_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textAlignment="center" />
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="Phase"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
+                    </LinearLayout>
 
-            <TextView
-                android:id="@+id/bar3"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.05"
-                android:background="@android:color/darker_gray"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="5"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textSize="8pt"
+                            android:id="@+id/time"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textSize="8pt"
+                            android:id="@+id/date" />
 
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -102,550 +266,440 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    android:text="Voltage"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
+                    android:text="Electricity resume"
+                    android:textAlignment="center" />
 
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="6"
-                    android:text="RY"
-                    android:textAlignment="viewStart"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="top|center_horizontal"
-                android:text="YB"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="top|center_horizontal"
-                android:text="BR"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:background="#3377FF" />
 
-            <TextView
-                android:id="@+id/bar5"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.05"
-                android:background="@android:color/darker_gray"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView20"
+                <!-- bulb image ,date etc -->
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    android:text="Current"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView19"
+                    <!-- bulb image -->
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:src="@drawable/bulb" />
+
+                    <!-- Date -->
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.25" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_height="match_parent"
+                            android:text="Date:" />
+                    </LinearLayout>
+
+                  <!-- Electricity -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.25" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="15dp"
+                            android:layout_weight="1"
+                            android:layout_gravity="center_vertical"
+                            android:background="#5fe1fa"/>
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.25" />
+
+                        <TextView
+                            android:id="@+id/tv_electricity"
+                            android:layout_width="0dp"
+                            android:layout_weight="6"
+                            android:gravity="center_vertical"
+                            android:layout_height="match_parent"
+                            android:text="Electricity:" />
+
+                    </LinearLayout>
+                   <!-- electricity time -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                    </LinearLayout>
+
+                    <!-- Motor on  -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.25" />
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="15dp"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:background="#3fe1fa"/>
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.25" />
+
+                        <TextView
+                            android:id="@+id/tv_motoron"
+                            android:layout_width="0dp"
+                            android:layout_weight="6"
+                            android:gravity="center_vertical"
+                            android:layout_height="match_parent"
+                            android:text="Motor ON:" />
+
+                    </LinearLayout>
+
+                    <!--Motor on time -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.75"
+                        android:orientation="vertical">
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Circular chart -->
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="6"
-                    android:text=" R"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                </LinearLayout>
+
+                <!-- 3phase,2phase switch button -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="4"
+                        android:text="3 Phase"
+                        android:gravity="bottom"
+                        android:textAlignment="center" />
+
+                    <Switch
+                        android:id="@+id/switch7"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="4"
+                        android:onClick="submit_func"
+                        android:layout_gravity="center_horizontal"
+                        android:rotation="90"/>
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="2" >
+                    </Space>
+
+                    <TextView
+                        android:id="@+id/tv2p"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:text="2 Phase"
+                        android:gravity="top"
+                        android:layout_weight="4"
+                        android:textAlignment="center" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView21"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="top|center_horizontal"
-                android:text="Y"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView22"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="top|center_horizontal"
-                android:text="B"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/bar6"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.05"
-                android:background="@android:color/darker_gray"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView26"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="Last Switched ON by"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/bar7"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.05"
-                android:background="@android:color/darker_gray"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView27"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="Last Switched ON time"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView33"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
-
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:gravity="center_horizontal">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.7"
-                android:text="Status"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/bar_r1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"
-                android:background="@android:color/darker_gray"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textSize="18sp"
-                android:textStyle="bold" />
 
-            <TableRow
-                android:id="@+id/tb_44"
-                android:layout_width="match_parent"
-                android:layout_height="43dp">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="100dp"
-                    android:layout_height="43dp"
-                    android:textColor="@android:color/holo_red_dark"
-                    android:textSize="24sp" />
+                    <ImageButton
+                        android:id="@+id/imageButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@mipmap/icon1" />
+                </TableRow>
 
-                <ImageView
-                    android:id="@+id/image_rot"
-                    android:layout_width="43dp"
-                    android:layout_height="43dp"
-                    android:background="@drawable/image_change" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            </TableRow>
+                    <TextView
+                        android:id="@+id/textView34"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Home"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+                </TableRow>
 
-            <TextView
-                android:id="@+id/bar_r"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.05"
-                android:background="@android:color/darker_gray"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+            </TableLayout>
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="24sp" />
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/bar_r3"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.05"
-                android:background="@android:color/darker_gray"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="0.00"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="24sp" />
+                    <ImageButton
+                        android:id="@+id/imageButton11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:onClick="ON_OFF"
+                        app:srcCompat="@mipmap/icons8" />
+                </TableRow>
 
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="0.00"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="24sp" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="0.00"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="24sp" />
+                    <TextView
+                        android:id="@+id/textView314"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="ON/OFF"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+                </TableRow>
 
-            <TextView
-                android:id="@+id/bar_r2"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.05"
-                android:background="@android:color/darker_gray"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+            </TableLayout>
 
-            <TextView
-                android:id="@+id/textView23"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="0.00"
-                android:textColor="@android:color/holo_blue_dark"
-                android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/textView24"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="0.00"
-                android:textColor="@android:color/holo_blue_dark"
-                android:textSize="24sp" />
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView25"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="0.00"
-                android:textColor="@android:color/holo_blue_dark"
-                android:textSize="24sp" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/bar_r4"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.05"
-                android:background="@android:color/darker_gray"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                    <ImageButton
+                        android:id="@+id/imageButton1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="settings"
+                        app:srcCompat="@mipmap/icon_set" />
+                </TableRow>
 
-            <TextView
-                android:id="@+id/textView28"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/bar_r6"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.05"
-                android:background="@android:color/darker_gray"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tb1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Settings"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView29"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="HH:MM:SS" />
+                </TableRow>
 
-            <TextView
-                android:id="@+id/refresh_bt1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/mybutton"
-                android:gravity="center"
-                android:onClick="refresh"
-                android:text="enquire" />
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:id="@+id/usr1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="Users"
+                        app:srcCompat="@mipmap/icon_user" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/usr_l1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Users"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+            </TableLayout>
+
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:id="@+id/usrll1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        app:srcCompat="@mipmap/icons8_error" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/usr_l21"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Warning"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:id="@+id/imageButton21"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="manual"
+                        app:srcCompat="@mipmap/manual" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView324"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Functions"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+                </TableRow></TableLayout>
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:id="@+id/logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="logout"
+                        app:srcCompat="@mipmap/signout" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="logout"
+                        android:gravity="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold"/>
+                </TableRow>
+
+            </TableLayout>
+
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:orientation="horizontal">
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?attr/editTextBackground"
-            android:orientation="horizontal"></LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:gravity="center_horizontal">
-
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/icon1" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView34"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Home"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
-            </TableRow>
-
-        </TableLayout>
-
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" >
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageButton
-                    android:id="@+id/imageButton11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:onClick="ON_OFF"
-                    app:srcCompat="@mipmap/icons8" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView314"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="ON/OFF"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
-            </TableRow>
-
-        </TableLayout>
-
-
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageButton
-                    android:id="@+id/imageButton1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="settings"
-                    app:srcCompat="@mipmap/icon_set" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/tb1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Settings"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
-
-            </TableRow>
-
-        </TableLayout>
-
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageButton
-                    android:id="@+id/usr1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/icon_user"
-                    android:onClick="Users"/>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/usr_l1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Users"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
-            </TableRow>
-
-        </TableLayout>
-
-
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageButton
-                    android:id="@+id/usrll1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/icons8_error" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/usr_l21"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Warning"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
-            </TableRow>
-
-        </TableLayout>
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" >
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageButton
-                    android:id="@+id/imageButton21"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="manual"
-                    app:srcCompat="@mipmap/manual" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/textView324"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Functions"
-                    android:textColor="@android:color/black"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
-            </TableRow>
-
-        </TableLayout>
-
-    </LinearLayout>
-</LinearLayout>

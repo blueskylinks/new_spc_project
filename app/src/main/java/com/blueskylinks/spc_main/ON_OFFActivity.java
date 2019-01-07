@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.drawable.RotateDrawable;
+import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,13 +36,15 @@ import android.widget.Toast;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static com.blueskylinks.spc_main.Main2Activity.mot_st;
 import static com.blueskylinks.spc_main.Main2Activity.progressDialog;
 import static com.blueskylinks.spc_main.Main2Activity.tv;
-import static com.blueskylinks.spc_main.MainActivity.phoneNumber;
+
 
 public class ON_OFFActivity extends AppCompatActivity {
 
@@ -52,10 +55,13 @@ public class ON_OFFActivity extends AppCompatActivity {
     RadioButton onoff_rb1;
     RadioButton onoff_rb2;
     Long diffMin;
+    Long diffMin1;
    String message1;
     String message2;
+    String phoneNumber;
     String message3;
     String message4;
+
     String message5;
     String message6;
     String on;
@@ -96,10 +102,14 @@ public class ON_OFFActivity extends AppCompatActivity {
   TextView remove1;
   TextView remove2;
   TextView remove3;
+  String Subno;
     boolean value1 = true;
     boolean value2 = true;
-    Date currenttime;
+   // Date currenttime;
     String ctime;
+    List<String> stringlist;
+    ArrayAdapter<String> arrayadapter;
+    Spinner SPINNER;
 
 
     @Override
@@ -153,6 +163,52 @@ public class ON_OFFActivity extends AppCompatActivity {
         format = new SimpleDateFormat("HH:mm");
         ctime=format.format(Calendar.getInstance().getTime());
         Log.i("current time",ctime);
+
+        //Main Activity Spinner
+         SharedPreferences prefs = getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        String SpinnerItems=prefs.getString("PLAYLISTS",null);
+
+        String[]  spinnerItems=SpinnerItems.split(",");
+
+        SPINNER = (Spinner)findViewById(R.id.spinner111);
+
+        stringlist = new ArrayList<>(Arrays.asList(spinnerItems));
+
+        arrayadapter = new ArrayAdapter<String>(ON_OFFActivity.this,R.layout.textview,stringlist);
+
+        arrayadapter.setDropDownViewResource(R.layout.textview);
+        SPINNER.setAdapter(arrayadapter);
+
+        SharedPreferences sp1=getSharedPreferences("login",0);
+        phoneNumber=sp1.getString("subId","0");
+
+        //get spinner last postion
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if(SP!=null){
+            int pos = SP.getInt("last index", 0);
+            SPINNER.setSelection(pos);
+        }
+
+        SPINNER.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Subno = SPINNER.getItemAtPosition(i).toString();
+                Log.i("Selected item",Subno);
+                //store spinner position
+                SharedPreferences SP;
+                SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SP.edit().putInt("last index", SPINNER.getSelectedItemPosition()).commit();
+                phoneNumber=Subno;
+               SharedPreferences mt_pref = getSharedPreferences("login", 0);
+                mt_pref.edit().putString("subId",phoneNumber).apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+        });
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -290,13 +346,14 @@ public class ON_OFFActivity extends AppCompatActivity {
 
                         ftime = et11.getText().toString();
                         ntime = et1.getText().toString();
-                        editor2.putString("RTC_1", ftime);
-                        editor2.commit();
+
                         try {
                             d1 = format.parse(ntime);
                             d2 = format.parse(ftime);
                             long diff = d2.getTime() - d1.getTime();
                             diffMin = diff / (60 * 1000);
+                            diffMin1=diff/(60);
+                            Toast.makeText(ON_OFFActivity.this, "difference betwee times"+diffMin1, Toast.LENGTH_SHORT).show();
                             Log.i("difference", String.valueOf(diffMin));
 
                         } catch (Exception e) {
@@ -306,12 +363,15 @@ public class ON_OFFActivity extends AppCompatActivity {
                             String h = ftime.substring(0, 2);
                             String m = ftime.substring(3);
                             message2 = "SPC,29," + h + "," + m;
+                            editor2.putString("RTC_1", ftime);
+                            editor2.commit();
                             editor2.putString("msg2", message2);
                             editor2.commit();
                             remove1.setVisibility(View.VISIBLE);
                         } else {
                             Toast.makeText(ON_OFFActivity.this, "off time must be 5 mins greater than ontime", Toast.LENGTH_SHORT).show();
-                            et11.setText("");
+                            et11.setText(" ");
+
                         }
                     }
                 }, hour, minute, true);//Yes 24 hour time
@@ -342,8 +402,7 @@ public class ON_OFFActivity extends AppCompatActivity {
 
                         et2.setText(Hour + ":" + Minute);
                         ntime1 = et2.getText().toString();
-                        editor2.putString("RTC2", ntime1);
-                        editor2.commit();
+
                         try {
                             ontime = format.parse(et2.getText().toString());
                             d1 = format.parse(et1.getText().toString());
@@ -355,6 +414,8 @@ public class ON_OFFActivity extends AppCompatActivity {
                         if (ontime.after(d2)) {
                             String h = et2.getText().toString().substring(0, 2);
                             String m = et2.getText().toString().substring(3);
+                            editor2.putString("RTC2", ntime1);
+                            editor2.commit();
                             message3 = "SPC,30," + h + "," + m;
                             editor2.putString("msg3", message3);
                             editor2.commit();
@@ -391,8 +452,7 @@ public class ON_OFFActivity extends AppCompatActivity {
 
                         ftime1 = et12.getText().toString();
                         ntime1 = et2.getText().toString();
-                        editor2.putString("RTC_2", ftime1);
-                        editor2.commit();
+
                         try {
                             d1 = format.parse(et1.getText().toString());
                             d2 = format.parse(et11.getText().toString());
@@ -401,6 +461,8 @@ public class ON_OFFActivity extends AppCompatActivity {
                             offtime = format.parse(et12.getText().toString());
                             long diff = date2.getTime() - date1.getTime();
                             diffMin = diff / (60 * 1000);
+                            diffMin1=diff/(60);
+                            Toast.makeText(ON_OFFActivity.this, "difference betwee times"+diffMin1, Toast.LENGTH_SHORT).show();
                             Log.i("difference", String.valueOf(diffMin));
 
                         } catch (Exception e) {
@@ -410,12 +472,15 @@ public class ON_OFFActivity extends AppCompatActivity {
                             String h = ftime1.substring(0, 2);
                             String m = ftime1.substring(3);
                             message4 = "SPC,31," + h + "," + m;
+                            editor2.putString("RTC_2", ftime1);
+                            editor2.commit();
                             editor2.putString("msg4", message4);
                             editor2.commit();
                             remove2.setVisibility(View.VISIBLE);
                         } else {
                             Toast.makeText(ON_OFFActivity.this, "off time must be 30 mins greater than ontime", Toast.LENGTH_SHORT).show();
                             et12.setText("");
+
                         }
                     }
                 }, hour, minute, true);//Yes 24 hour time
@@ -446,8 +511,7 @@ public class ON_OFFActivity extends AppCompatActivity {
 
                         et3.setText(Hour + ":" + Minute);
                         ntime2 = et3.getText().toString();
-                        editor2.putString("RTC3", ntime2);
-                        editor2.commit();
+
                         try {
                             ontime = format.parse(et3.getText().toString());
                             date1 = format.parse(et2.getText().toString());
@@ -460,6 +524,8 @@ public class ON_OFFActivity extends AppCompatActivity {
                             String m = et3.getText().toString().substring(3);
                             message5 = "SPC,32," + h + "," + m;
                             editor2.putString("msg5", message5);
+                            editor2.commit();
+                            editor2.putString("RTC3", ntime2);
                             editor2.commit();
                         } else {
                             et3.setText("");
@@ -495,14 +561,15 @@ public class ON_OFFActivity extends AppCompatActivity {
 
                         ftime2 = et13.getText().toString();
                         ntime2 = et3.getText().toString();
-                        editor2.putString("RTC_3", ftime2);
-                        editor2.commit();
+
                         try {
                             date_1 = format.parse(ntime2);
                             date_2 = format.parse(ftime2);
                             offtime = format.parse(et13.getText().toString());
                             long diff = date_2.getTime() - date_1.getTime();
                             diffMin = diff / (60 * 1000);
+                            diffMin1=diff/(60);
+                            Toast.makeText(ON_OFFActivity.this, "difference betwee times"+diffMin1, Toast.LENGTH_SHORT).show();
                             Log.i("difference", String.valueOf(diffMin));
 
                         } catch (Exception e) {
@@ -512,12 +579,15 @@ public class ON_OFFActivity extends AppCompatActivity {
                             String h = ftime2.substring(0, 2);
                             String m = ftime2.substring(3);
                             message6 = "SPC,33," + h + "," + m;
+                            editor2.putString("RTC_3", ftime2);
+                            editor2.commit();
                             editor2.putString("msg6", message6);
                             editor2.commit();
                             remove3.setVisibility(View.VISIBLE);
                         } else {
                             Toast.makeText(ON_OFFActivity.this, "off time must be 30 mins greater than ontime", Toast.LENGTH_SHORT).show();
                             et13.setText("");
+
                         }
                     }
                 }, hour, minute, true);//Yes 24 hour time
