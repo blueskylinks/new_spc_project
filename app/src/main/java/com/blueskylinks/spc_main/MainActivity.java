@@ -169,12 +169,14 @@ public void display_editBox(View v){
         } else {
             phoneNumber=subId;*/
             //starting another activity..
-
-             mt_pref = getSharedPreferences("login", 0);
-             mt_pref.edit().putBoolean("logged",true).apply();
-              mt_pref.edit().putString("subId",phoneNumber).apply();
-            Intent it = new Intent(MainActivity.this, splashActivity.class);
-            startActivity(it);
+            if(SPINNER != null &&phoneNumber !=null ) {
+                mt_pref = getSharedPreferences("login", 0);
+                mt_pref.edit().putBoolean("logged", true).apply();
+                mt_pref.edit().putString("subId", phoneNumber).apply();
+                Intent it = new Intent(MainActivity.this, splashActivity.class);
+                startActivity(it);
+            }
+            else Toast.makeText(this, "Please Add numbers", Toast.LENGTH_SHORT).show();
     }
 }
 
