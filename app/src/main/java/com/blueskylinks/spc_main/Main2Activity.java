@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Handler;
 import android.provider.Telephony;
 import android.support.v4.app.ActivityCompat;
@@ -19,60 +18,69 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Main2Activity extends AppCompatActivity {
-    public static  TextView tv;
-    public static  TextView tv1;
-    public static  TextView tv2;
-    public static  TextView tv3;
-    public static  TextView tv4;
-    public static  TextView tv5;
-    public static  TextView on_off_text;
-    public static  TextView Dates;
-    public static  TextView time;
-    public static  TextView tc3;
+    TextView tv;
+    TextView tv1;
+    TextView tv2;
+    TextView tv3;
+    TextView tv4;
+    TextView tv5;
+    TextView on_off_text;
+    TextView Dates;
+    TextView time;
+    TextView tc3;
+    TextView electricity;
+
+    String s;
+    String s2;
+    String s3;
+    String s4;
+    String s5;
+    String s6;
+    String[] d;
 
     ImageView myimage;
     TextView textt1;
     TextView tv8;
     TextView text;
     SwipeRefreshLayout mySwipeRefreshLayout;
-    public static ProgressDialog progressDialog;
+    ProgressDialog progressDialog;
     SharedPreferences Preferences1;
-
     //changes made
     String SMSBody1;
     boolean logged;
     String phoneNumber;
     Switch s1;
     public static SharedPreferences mt_status_pref;
-    public static SharedPreferences v1_pref;
-    public static SharedPreferences v2_pref;
-    public static SharedPreferences v3_pref;
-    public static SharedPreferences r_pref;
-    public static SharedPreferences y_pref;
-    public static SharedPreferences b_pref;
-    public static SharedPreferences d_pref;
-    public static SharedPreferences t_pref;
-    public static SharedPreferences d_on_pref;
-    public static SharedPreferences t_on_pref;
+    SharedPreferences v1_pref;
+    SharedPreferences v2_pref;
+    SharedPreferences v3_pref;
+    SharedPreferences r_pref;
+    SharedPreferences y_pref;
+    SharedPreferences b_pref;
+    SharedPreferences d_pref;
+    SharedPreferences t_pref;
+    SharedPreferences d_on_pref;
+    SharedPreferences t_on_pref;
     SharedPreferences status_pref;
+    public static SharedPreferences ele_d_pref;
+    public static SharedPreferences ele_t_pref;
     public static SharedPreferences.Editor editor;
     public static int mot_st;
     public static int app_status;
     Boolean val1=false;
     TextView sync_date_time;
+    SharedPreferences sp1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +93,11 @@ public class Main2Activity extends AppCompatActivity {
         b_pref=getSharedPreferences("B",0);
         d_pref=getSharedPreferences("sync_date",0);
         t_pref=getSharedPreferences("sync_time",0);
-        d_pref=getSharedPreferences("sync_date_on",0);
-        t_pref=getSharedPreferences("sync_time_off",0);
+        d_on_pref=getSharedPreferences("sync_date_on",0);
+        t_on_pref=getSharedPreferences("sync_time_off",0);
         status_pref=getSharedPreferences("motor_status",0);
+        ele_d_pref=getSharedPreferences("power ondate",0);
+        ele_t_pref=getSharedPreferences("power ontime",0);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         ActivityCompat.requestPermissions(this,
@@ -116,15 +126,14 @@ public class Main2Activity extends AppCompatActivity {
         tv1.setTypeface(typeface);
         tv5.setTypeface(typeface);
         tv.setTypeface(typeface);
-        text=findViewById(R.id.on_off_text);
         Dates=findViewById(R.id.date);
         time=findViewById(R.id.time);
         mySwipeRefreshLayout=findViewById(R.id.swiperefresh);
         on_off_text=findViewById(R.id.on_off_text);
         myimage=findViewById(R.id.img1);
-      //  textt1=findViewById(R.id.textt1
-
-        SharedPreferences sp1=getSharedPreferences("login",0);
+        tc3=findViewById(R.id.tv_motoron);
+        electricity=findViewById(R.id.tv_electricity);
+       sp1 =getSharedPreferences("login",0);
         logged=sp1.getBoolean("logged",false);
         phoneNumber=sp1.getString("subId","0");
 
@@ -135,25 +144,20 @@ public class Main2Activity extends AppCompatActivity {
          if(app_status!=1){
             String message = "SPC,25";
             SmsManager smsManager = SmsManager.getDefault();
-           //smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-           // ImageView mImageViewFilling = findViewById(R.id.image_rot);
-           // ((AnimationDrawable) mImageViewFilling.getBackground()).stop();
+           smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             Log.i("Test", "SMS sent!");
             progress();
             app_status =1;
         }
 
-
-        if(logged==true){
+        if(logged){
             Log.i("","logged in");
-          //  Toast.makeText(this, "logged in", Toast.LENGTH_SHORT).show();
-
         }
         else{
             Log.i("","logged out");
             Intent it=new Intent(Main2Activity.this,MainActivity.class);
             startActivity(it);
-              }
+        }
 
      //page reload
         mySwipeRefreshLayout.setOnRefreshListener(
@@ -192,11 +196,19 @@ public class Main2Activity extends AppCompatActivity {
         String c3=b_pref.getString("B","0");
         tv3.setText(c3+"A");
 
+        //last sync time and date
         String sync_date=d_pref.getString("sync_date","");
         String sync_time=t_pref.getString("sync_time","");
         String sync_on_date=d_pref.getString("sync_on_date","");
         String sync_on_time=t_pref.getString("sync_on_time","");
-        sync_date_time.setText("@"+sync_time+"  "+sync_date);
+        sync_date_time.setText(sync_time+"  "+sync_date);
+
+        tc3.setText(sync_on_time+"  "+sync_on_date);
+
+        //suply on time
+        String ele_date=ele_d_pref.getString("power ondate","");
+        String ele_time=ele_t_pref.getString("power ontime","");
+        electricity.setText(ele_date+"\t"+ele_time);
 
         //current date and time
         DateFormat df = new SimpleDateFormat("dd MM yyyy, HH:mm:ss");
@@ -221,7 +233,7 @@ public class Main2Activity extends AppCompatActivity {
         Log.i("aaaaa", Integer.toString(app_status));
         if(mot_st != mt_status_pref.getInt("m1",0)){
             editor.putInt("m1",mot_st);
-            editor.commit();
+            editor.apply();
         }
 
         final IntentFilter mIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
@@ -267,7 +279,7 @@ public class Main2Activity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int id) {
                     String message = "SPC,36,1";
                     SmsManager smsManager = SmsManager.getDefault();
-                    //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                       smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                     Log.i("Test", message);
                     Preferences1.edit().putBoolean("Checked1",true).apply();
                 }
@@ -292,7 +304,7 @@ public class Main2Activity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int id) {
                     String message = "SPC,36,0";
                     SmsManager smsManager = SmsManager.getDefault();
-                    //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                       smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                     Log.i("Test", message);
                     Preferences1.edit().putBoolean("Checked1", false).apply();
                 }
@@ -334,9 +346,11 @@ public class Main2Activity extends AppCompatActivity {
         startActivity(it4);
     }
     public void logout(View view){
+        logged=false;
+        sp1.edit().putBoolean("logged", false).apply();
         Intent it=new Intent(Main2Activity.this,MainActivity.class);
         startActivity(it);
-        logged=false;
+
     }
 
     public void motor_on(View view){
@@ -387,6 +401,19 @@ public class Main2Activity extends AppCompatActivity {
         builder.show();
     }
 
+    //shared pref update
+    public void motor_status_track(){
+        v1_pref.edit().putString("voltage1",s).apply();
+        v2_pref.edit().putString("voltage2",s2).apply();
+        v3_pref.edit().putString("voltage3",s3).apply();
+        r_pref.edit().putString("R",s4).apply();
+        y_pref.edit().putString("Y",s5).apply();
+        b_pref.edit().putString("B",s6).apply();
+        d_on_pref.edit().putString("sync_date_on",d[0]).apply();
+        t_on_pref.edit().putString("sync_time_off",d[1]).apply();
+
+    }
+
     private final BroadcastReceiver sms_notify_reciver = new BroadcastReceiver() {
 
         @Override
@@ -396,85 +423,87 @@ public class Main2Activity extends AppCompatActivity {
                     String senderNum = smsMessage.getDisplayOriginatingAddress();
                     Log.i("sender num",senderNum.substring(3));
                     Log.i("sender num",phoneNumber);
-                    //  Log.i("sender num", senderNum);
-
-                        SMSBody1 += smsMessage.getMessageBody().toString();
+                    SMSBody1 += smsMessage.getMessageBody().toString();
+                    if(phoneNumber.equals(senderNum.substring(3))) {
                         Log.i("length", String.valueOf(SMSBody1.length()));
                         Log.i("Received SMS:", SMSBody1);
-                            String[] lines = SMSBody1.split("\\r?\\n");
-                            int l = lines.length - 1;
-                            Log.i("lines length", String.valueOf(l));
-                         if(phoneNumber.equals(senderNum.substring(3)) && SMSBody1.length()<160) {
+                        String[] lines = SMSBody1.split("\\r?\\n");
+                        int l = lines.length - 1;
+                        if (SMSBody1.length() < 160) {
                             if (lines[1].toString().contains("on ")) {
-                                //   ImageView mImageViewFilling = findViewById(R.id.image_rot);
-                                //   ((AnimationDrawable) mImageViewFilling.getBackground()).start();
-                                text.setText("ON");
+                                on_off_text.setText("ON");
                                 editor = mt_status_pref.edit();
                                 editor.putInt("m1", 1);
-                                editor.commit();
+                                editor.apply();
                                 mot_st = 1;
-                                if (lines[1].toString().contains("3")) {
-                                }//tv1.setText("3 Phase Mode");
-                                else {
-                                } //tv1.setText("2 Phase Mode");
-                                String s1 = lines[2].toString();
-                                String s2 = lines[3].toString();
-                                String s3 = lines[4].toString();
-                                String s4 = lines[l].toString();
-                                tv.setText(s1.substring(4, 7) + "V");
-                                tv4.setText(s2.substring(4, 7) + "V");
-                                tv2.setText(s3.substring(4, 7) + "V");
-
-                                tv1.setText(lines[6].toString().substring(3) + "A");
-                                tv3.setText(lines[7].toString().substring(3) + "A");
-                                tv5.setText(lines[8].toString().substring(3) + "A");
+                                if (lines[1].toString().contains("2 phase")) {
+                                    s1.setChecked(false);
+                                } else {
+                                    s1.setChecked(true);
+                                }
+                                s = lines[2].toString().substring(4, 7);
+                                s2 = lines[3].toString().substring(4, 7);
+                                s3 = lines[4].toString().substring(4, 7);
+                                tv.setText(s + "V");
+                                tv4.setText(s2 + "V");
+                                tv2.setText(s3 + "V");
+                                s4 = lines[6].toString().substring(3);
+                                s5 = lines[7].toString().substring(3);
+                                s6 = lines[8].toString().substring(3);
+                                tv1.setText(s4 + "A");
+                                tv3.setText(s5 + "A");
+                                tv5.setText(s6 + "A");
                                 DateFormat df = new SimpleDateFormat("dd.MM.yyyy, HH:mm:ss");
                                 String date = df.format(Calendar.getInstance().getTime());
-                                Log.i("Date &TIME",date.toString());
-                                String[] d = date.split(",");
-                                time.setText("ON @ "+d[1]+"/n"+d[0]);
-
-                                sync_date_time.setText("@"+d[1]+"  "+d[0]);
-                                tv8.setText("Date:"+d[0]);
-                                v1_pref.edit().putString("voltage1",s1.substring(4, 7)).apply();
-                                v2_pref.edit().putString("voltage2",s2.substring(4, 7)).apply();
-                                v3_pref.edit().putString("voltage3",s3.substring(4, 7)).apply();
-                                r_pref.edit().putString("R",lines[6].toString().substring(3)).apply();
-                                y_pref.edit().putString("Y",lines[7].toString().substring(3)).apply();
-                                b_pref.edit().putString("B",lines[8].toString().substring(3)).apply();
-                                d_on_pref.edit().putString("sync_date_on",d[0]).apply();
-                                t_on_pref.edit().putString("sync_time_off",d[1]).apply();
-                                status_pref.edit().putString("motor_status","ON").apply();
+                                Log.i("Date &TIME", date.toString());
+                                d = date.split(",");
+                                time.setText("ON @ " + d[1] + "/n" + d[0]);
+                                sync_date_time.setText("@" + d[1] + "  " + d[0]);
+                                tv8.setText("Date:" + d[0]);
+                                status_pref.edit().putString("motor_status", "ON").apply();
+                                motor_status_track();
 
                             } else if (lines[1].toString().contains("off")) {
-                                text.setText("OFF");
+                                on_off_text.setText("OFF");
                                 editor = mt_status_pref.edit();
                                 editor.putInt("m1", 0);
-                                editor.commit();
+                                editor.apply();
                                 mot_st = 0;
-                                String s4 = lines[5].toString();
                                 DateFormat df = new SimpleDateFormat("dd MM yyyy, HH:mm:ss");
                                 String date = df.format(Calendar.getInstance().getTime());
-                                Log.i("Date &TIME",date.toString());
-                                String[] d = date.split(",");
-                                String sync_on_date=d_pref.getString("sync_on_date","");
-                                String sync_on_time=t_pref.getString("sync_on_time","");
-                                time.setText("ON @"+sync_on_date+"\n"+sync_on_time);
-                                Dates.setText("OFF @"+d[1]+"\n"+d[0]);
-                                sync_date_time.setText("@"+d[1]+"  "+d[0]);
-                                tv8.setText("Date:"+d[0]);
-                                v1_pref.edit().putString("voltage1","0.00").apply();
-                                v2_pref.edit().putString("voltage2","0.00").apply();
-                                v3_pref.edit().putString("voltage3","0.00").apply();
-                                r_pref.edit().putString("R",lines[2].substring(8,11)).apply();
-                                y_pref.edit().putString("Y",lines[3].substring(8,11)).apply();
-                                b_pref.edit().putString("B",lines[4].substring(8,11)).apply();
-                                d_pref.edit().putString("sync_date",d[0]).apply();
-                                t_pref.edit().putString("sync_time",d[1]).apply();
-                                status_pref.edit().putString("motor_status","OFF").apply();
-                            } else return;
+                                Log.i("Date &TIME", date.toString());
+                                d = date.split(",");
+                                String sync_on_date = d_pref.getString("sync_on_date", "");
+                                String sync_on_time = t_pref.getString("sync_on_time", "");
+                                time.setText("ON @" + sync_on_date + "\n" + sync_on_time);
+                                Dates.setText("OFF @" + d[1] + "\n" + d[0]);
+                                sync_date_time.setText("@" + d[1] + "  " + d[0]);
+                                tv8.setText("Date:" + d[0]);
+                                s = "0.00";
+                                s2 = "0.00";
+                                s3 = "0.00";
+                                tv.setText(s + "V");
+                                tv4.setText(s2 + "V");
+                                tv2.setText(s3 + "V");
+                                s4 = lines[2].substring(8, 11);
+                                s5 = lines[2].substring(8, 11);
+                                s6 = lines[2].substring(8, 11);
+                                tv1.setText(s4 + "A");
+                                tv3.setText(s5 + "A");
+                                tv5.setText(s6 + "A");
+                                status_pref.edit().putString("motor_status", "OFF").apply();
+                            }
+                            else return;
+                        }
+                        //power Supply on and off
+                        else if(l==2){
+                            if(lines[0].toString().contains("on")){
+                                electricity.setText(lines[1].substring(6)+"\t"+lines[2].substring(6));
+                                ele_d_pref.edit().putString("power ondate",lines[1].substring(6));
+                                ele_t_pref.edit().putString("power ontime",lines[2].substring(6));
+                            }
+                        }
                     }
-                    else{}
                         SMSBody1 = "";
                 }
             }
