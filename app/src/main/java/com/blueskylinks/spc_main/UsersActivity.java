@@ -1,33 +1,23 @@
 package com.blueskylinks.spc_main;
-
-import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.provider.Telephony;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.blueskylinks.spc_main.Main2Activity.progressDialog;
 
 
 public class UsersActivity extends AppCompatActivity {
@@ -136,26 +126,6 @@ public void onResume(){
         //starting another activity..
         Intent it4 = new Intent(UsersActivity.this, ManualActivity.class);
         startActivity(it4);
-    }
-
-    //Progress Dialog
-    public void progress(){
-        progressDialog = new ProgressDialog(UsersActivity.this);
-        progressDialog.setMessage("Loading..."); // Setting Message
-        progressDialog.setTitle(" "); // Setting Title
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
-        progressDialog.show(); // Display Progress Dialog
-        progressDialog.setCancelable(false);
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Thread.sleep(5000);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                progressDialog.dismiss();
-            }
-        }).start();
     }
 
     //Add users

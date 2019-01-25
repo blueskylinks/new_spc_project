@@ -27,7 +27,6 @@ public class SettingsActivity extends AppCompatActivity {
     Switch s5;
     Switch s6;
     Switch s7;
-   // String phoneNumber = "9880760642";
     TextView text;
     TextView tv;
     String SMSBody1;
@@ -116,7 +115,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int id) {
                                     String message = "SPC,36,1";
                                     SmsManager smsManager = SmsManager.getDefault();
-                                    //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                                      smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                                     Log.i("Test", message);
                                     Preferences1.edit().putBoolean("Checked1",true).apply();
                                 }
@@ -144,7 +143,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int id) {
                                     String message = "SPC,36,0";
                                     SmsManager smsManager = SmsManager.getDefault();
-                                    //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                                       smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                                     Log.i("Test", message);
                                     Preferences1.edit().putBoolean("Checked1",false).apply();
                                 }
@@ -174,7 +173,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int id) {
                     String message = "SPC,42,1";
                     SmsManager smsManager = SmsManager.getDefault();
-                    //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                       smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                     Log.i("Test", message);
                                     Preferences2.edit().putBoolean("Checked2",true).apply();
                                 }
@@ -202,7 +201,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int id) {
                     String message = "SPC,42,0";
                     SmsManager smsManager = SmsManager.getDefault();
-                    //   smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                      smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                     Log.i("Test", message);
                                     Preferences2.edit().putBoolean("Checked2",false).apply();
                                 }
@@ -430,7 +429,7 @@ public class SettingsActivity extends AppCompatActivity {
                             "Yes",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    String message = "SPC,0,0";
+                                    String message = "SPC,1,0";
                                     SmsManager smsManager = SmsManager.getDefault();
                                     smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                                     Log.i("Test", message);

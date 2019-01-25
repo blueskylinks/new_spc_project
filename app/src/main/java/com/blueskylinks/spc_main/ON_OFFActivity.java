@@ -1,33 +1,25 @@
 package com.blueskylinks.spc_main;
 
-import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.drawable.RotateDrawable;
 import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -40,10 +32,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import static com.blueskylinks.spc_main.Main2Activity.mot_st;
-import static com.blueskylinks.spc_main.Main2Activity.progressDialog;
-import static com.blueskylinks.spc_main.Main2Activity.tv;
 
 
 public class ON_OFFActivity extends AppCompatActivity {
@@ -51,7 +40,6 @@ public class ON_OFFActivity extends AppCompatActivity {
     public static TextView textView1;
     public static TextView textView2;
     public static TextView mot_st_text1;
-    public ProgressBar onoffpg1;
     RadioButton onoff_rb1;
     RadioButton onoff_rb2;
     Long diffMin;
@@ -105,7 +93,6 @@ public class ON_OFFActivity extends AppCompatActivity {
   String Subno;
     boolean value1 = true;
     boolean value2 = true;
-   // Date currenttime;
     String ctime;
     List<String> stringlist;
     ArrayAdapter<String> arrayadapter;
@@ -170,7 +157,7 @@ public class ON_OFFActivity extends AppCompatActivity {
 
         String[]  spinnerItems=SpinnerItems.split(",");
 
-        SPINNER = (Spinner)findViewById(R.id.spinner111);
+        SPINNER = findViewById(R.id.spinner111);
 
         stringlist = new ArrayList<>(Arrays.asList(spinnerItems));
 
@@ -649,6 +636,7 @@ public class ON_OFFActivity extends AppCompatActivity {
             Log.i("message",""+ message4);
             Log.i("message",""+ message5);
             Log.i("message","" +message6);
+
             ntime = et1.getText().toString();
             editor2.putString("RTC1", ntime);
             editor2.commit();
@@ -798,7 +786,7 @@ public void remove1_fun(View v) {
     }
 
     //Progress Dialog
-    public void progress(){
+  /*  public void progress(){
         progressDialog = new ProgressDialog(ON_OFFActivity.this);
         progressDialog.setMessage("Loading..."); // Setting Message
         progressDialog.setTitle("ProgressDialog"); // Setting Title
@@ -815,7 +803,7 @@ public void remove1_fun(View v) {
                 progressDialog.dismiss();
             }
         }).start();
-    }
+    }*/
 
 
     public void settings(View view){

@@ -27,9 +27,11 @@ public class OverLoadActivity extends AppCompatActivity {
     ProgressBar pbar;
     ProgressBar pbar1;
     ProgressBar pbar2;
+    ProgressBar pbar3;
     TextView textView1;
     TextView textView2;
     TextView textView3;
+    TextView textView4;
     TextView tv;
     TextView tv1;
     TextView tv2;
@@ -37,6 +39,7 @@ public class OverLoadActivity extends AppCompatActivity {
     EditText et2;
     String SMSBody1;
     EditText et3;
+    EditText et4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +53,16 @@ public class OverLoadActivity extends AppCompatActivity {
         textView2 = findViewById(R.id.onoff_status_text2);
         et2 = findViewById(R.id.et11);
         et3 = findViewById(R.id.et12);
+        et4 = findViewById(R.id.et_over_per);
         textView3 = findViewById(R.id.onoff_status_text3);
+        textView4 = findViewById(R.id.onoff_status_text4);
         tv=findViewById(R.id.mot_st);
         pbar1=findViewById(R.id.set1);
         pbar2=findViewById(R.id.set2);
+        pbar3=findViewById(R.id.set3);
         tv1=findViewById(R.id.time);
         tv2=findViewById(R.id.current);
+
         //get Destination address
         SharedPreferences sp1=getSharedPreferences("login",0);
         phoneNumber=sp1.getString("subId","0");
@@ -134,6 +141,24 @@ public class OverLoadActivity extends AppCompatActivity {
 
             et2.getText().clear();
             et3.getText().clear();
+        }
+    }
+    //Overload Trip Percentage
+    public void set_trip_percentage(View view) {
+        Log.i("..", "trip percentage event");
+        String text = et4.getText().toString();
+        if (TextUtils.isEmpty(text)) et4.setError("Please enter Overload %!..");
+        else {
+            Log.i("..", text);
+            String message = "SPC,4," + text;
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            pbar3.setVisibility(View.VISIBLE);
+            Log.i("message", message);
+            Log.i("Test", "SMS sent!");
+            textView4.setText("Command Sent, Please Wait...For 2 minutes");
+
+            et4.getText().clear();
         }
     }
 
