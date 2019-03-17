@@ -4,339 +4,434 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.blueskylinks.spc_main.SettingsActivity"
     android:layout_height="fill_parent"
-   android:layout_width="fill_parent"
+    android:layout_width="fill_parent"
     android:orientation="vertical"
     android:background="@mipmap/image7">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-         android:layout_weight="4">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@drawable/divider"
-        android:showDividers="end|beginning|middle"
-        android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_weight="4">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:orientation="vertical">
-
-            <Switch
-                android:id="@+id/switch1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:onClick="submit_func"
-                android:text="2phase" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
-              android:layout_marginLeft="20dp"
-                android:background="@android:color/black"/>
-            <Switch
-                android:id="@+id/switchp2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:onClick="submit_func"
-                android:text="External Change Over"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:background="@android:color/black"/>
-
-            <Switch
-                android:id="@+id/switch2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:onClick="submit_func"
-                android:text="Single phase preventer(Current)" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:background="@android:color/black"/>
-
-            <Switch
-                android:id="@+id/switch3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:onClick="submit_func"
-                android:layout_marginLeft="20dp"
-                android:text="Single phase Preventer(Voltage)" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:background="@android:color/black"/>
-
-            <Switch
-                android:id="@+id/switch4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:onClick="submit_func"
-                android:text="Reverse phase" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:background="@android:color/black"/>
-
-            <Switch
-                android:id="@+id/switch5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="10dp"
-                android:onClick="submit_func"
-                android:text="Feed Back SMS"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="2dp"
-                android:background="@android:color/black"/>
-            <Switch
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:id="@+id/switch6"
-                android:onClick="submit_func"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="10dp"
-                android:text="Feed Back Call"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="2dp"
-                android:background="@android:color/black"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:background="?attr/editTextBackground"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/onoff_status_text_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="?attr/colorButtonNormal"
-                    android:text="!!" />
-
-            </LinearLayout>
-        </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
             android:divider="@drawable/divider"
-            android:showDividers="end"
+            android:showDividers="end|beginning|middle"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CURRENT"
-                android:layout_marginTop="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height=".5dp"
-              android:layout_marginTop="5dp"
-             android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@android:color/black" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="4">
 
-                <View
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:background="@android:color/black" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:orientation="vertical">
+
+                    <Switch
+                        android:id="@+id/switch1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:onClick="submit_func"
+                        android:text="2 Phase - OFF / ON" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@android:color/black"/>
+                    <Switch
+                        android:id="@+id/switchp2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:onClick="submit_func"
+                        android:text="External Change Over"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@android:color/black"/>
+
+                    <Switch
+                        android:id="@+id/switch2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:onClick="submit_func"
+                        android:text="Single Phase Preventer(Current)" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@android:color/black"/>
+
+
+                    <Switch
+                        android:id="@+id/switch4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:onClick="submit_func"
+                        android:text="Reverse Phase" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@android:color/black"/>
+
+                    <Switch
+                        android:id="@+id/switch5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:onClick="submit_func"
+                        android:text="Feed Back SMS"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@android:color/black"/>
+                    <Switch
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/switch6"
+                        android:onClick="submit_func"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Feed Back Call"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@android:color/black"/>
+
+
+                    <Switch
+                        android:id="@+id/switch7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:onClick="submit_func"
+                        android:text="Stolen Protection(Cable Switch)" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@android:color/black"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:background="?attr/editTextBackground"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/onoff_status_text_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="?attr/colorButtonNormal"
+                            android:text="!!" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:divider="@drawable/divider"
+                android:showDividers="end"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight=".5"
-                    android:layout_marginLeft="10dp"
-                    android:onClick="overLoad"
-                    android:text="OverLoad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CURRENT"
+                    android:layout_marginTop="5dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <View
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height=".5dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:background="@android:color/black" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight=".5"
-                    android:onClick="NoLoad"
-                    android:layout_marginLeft="10dp"
-                    android:text="Dry Run"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight=".5"
+                        android:background="@android:color/darker_gray"
+                        android:onClick="overLoad"
+                        android:text="OverLoad"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight=".5"
+                        android:background="@android:color/darker_gray"
+                        android:onClick="NoLoad"
+                        android:text="Dry Run"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@android:color/black" />
+
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight=".5"
+                        android:background="@android:color/darker_gray"
+                        android:onClick="Restart"
+                        android:text="Restart(Dry Run)"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:background="@android:color/black" />
+                </LinearLayout>
 
                 <View
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height=".5dp"
                     android:layout_marginLeft="10dp"
-                    android:background="@android:color/black" />
-
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:text="Restart(Dry Run)"
-                android:layout_weight="1"
-                android:onClick="Restart"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                <View
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                     android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
                     android:background="@android:color/black" />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height=".5dp"
-                android:layout_marginLeft="10dp"
-              android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@android:color/black" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:orientation="vertical">
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="VOLTAGE"
-                android:layout_weight="1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height=".5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@android:color/black" />
+                android:layout_weight=".5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="VOLTAGE"
+                    android:layout_weight="1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height=".5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@android:color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width=".5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/darker_gray"
+                        android:onClick="overVoltage"
+                        android:text="Over voltage"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                    <View
+                        android:layout_width=".5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/darker_gray"
+                        android:onClick="underVoltage"
+                        android:text="Under Voltage"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    <View
+                        android:layout_width=".5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:background="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/tv_diff"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/darker_gray"
+                        android:onClick="v_diff"
+                        android:text="Volt Difference"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    <View
+                        android:layout_width=".5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:background="@android:color/black" />
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height=".5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@android:color/black" />
+
+            </LinearLayout>
+
+            //Single Phase Preventer (SPP Voltage)
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <View
-                    android:layout_width=".5dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:background="@android:color/black" />
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="1"
-                    android:onClick="overVoltage"
-                    android:text="Over voltage"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                <View
-                    android:layout_width=".5dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="Single Phase Preventer (SPP Voltage)"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height=".5dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
                     android:background="@android:color/black" />
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="1"
-                    android:onClick="underVoltage"
-                    android:text="Under Voltage"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    android:layout_weight="3"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width=".5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@android:color/black" />
+
+
+                    <TextView
+                        android:id="@+id/tv_spp_v"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="3"
+                        android:onClick="spp_v"
+                        android:text="SPP Voltage"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                    <View
+                        android:layout_width=".5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:background="@android:color/black" />
+
+                </LinearLayout>
                 <View
-                    android:layout_width=".5dp"
-                    android:layout_height="match_parent"
-                   android:layout_marginRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height=".5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
                     android:background="@android:color/black" />
 
             </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height=".5dp"
-                android:layout_marginLeft="10dp"
-              android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@android:color/black" />
 
         </LinearLayout>
-    </LinearLayout>
     </ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
         android:gravity="center_horizontal">
 
         <TableLayout
@@ -504,7 +599,7 @@
 
         </TableLayout>
 
-        <TableLayout
+        <!--<TableLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
@@ -535,6 +630,6 @@
                     android:textStyle="bold" />
             </TableRow>
 
-        </TableLayout>
+        </TableLayout>-->
     </LinearLayout>
 </LinearLayout>

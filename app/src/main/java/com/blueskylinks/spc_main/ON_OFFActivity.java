@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.preference.PreferenceManager;
 import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,19 +34,23 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import static com.blueskylinks.spc_main.Main2Activity.mot_st;
+//import static com.blueskylinks.spc_main.Main2Activity.mot_st;
 
 
 public class ON_OFFActivity extends AppCompatActivity {
 
+    String[] lines;
+    DatabaseHelper myDb;
+
     public static TextView textView1;
     public static TextView textView2;
     public static TextView mot_st_text1;
+    public int mot_st;
     RadioButton onoff_rb1;
     RadioButton onoff_rb2;
     Long diffMin;
     Long diffMin1;
-   String message1;
+    String message1;
     String message2;
     String phoneNumber;
     String message3;
@@ -73,7 +79,7 @@ public class ON_OFFActivity extends AppCompatActivity {
    String ntime1;
    String ftime2;
    String ntime2;
-  ImageButton image;
+    ImageButton image;
     SimpleDateFormat format;
     Date d1 = null;
     Date d2 = null;
@@ -84,19 +90,20 @@ public class ON_OFFActivity extends AppCompatActivity {
     Date ontime;
     Date offtime;
     SharedPreferences sharedPreferences;
-  SharedPreferences.Editor editor;
+    SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences2;
     SharedPreferences.Editor editor2;
-  TextView remove1;
-  TextView remove2;
-  TextView remove3;
-  String Subno;
+    TextView remove1;
+    TextView remove2;
+    TextView remove3;
+    String Subno;
     boolean value1 = true;
     boolean value2 = true;
     String ctime;
     List<String> stringlist;
     ArrayAdapter<String> arrayadapter;
     Spinner SPINNER;
+    String rtc_status;
 
 
     @Override
@@ -106,21 +113,20 @@ public class ON_OFFActivity extends AppCompatActivity {
         if(mot_st==1){
             onoff_rb1.setChecked(true);
             mot_st_text1.setText("ON");
-            Log.i("tttt", "on...");
         }
         else{
             onoff_rb2.setChecked(true);
             mot_st_text1.setText("OFF");
-            Log.i("tttt", "off...");
         }
-        final IntentFilter MIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-      registerReceiver(toastOrNotificationCatcherReceiver, MIntentFilter);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on__off);
+        myDb = new DatabaseHelper(this);
+        rtc_status="";
+
         textView1=findViewById(R.id.onoff_status_text1);
         mot_st_text1 = findViewById(R.id.on_off_status);
         onoff_rb1=findViewById(R.id.radioButton);
@@ -166,9 +172,6 @@ public class ON_OFFActivity extends AppCompatActivity {
         arrayadapter.setDropDownViewResource(R.layout.textview);
         SPINNER.setAdapter(arrayadapter);
 
-        SharedPreferences sp1=getSharedPreferences("login",0);
-        phoneNumber=sp1.getString("subId","0");
-
         //get spinner last postion
         SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if(SP!=null){
@@ -188,13 +191,27 @@ public class ON_OFFActivity extends AppCompatActivity {
                 phoneNumber=Subno;
                SharedPreferences mt_pref = getSharedPreferences("login", 0);
                 mt_pref.edit().putString("subId",phoneNumber).apply();
+                String ph_s1 = SPINNER.getSelectedItem().toString();
+
+                get_data(ph_s1);
+                get_data1(ph_s1);
+                if(rtc_status.contains("ON"))
+                    spinner1.setSelection(0);
+                else
+                    spinner1.setSelection(1);
+                textv.setText(rtc_status);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
             }
+
         });
+
+        String ph_s1 = SPINNER.getSelectedItem().toString();
+        get_data1(ph_s1);
+
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -218,12 +235,12 @@ public class ON_OFFActivity extends AppCompatActivity {
 
             }
         });
+
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedItem = parent.getItemAtPosition(position).toString();
                 Log.i("position ", selectedItem);
-
             }
 
             @Override
@@ -260,7 +277,7 @@ public class ON_OFFActivity extends AppCompatActivity {
 
         String text7=sharedPreferences2.getString("RTC_func",null);
         Log.i("pstored",""+text7);
-        textv.setText(text7);
+        textv.setText(rtc_status);
 
        message1=sharedPreferences2.getString("msg1",null);
        message2=sharedPreferences2.getString("msg2",null);
@@ -587,75 +604,30 @@ public class ON_OFFActivity extends AppCompatActivity {
 // setting RTC functions
     public void set_RTCfunction(View view) {
         if (textv.getText().toString().equals("ON")) {
-       /* if(et2.equals("") && et12.equals("") && et3.equals("") && et13.equals("")){
-            if(d2.after(d1)){
-                SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(phoneNumber, null, message1, null, null);
-                smsManager.sendTextMessage(phoneNumber, null, message2, null, null);
-                Log.i("message", message1);
-                Log.i("message", message2);
-                ntime = et1.getText().toString();
-                editor.putString("RTC1",ntime);
-                editor.commit();
-                ftime = et11.getText().toString();
-                editor.putString("RTC_1",ftime);
-                editor.commit();
-              }
+            SmsManager smsManager = SmsManager.getDefault();
+            if(message1!=null)
+                if(!message1.isEmpty())
+                    smsManager.sendTextMessage(phoneNumber, null, message1, null, null);
+            if(message2!=null)
+                if(!message2.isEmpty())
+                    smsManager.sendTextMessage(phoneNumber, null, message2, null, null);
+            if(message3!=null)
+                if(!message3.isEmpty())
+                    smsManager.sendTextMessage(phoneNumber, null, message3, null, null);
+            if(message4!=null)
+                if(!message4.isEmpty())
+                    smsManager.sendTextMessage(phoneNumber, null, message4, null, null);
+            if(message5!=null)
+                if(!message4.isEmpty())
+                    smsManager.sendTextMessage(phoneNumber, null, message5, null, null);
+            if(message6!=null)
+                if(!message4.isEmpty())
+                    smsManager.sendTextMessage(phoneNumber, null, message6, null, null);
         }
-        else if (et3.equals("")&& et13.equals("")){
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, message1, null, null);
-            smsManager.sendTextMessage(phoneNumber, null, message2, null, null);
-            smsManager.sendTextMessage(phoneNumber, null, message3, null, null);
-            smsManager.sendTextMessage(phoneNumber, null, message4, null, null);
-            Log.i("message", message1);  Log.i("message", message2);  Log.i("message", message3);
-            Log.i("message", message4);
-            ntime = et1.getText().toString();
-            editor.putString("RTC1",ntime);
-            editor.commit();
-            ftime = et11.getText().toString();
-            editor.putString("RTC_1",ftime);
-            editor.commit();
-            ntime1 = et2.getText().toString();
-            editor.putString("RTC2", ntime1);
-            editor.commit();
-            ftime1 = et12.getText().toString();
-            editor.putString("RTC_2",ftime1);
-            editor.commit();
-        }*/
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, message1, null, null);
-            smsManager.sendTextMessage(phoneNumber, null, message2, null, null);
-            smsManager.sendTextMessage(phoneNumber, null, message3, null, null);
-            smsManager.sendTextMessage(phoneNumber, null, message4, null, null);
-            smsManager.sendTextMessage(phoneNumber, null, message5, null, null);
-            smsManager.sendTextMessage(phoneNumber, null, message6, null, null);
-            Log.i("message",""+ message1);
-            Log.i("message", ""+message2);
-            Log.i("message",""+ message3);
-            Log.i("message",""+ message4);
-            Log.i("message",""+ message5);
-            Log.i("message","" +message6);
+        else
+            Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
 
-            ntime = et1.getText().toString();
-            editor2.putString("RTC1", ntime);
-            editor2.commit();
-            ftime = et11.getText().toString();
-            editor2.putString("RTC_1", ftime);
-            editor2.commit();
-            ntime1 = et2.getText().toString();
-            editor2.putString("RTC2", ntime1);
-            editor2.commit();
-            ftime1 = et12.getText().toString();
-            editor2.putString("RTC_2", ftime1);
-            editor2.commit();
-            ntime2 = et3.getText().toString();
-            editor2.putString("RTC3", ntime2);
-            editor2.commit();
-            ftime2 = et13.getText().toString();
-            editor2.putString("RTC_3", ftime2);
-            editor2.commit();
-        } else Toast.makeText(this, "RTC function is off", Toast.LENGTH_SHORT).show();
+        setData_set2();
     }
 
 public void remove1_fun(View v) {
@@ -723,22 +695,23 @@ public void remove1_fun(View v) {
     }
 
     public void set_function(View view){
-        if(selectedItem.equals("RTC function on")){
+        if(selectedItem.equals("ON")){
             String message = "SPC,27,1";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             textv.setText("ON");
+            setData_set();
             Log.i("Test", message);
-            text.setText("Command Sent, Please Wait...For 2 minutes");
+            //text.setText("Command Sent, Please Wait...For 2 minutes");
         }
-
-        else if(selectedItem.equals("RTC function off")){
+        else if(selectedItem.equals("OFF")){
             String message = "SPC,27,0";
             SmsManager smsManager = SmsManager.getDefault();
-          smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             textv.setText("OFF");
+            setData_set1();
             Log.i("Test", message);
-            text.setText("Command Sent, Please Wait...For 2 minutes");
+            //text.setText("Command Sent, Please Wait...For 2 minutes");
         }
         editor2.putString("RTC_func",textv.getText().toString());
         editor2.commit();
@@ -746,65 +719,37 @@ public void remove1_fun(View v) {
 
     public void setRTC(){
         ArrayList<String> RTC = new ArrayList<String>();
-        RTC.add("RTC function on");
-        RTC.add("RTC function off");
+        RTC.add("ON");
+        RTC.add("OFF");
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,RTC);
         spinner1.setAdapter(spinnerArrayAdapter);
         mainLayout.addView(spinner1);
+        if(rtc_status.contains("ON"))
+            spinner1.setSelection(0);
+        else
+            spinner1.setSelection(1);
     }
 
+
     public void turnsOn(View view) {
-        String message = "";
-        if (onoff_rb1.isChecked()) {
+            String message = "";
+            if (onoff_rb1.isChecked()) {
             message = "SPC,24";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             mot_st_text1.setText("ON");
-            mot_st=1;
-            editor.putBoolean("ischecked1", true);
-            editor.commit();
-            editor.putBoolean("ischecked2", false);
-            editor.commit();
-            Log.i("Test", "SMS sent!");
-            textView1.setText("Command Sent, Please Wait...");
-        } else {
+            setData();
+            //textView1.setText("Command Sent...");
+            }
+            else {
             message = "SPC,26";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             mot_st_text1.setText("OFF");
-            mot_st=0;
-            Log.i("Test", "SMS sent!");
-            editor.putBoolean("ischecked2", true);
-            editor.commit();
-            editor.putBoolean("ischecked1", false);
-            editor.commit();
-            textView1.setText("Command Sent, Please Wait...");
-            mot_st_text1.setText("OFF");
-        }
-        editor2.putString("Motor", mot_st_text1.getText().toString());
-        editor2.commit();
-    }
-
-    //Progress Dialog
-  /*  public void progress(){
-        progressDialog = new ProgressDialog(ON_OFFActivity.this);
-        progressDialog.setMessage("Loading..."); // Setting Message
-        progressDialog.setTitle("ProgressDialog"); // Setting Title
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
-        progressDialog.show(); // Display Progress Dialog
-        progressDialog.setCancelable(false);
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Thread.sleep(15000);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                progressDialog.dismiss();
+            setData();
+            //textView1.setText("Command Sent...");
             }
-        }).start();
-    }*/
-
+    }
 
     public void settings(View view){
         //starting another activity..
@@ -831,40 +776,134 @@ public void remove1_fun(View v) {
     }
 
 
-    private final BroadcastReceiver toastOrNotificationCatcherReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.i("received sms","message received...");
-            if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent.getAction())) {
-                for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent)) {
-                    String senderNum = smsMessage.getDisplayOriginatingAddress();
-                    Log.i("sender num", senderNum);
-                    SMSBody1 = smsMessage.getMessageBody().toString();
-                    if(SMSBody1.length() >= 50 &&  SMSBody1.length() < 80){
-                        String[] lines = SMSBody1.split("\\r?\\n");
-                        Log.i("received sms",SMSBody1);
-                        if(lines[2].toString().contains("on")){
-                            //onoffpg1.setVisibility(View.INVISIBLE);
-                            textView1.setText(lines[4]);
-                            mot_st_text1.setText("ON");
-                        }
-                        else if(lines[2].toString().contains("off")) {
-                            //onoffpg1.setVisibility(View.INVISIBLE);
-                            textView1.setText(lines[2]+lines[3]);
-                            mot_st_text1.setText("OFF");
-                        }
-                        else return;
-                        SMSBody1 ="";
-                    }
-                }
-            }
-        }
-    };
-
     @Override
     public void onPause(){
         super.onPause();
-        unregisterReceiver(toastOrNotificationCatcherReceiver);
     }
+
+    public void setData(){
+            String mot_data[] = {"",""};
+            mot_data[0] = phoneNumber;
+            mot_data[1] = mot_st_text1.getText().toString();
+            boolean isUpdated = myDb.updateData(mot_data, phoneNumber,1024);
+            if (isUpdated == true)
+                Toast.makeText(ON_OFFActivity.this, "Data Updated", Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(ON_OFFActivity.this, "Data not Updated", Toast.LENGTH_LONG).show();
+    }
+
+    public void get_data(String ph_no){
+        Cursor res = myDb.getAllData_set(ph_no);
+        Cursor res1 = myDb.getAllData(ph_no);
+        if(res.getCount() == 0) {
+            Toast.makeText(ON_OFFActivity.this,"Nothing found",Toast.LENGTH_LONG).show();
+            return;
+        }
+        Log.i("Rec_Count",String.valueOf(res.getCount()));
+        while (res.moveToNext()) {
+            Log.i("Rec_Count",res.getString(0));
+            Log.i("Rec_Count",res.getString(1));
+            Log.i("Rec_Count",res.getString(2));
+        }
+        res1.moveToFirst();
+            Log.i("Rec_Count",res1.getString(9));
+            Log.i("Rec_Count",res1.getString(10));
+            Log.i("Rec_Count",res1.getString(15));
+
+    }
+
+
+    public void get_data1(String ph_no){
+        Cursor res = myDb.getAllData(ph_no);
+        Cursor res1 = myDb.getAllData_set(ph_no);
+        if(res.getCount() == 0) {
+            Toast.makeText(ON_OFFActivity.this,"Nothing found",Toast.LENGTH_LONG).show();
+            return;
+        }
+        Log.i("Rec_Count",String.valueOf(res.getCount()));
+        while (res.moveToNext()) {
+            Log.i("tt",res.getString(8));
+            String s=res.getString(8);
+            if(s.contains("ON")){
+                onoff_rb1.setChecked(true);
+                mot_st_text1.setText("ON");
+                mot_st=1;
+            }
+            else{
+                onoff_rb2.setChecked(true);
+                mot_st_text1.setText("OFF");
+                mot_st=0;
+            }
+
+        }
+
+        while (res1.moveToNext()){
+            Log.i("setting data:",res1.getString(0));
+            Log.i("setting data:",res1.getString(1));
+            Log.i("setting data:",res1.getString(2));
+            Log.i("setting data:",res1.getString(3));
+            Log.i("setting data:",res1.getString(4));
+            Log.i("setting data:",res1.getString(5));
+            Log.i("setting data:",res1.getString(6));
+            Log.i("setting data:",res1.getString(7));
+            rtc_status=res1.getString(1);
+            et1.setText(res1.getString(2));
+            et11.setText(res1.getString(3));
+            et2.setText(res1.getString(4));
+            et12.setText(res1.getString(5));
+
+        }
+
+    }
+
+
+    public void setData_set(){
+        String mot_data[] = {"",""};
+        mot_data[0] = phoneNumber;
+        mot_data[1] = "ON";
+        boolean isUpdated = myDb.update_set(mot_data, phoneNumber,2701);
+        if (isUpdated == true)
+            Toast.makeText(ON_OFFActivity.this, "Data Updated", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(ON_OFFActivity.this, "Data not Updated", Toast.LENGTH_LONG).show();
+    }
+
+    public void setData_set1(){
+        String mot_data[] = {"","","","","","","",""};
+        mot_data[0] = phoneNumber;
+        mot_data[1] = "OFF";
+        mot_data[2] = "";
+        mot_data[3] = "";
+        mot_data[4] = "";
+        mot_data[5] = "";
+        mot_data[6] = "";
+        mot_data[7] = "";
+        boolean isUpdated = myDb.update_set(mot_data, phoneNumber,2702);
+        if (isUpdated == true)
+            Toast.makeText(ON_OFFActivity.this, "Data Updated", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(ON_OFFActivity.this, "Data not Updated", Toast.LENGTH_LONG).show();
+    }
+
+    public void setData_set2(){
+        String mot_data[] = {"","","","","","","",""};
+        mot_data[0] = phoneNumber;
+        mot_data[2] = et1.getText().toString();
+        mot_data[3] = et11.getText().toString();
+        mot_data[4] = et2.getText().toString();
+        mot_data[5] = et12.getText().toString();
+        mot_data[6] = et3.getText().toString();
+        mot_data[7] = et13.getText().toString();
+        boolean isUpdated = myDb.update_set(mot_data, phoneNumber,2703);
+        if (isUpdated == true)
+            Toast.makeText(ON_OFFActivity.this, "Data Updated", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(ON_OFFActivity.this, "Data not Updated", Toast.LENGTH_LONG).show();
+    }
+
+
+
+
+
+
 }

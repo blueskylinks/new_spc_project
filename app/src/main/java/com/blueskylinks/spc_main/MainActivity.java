@@ -3,8 +3,10 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     TextView text;
     SharedPreferences prefs;
     boolean value1 = true;
-    public static String phoneNumber;
+    String phoneNumber;
     String Subno;
     Spinner SPINNER;
     Button ADD;
@@ -36,23 +38,70 @@ public class MainActivity extends AppCompatActivity {
     Button remove;
     String TEXT;
     EditText EDITTEXT1;
-   String[] spinnerItems = new String[]{};
+    String[] spinnerItems = new String[]{};
     String GETTEXT;
     List<String> stringlist;
     ArrayAdapter<String> arrayadapter;
     SharedPreferences mt_pref;
 
+    DatabaseHelper myDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.SEND_SMS}, 200);
-        ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.READ_SMS}, 200);
-        ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.RECEIVE_SMS}, 200);
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_SMS)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_SMS},
+                        101);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+
+        } else {
+            // Permission has already been granted
+        }
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.SEND_SMS)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.SEND_SMS},
+                        102);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+
+        } else {
+            // Permission has already been granted
+        }
+
+        myDb = new DatabaseHelper(this);
 
         prefs = getSharedPreferences("TAG", Context.MODE_PRIVATE);
         String SpinnerItems=prefs.getString("PLAYLISTS",null);
@@ -72,12 +121,8 @@ public class MainActivity extends AppCompatActivity {
         arrayadapter.setDropDownViewResource(R.layout.textview);
         SPINNER.setAdapter(arrayadapter);
 
-       /* gettext= prefs.getString("KEY", null);
-        Log.i("value",gettext);
-        stringlist.add(gettext);
-        arrayadapter.notifyDataSetChanged();*/
+        startService(new Intent(this, UpdatingService.class));
 
-       //get spinner last postion
         SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if(SP!=null){
             int pos = SP.getInt("last index", 0);
@@ -104,10 +149,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-public void display_editBox(View v){
-    EDITTEXT.setVisibility(View.VISIBLE);
-    ADD.setVisibility(View.VISIBLE);
-}
+    public void display_editBox(View v){
+        EDITTEXT.setVisibility(View.VISIBLE);
+        ADD.setVisibility(View.VISIBLE);
+    }
 
     public void display_removeBox(View v){
         EDITTEXT1.setVisibility(View.VISIBLE);
@@ -124,26 +169,23 @@ public void display_editBox(View v){
                 prefs = this.getSharedPreferences("TAG", Context.MODE_PRIVATE);
                 prefs.edit().putString("KEY", GETTEXT).commit();
                 Log.i("updated string", stringlist.toString());
-
                 //Storing list
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < stringlist.size(); i++) {
                     sb.append(stringlist.get(i)).append(",");
                 }
                 prefs.edit().putString("PLAYLISTS", sb.toString()).commit();
-
             }
         }
         else Toast.makeText(this, "please Enter 10 digit Number", Toast.LENGTH_SHORT).show();
         EDITTEXT.setVisibility(View.INVISIBLE);
         ADD.setVisibility(View.INVISIBLE);
+        AddData();
     }
 
     public void remove_spinnerItems(View view){
         TEXT=EDITTEXT1.getText().toString();
             if(stringlist.contains(TEXT)) {
-              //  String selectedItem=stringlist.get(i).toString();
-               // Log.i("Seleected Item",selectedItem);
                 stringlist.remove(TEXT);
                 arrayadapter.notifyDataSetChanged();
             }
@@ -154,29 +196,30 @@ public void display_editBox(View v){
 
     }
 
+
+
     public void set_activity(View view) {
-        /*subId = et1.getText().toString();
-        pass = et2.getText().toString();
-        Log.i("sub ID:",subId);
-        Log.i("password",pass);
-        if (TextUtils.isEmpty(subId) || TextUtils.isEmpty(pass)) {
-            if (TextUtils.isEmpty(subId)) et1.setError("please Enter subscriber Id");
-            else et2.setError("please Enter password");
-        } else if (subId.length()!=10) {
-            text.setText("Incorrect subscribe ID!!..");
-        } else if (!pass.equals("1234")) {
-            text.setText("Incorrect  password!!..");
-        } else {
-            phoneNumber=subId;*/
-            //starting another activity..
-            if(SPINNER != null &&phoneNumber !=null ) {
-                mt_pref = getSharedPreferences("login", 0);
+            if(SPINNER != null && phoneNumber !=null ) {
+                mt_pref=getSharedPreferences("login", 0);
                 mt_pref.edit().putBoolean("logged", true).apply();
                 mt_pref.edit().putString("subId", phoneNumber).apply();
+                Log.i("phone_id", phoneNumber);
                 Intent it = new Intent(MainActivity.this, splashActivity.class);
                 startActivity(it);
             }
             else Toast.makeText(this, "Please Add numbers", Toast.LENGTH_SHORT).show();
+    }
+
+
+    public  void AddData() {
+        Log.i("Data", GETTEXT);
+        String s1=GETTEXT.toString();
+        boolean isInserted = myDb.insertData(s1);
+        boolean isInserted1 = myDb.insert_setting_tb(s1,"PH_ID");
+        if(isInserted == true)
+            Toast.makeText(MainActivity.this,"Data Inserted",Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(MainActivity.this,"Data not Inserted",Toast.LENGTH_LONG).show();
     }
 }
 

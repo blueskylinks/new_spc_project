@@ -24,20 +24,35 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
+
                 <TextView
-                    android:layout_width="0dp"
+                    android:id="@+id/ph_idtext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text=""
+                    android:textAlignment="textEnd"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="end"
                     android:layout_weight="1"
                     android:text="Last synced"
                     android:textAlignment="textEnd" />
+
                 <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="0dp"
+                    android:id="@+id/tv_sync_date"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="end"
                     android:layout_weight="1"
-                    android:textAlignment="textEnd" />
+                    android:gravity="end"
+                    android:textAlignment="textEnd"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -60,13 +75,13 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView11"
+                        android:id="@+id/tv_v1"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="0.00"
                         android:textColor="#000000"
-                        android:gravity="center"
                         android:textSize="35sp" />
 
                     <!-- Black divider line -->
@@ -77,13 +92,13 @@
                         android:background="#000000" />
 
                     <TextView
-                        android:id="@+id/textView12"
+                        android:id="@+id/tv_c1"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:textColor="#000000"
-                        android:text="0.00"
                         android:gravity="center"
+                        android:text="0.00"
+                        android:textColor="#000000"
                         android:textSize="38sp" />
                 </LinearLayout>
 
@@ -101,13 +116,13 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView21"
+                        android:id="@+id/tv_v2"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="0.00"
                         android:textColor="#000000"
-                        android:gravity="center"
                         android:textSize="35sp" />
 
                    <!-- Black divider line -->
@@ -118,13 +133,13 @@
                         android:background="#000000" />
 
                     <TextView
-                        android:id="@+id/textView22"
+                        android:id="@+id/tv_c2"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="0.00"
                         android:textColor="#000000"
-                        android:gravity="center"
                         android:textSize="38sp" />
                 </LinearLayout>
 
@@ -141,14 +156,14 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView31"
+                        android:id="@+id/tv_v3"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="0.00"
-                        android:textColor="#000000"
-
                         android:gravity="center"
+                        android:text="0.00"
+
+                        android:textColor="#000000"
                         android:textSize="35sp" />
                     <!--Black divider line -->
 
@@ -158,13 +173,13 @@
                         android:background="#000000" />
 
                     <TextView
-                        android:id="@+id/textView32"
+                        android:id="@+id/tv_c3"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:textColor="#000000"
                         android:gravity="center"
                         android:text="0.00"
+                        android:textColor="#000000"
                         android:textSize="38sp" />
                 </LinearLayout>
 
@@ -185,6 +200,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="4"
@@ -193,18 +209,35 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/motorborder"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
+                        android:layout_width="84dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center_horizontal"
                         android:src="@drawable/pump" />
+
+                    <TextView
+                        android:id="@+id/on_off_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tx_phase"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
                 <!-- Off -->
                 <LinearLayout
@@ -225,11 +258,6 @@
                         android:background="@drawable/bott_bord"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/on_off_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:textAlignment="center" />
 
                     </LinearLayout>
 
@@ -422,17 +450,12 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="2"></LinearLayout>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:onClick="refresh"
-                        android:src="@mipmap/refresh"/>
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -448,37 +471,19 @@
                     android:layout_weight="0.5"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv3"
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:layout_weight="4"
-                        android:text="3 Phase"
-                        android:gravity="bottom"
-                        android:textAlignment="center" />
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:onClick="refresh"
+                        android:src="@mipmap/refresh" />
 
-                    <Switch
-                        android:id="@+id/switch7"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="4"
-                        android:onClick="submit_func"
-                        android:layout_gravity="center_horizontal"
-                        android:rotation="90"/>
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_weight="2" >
                     </Space>
-
-                    <TextView
-                        android:id="@+id/tv2p"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:text="2 Phase"
-                        android:gravity="top"
-                        android:layout_weight="4"
-                        android:textAlignment="center" />
 
                 </LinearLayout>
 
