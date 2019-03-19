@@ -55,6 +55,7 @@ public class Main2Activity extends AppCompatActivity {
     TextView tc3;
     TextView tv_var_phase;
     TextView electricity;
+    TextView tv_status_msg;
     String[] lines;
     String msgData = "";
     String cur_col[];
@@ -152,7 +153,7 @@ public class Main2Activity extends AppCompatActivity {
         myDb = new DatabaseHelper(this);
         mySwipeRefreshLayout=findViewById(R.id.swiperefresh);
 
-
+        tv_status_msg=findViewById(R.id.status_msg);
         ph_id_tx=findViewById(R.id.ph_idtext);
         tv8=findViewById(R.id.textView8);
         tv_var_v1 = findViewById(R.id.tv_v1);
@@ -174,7 +175,6 @@ public class Main2Activity extends AppCompatActivity {
         tv_var_c2.setTypeface(typeface);
         tv_var_c3.setTypeface(typeface);
 
-        Dates=findViewById(R.id.date);
         time=findViewById(R.id.time);
         on_off_text=findViewById(R.id.on_off_text);
         myimage=findViewById(R.id.img1);
@@ -234,6 +234,14 @@ public class Main2Activity extends AppCompatActivity {
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             Log.i("Test", "SMS sent!");
             progress();
+
+    }
+
+    public void refresh1(){
+        Log.i("Test", "SMS sent!");
+        progress();
+        finish();
+        startActivity(getIntent());
 
     }
 
@@ -328,6 +336,8 @@ public class Main2Activity extends AppCompatActivity {
                 tv_var_phase.setText("2 Phase");
             if(!smsDate.isEmpty())
             sync_date_time.setText(smsDate.substring(0, 16)+"  ");
+            tv_status_msg.setText(res.getString(11));
+            time.setText(res.getString(16));
             Toast.makeText(Main2Activity.this, "Phase...."+ temp_s, Toast.LENGTH_SHORT).show();
         }
 
@@ -365,6 +375,10 @@ public class Main2Activity extends AppCompatActivity {
                 col_date1 = cursor.getString(col_date);
                 Log.i("TTTTT",col_date1);
                 Log.i("DD",cursor.getString(col_index));
+                String body=cursor.getString(col_index);
+                String lines[];
+                lines = body.split("\\r?\\n");
+                Log.i("Lines........",String.valueOf(lines.length));
                 if(col_date2.isEmpty()){
                     col_date2="1552066206941";
                 }
@@ -387,6 +401,19 @@ public class Main2Activity extends AppCompatActivity {
         calendar.setTimeInMillis(timestamp_msg);
         Date finaldate = calendar.getTime();
         smsDate = finaldate.toString();
+        String mot_sta[]={"","","",""};
+            mot_sta[1]=lines[0];
+            mot_sta[3]=body_data;
+        if(lines.length>=3){
+            if(lines[1].contains("Motor"))
+            mot_sta[1]=lines[1];
+        }
+        if(lines.length>=3){
+            if(lines[2].contains("Motor"))
+            mot_sta[1]=lines[2];
+        }
+        myDb.updateData(mot_sta, phoneNumber, 1090);
+
         if(lines.length==13) {
             if (timestamp_rec < timestamp_msg) {
                 Log.i("Msg Date", msg_date);
@@ -419,6 +446,35 @@ public class Main2Activity extends AppCompatActivity {
             }
         }
 
+        if(lines.length==11) {
+            if (timestamp_rec < timestamp_msg) {
+                Log.i("Msg Date", msg_date);
+                Log.i("Rec Date", rec_date);
+                String mot_data[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
+                if (lines[1].toString().contains("on ")) {
+                    on_off_text.setText("ON");
+                    mot_data[8] = "ON";
+                }
+                if (lines[1].toString().contains("3 phase")) {
+                    mot_data[9] = "3";
+                } else {
+                    mot_data[9] = "2";
+                }
+                mot_data[15] = smsDate.substring(0, 16);
+
+                mot_data[0] = phoneNumber;
+                mot_data[1] = "";
+                mot_data[2] = lines[2].toString().substring(4, 7);
+                mot_data[3] = lines[3].toString().substring(4, 7);
+                mot_data[4] = lines[4].toString().substring(4, 7);
+                boolean isUpdated = myDb.updateData(mot_data, phoneNumber, 1025);
+                if (isUpdated == true)
+                    Toast.makeText(Main2Activity.this, "Data Updated", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(Main2Activity.this, "Data not Updated", Toast.LENGTH_SHORT).show();
+            }
+        }
+
         if(lines.length==6) {
                 if (timestamp_rec < timestamp_msg) {
                     Log.i("Msg Date", msg_date);
@@ -442,6 +498,50 @@ public class Main2Activity extends AppCompatActivity {
                         Toast.makeText(Main2Activity.this, "Data not Updated", Toast.LENGTH_SHORT).show();
                 }
         }
+
+        if(lines.length==8) {
+            Log.i("Test...","--------------");
+            Log.i("Msg Date", msg_date);
+            Log.i("Rec Date", rec_date);
+            if (timestamp_rec < timestamp_msg) {
+                String mot_data[] = {"", "", ""};
+                if (lines[2].toString().contains("on by")) {
+                    Log.i("Test","--------------");
+                    on_off_text.setText("ON");
+                    mot_data[0]=phoneNumber;
+                    mot_data[1] = "ON";
+                    mot_data[2] = lines[3];
+                    mot_data[0] = phoneNumber;
+                    boolean isUpdated = myDb.updateData(mot_data, phoneNumber, 1029);
+                    if (isUpdated == true)
+                        Toast.makeText(Main2Activity.this, "Data Updated", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(Main2Activity.this, "Data not Updated", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }
+
+        if(lines.length==6) {
+            if (timestamp_rec < timestamp_msg) {
+                Log.i("Msg Date", msg_date);
+                Log.i("Rec Date", rec_date);
+                String mot_data[] = {"",""};
+                Log.i("Got Data.........", "yes");
+                if (lines[0].toString().contains("over")) {
+                    mot_data[0] = phoneNumber;
+                    mot_data[1] = "OFF";
+                    Log.i("Got Data.........", "yes");
+                    boolean isUpdated = myDb.updateData(mot_data, phoneNumber,1030);
+                    if (isUpdated == true)
+                        Toast.makeText(this, "Data Updated", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(this, "Data not Updated", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+
+
     }
 
     @Override

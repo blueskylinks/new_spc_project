@@ -45,7 +45,7 @@ public class UpdatingService extends Service  {
 
         IntentFilter mIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
         registerReceiver(sms_notify_reciver, mIntentFilter);
-        Toast.makeText(UpdatingService.this, "Service Started......!", Toast.LENGTH_LONG).show();
+        Toast.makeText(UpdatingService.this, "SPC Service!", Toast.LENGTH_LONG).show();
         myDb = new DatabaseHelper(this);
 
         handler = new Handler();

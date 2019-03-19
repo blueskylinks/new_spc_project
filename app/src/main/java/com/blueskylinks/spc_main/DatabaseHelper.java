@@ -33,6 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_14 = "CTL_TIME";
     public static final String COL_15 = "TOWER_SIG";
     public static final String COL_16 = "SYNC_DATE";
+    public static final String COL_17 = "LAST_MSG";
 
     public static final String COL_SET1 = "PH_ID";
     public static final String COL_SET2 = "RTC_ST";
@@ -61,7 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME +" (PH_ID TEXT,PH_PASS TEXT,V1 TEXT,V2 TEXT,V3 TEXT,C1 TEXT,C2 TEXT,C3 TEXT,MOT_ST TEXT,PHASE TEXT, CTL_BY TEXT, CTL_ST TEXT, CTL_DATE TEXT, CTL_TIME TEXT, TOWER_SIG TEXT, SYNC_DATE TEXT)");
+        db.execSQL("create table " + TABLE_NAME +" (PH_ID TEXT,PH_PASS TEXT,V1 TEXT,V2 TEXT,V3 TEXT,C1 TEXT,C2 TEXT,C3 TEXT,MOT_ST TEXT,PHASE TEXT, CTL_BY TEXT, CTL_ST TEXT, CTL_DATE TEXT, CTL_TIME TEXT, TOWER_SIG TEXT, SYNC_DATE TEXT, LAST_MSG TEXT)");
         db.execSQL("create table " + TABLE_NAME1 +" (PH_ID TEXT, RTC_ST TEXT, RTC_1_1 TEXT, RTC_1_2 TEXT, RTC_2_1 TEXT, RTC_2_2 TEXT, RTC_3_1 TEXT, RTC_3_2 TEXT, " +
                 "EXT_CH TEXT, SINGLE_PH TEXT, REV_PH TEXT, FEED_SMS TEXT, FED_CALL TEXT, STOLEN_PR TEXT)");
         db.execSQL("CREATE TABLE " + TABLE_MSG1 +"(PH_ID TEXT, MSG TEXT, MSG_DATE TEXT, MSG_LOCDATE TEXT, USER TEXT)");
@@ -169,6 +170,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean updateData(String[] mot_data, String ph_no, int code) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        String s_temp=ph_no.toString();
         switch(code) {
             case 1025:
                 contentValues.put(COL_3, mot_data[2]);
@@ -179,22 +181,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 contentValues.put(COL_8, mot_data[7]);
                 contentValues.put(COL_9, mot_data[8]);
                 contentValues.put(COL_10, mot_data[9]);
+                contentValues.put(COL_12, mot_data[11]);
                 contentValues.put(COL_16, mot_data[15]);
                 Date d1 = new Date();
                 contentValues.put(COL_13,String.valueOf(d1.getTime()));
-                Log.i("Date-D1",String.valueOf(d1.getTime()));
+                Log.i("SPC 25",String.valueOf(d1.getTime()));
                 break;
             case 1024:
                 contentValues.put(COL_9, mot_data[1]);
                 Date d2 = new Date();
                 contentValues.put(COL_13,String.valueOf(d2.getTime()));
-                Log.i("Date-D222",String.valueOf(d2.getTime()));
+                Log.i("SPC 24",String.valueOf(d2.getTime()));
                 break;
             case 1028:
                 contentValues.put(COL_9, mot_data[8]);
                 Date d3 = new Date();
                 contentValues.put(COL_13,String.valueOf(d3.getTime()));
                 Log.i("Date-D222",String.valueOf(d3.getTime()));
+                break;
+            case 1029:
+                contentValues.put(COL_9, mot_data[1]);
+                contentValues.put(COL_11, mot_data[2]);
+                Date d13 = new Date();
+                contentValues.put(COL_13,String.valueOf(d13.getTime()));
+                Log.i("Date-D222",String.valueOf(d13.getTime()));
+                break;
+            case 1030:
+                contentValues.put(COL_9, mot_data[1]);
+                Date d14 = new Date();
+                contentValues.put(COL_13,String.valueOf(d14.getTime()));
+                Log.i("test........",String.valueOf(d14.getTime()));
                 break;
             case 1004:
                 contentValues.put(COL_10, mot_data[0]);
@@ -206,7 +222,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 contentValues.put(COL_10, mot_data[1]);
                 Date d5 = new Date();
                 contentValues.put(COL_13,String.valueOf(d5.getTime()));
-                Log.i("Date-D222",String.valueOf(d5.getTime()));
+                Log.i("test........",String.valueOf(d5.getTime()));
+                break;
+            case 1090:
+                contentValues.put(COL_12,mot_data[1]);
+                contentValues.put(COL_17,mot_data[3]);
+                break;
             default:
                 break;
         }
