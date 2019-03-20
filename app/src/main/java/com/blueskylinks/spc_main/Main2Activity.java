@@ -440,9 +440,9 @@ public class Main2Activity extends AppCompatActivity {
                 mot_data[7] = lines[8].toString().substring(3, 6);
                 boolean isUpdated = myDb.updateData(mot_data, phoneNumber, 1025);
                 if (isUpdated == true)
-                    Toast.makeText(Main2Activity.this, "Data Updated", Toast.LENGTH_SHORT).show();
+                    Log.i("Database:", "updated!");
                 else
-                    Toast.makeText(Main2Activity.this, "Data not Updated", Toast.LENGTH_SHORT).show();
+                    Log.i("Database:", "Not updated!");
             }
         }
 
@@ -469,9 +469,9 @@ public class Main2Activity extends AppCompatActivity {
                 mot_data[4] = lines[4].toString().substring(4, 7);
                 boolean isUpdated = myDb.updateData(mot_data, phoneNumber, 1025);
                 if (isUpdated == true)
-                    Toast.makeText(Main2Activity.this, "Data Updated", Toast.LENGTH_SHORT).show();
+                    Log.i("Database:", "updated!");
                 else
-                    Toast.makeText(Main2Activity.this, "Data not Updated", Toast.LENGTH_SHORT).show();
+                    Log.i("Database:", "Not updated!");
             }
         }
 
@@ -493,9 +493,9 @@ public class Main2Activity extends AppCompatActivity {
                     mot_data[0] = phoneNumber;
                     boolean isUpdated = myDb.updateData(mot_data, phoneNumber, 1028);
                     if (isUpdated == true)
-                        Toast.makeText(Main2Activity.this, "Data Updated", Toast.LENGTH_SHORT).show();
+                        Log.i("Database:", "updated!");
                     else
-                        Toast.makeText(Main2Activity.this, "Data not Updated", Toast.LENGTH_SHORT).show();
+                        Log.i("Database:", "Not updated!");
                 }
         }
 
@@ -514,9 +514,9 @@ public class Main2Activity extends AppCompatActivity {
                     mot_data[0] = phoneNumber;
                     boolean isUpdated = myDb.updateData(mot_data, phoneNumber, 1029);
                     if (isUpdated == true)
-                        Toast.makeText(Main2Activity.this, "Data Updated", Toast.LENGTH_SHORT).show();
+                        Log.i("Database:", "updated!");
                     else
-                        Toast.makeText(Main2Activity.this, "Data not Updated", Toast.LENGTH_SHORT).show();
+                        Log.i("Database:", "Not updated!");
                 }
 
             }
@@ -534,9 +534,9 @@ public class Main2Activity extends AppCompatActivity {
                     Log.i("Got Data.........", "yes");
                     boolean isUpdated = myDb.updateData(mot_data, phoneNumber,1030);
                     if (isUpdated == true)
-                        Toast.makeText(this, "Data Updated", Toast.LENGTH_SHORT).show();
+                        Log.i("Database:", "updated!");
                     else
-                        Toast.makeText(this, "Data not Updated", Toast.LENGTH_SHORT).show();
+                        Log.i("Database:", "Not updated!");
                 }
             }
         }
