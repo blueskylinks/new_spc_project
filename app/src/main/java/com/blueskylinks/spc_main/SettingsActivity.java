@@ -42,13 +42,6 @@ public class SettingsActivity extends AppCompatActivity {
     Boolean val7=false;
     boolean val8 = false;
     SharedPreferences sp1;
-    SharedPreferences Preferences1;
-    SharedPreferences Preferences2;
-    SharedPreferences Preferences4;
-    SharedPreferences Preferences5;
-    SharedPreferences Preferences6;
-    SharedPreferences Preferences7;
-    SharedPreferences Preferences8;
     DatabaseHelper myDb;
 
 
@@ -94,6 +87,42 @@ public class SettingsActivity extends AppCompatActivity {
                 s7.setChecked(true);
             else
                 s7.setChecked(false);
+
+            String temp1=res.getString(9);
+            Log.i("Sinle ph",String.valueOf(temp1));
+            if(temp1.contains("1"))
+                s2.setChecked(true);
+            else
+                s2.setChecked(false);
+
+            String temp2=res.getString(10);
+            Log.i("Rev ph",String.valueOf(temp2));
+            if(temp2.contains("1"))
+                s4.setChecked(true);
+            else
+                s4.setChecked(false);
+
+            String temp3=res.getString(11);
+            Log.i("Feed SMS",String.valueOf(temp3));
+            if(temp3.contains("1"))
+                s5.setChecked(true);
+            else
+                s5.setChecked(false);
+
+            String temp4=res.getString(12);
+            Log.i("Feed CALL",String.valueOf(temp3));
+            if(temp4.contains("1"))
+                s6.setChecked(true);
+            else
+                s6.setChecked(false);
+
+            String temp5=res.getString(13);
+            Log.i("Feed CALL",String.valueOf(temp5));
+            if(temp5.contains("1"))
+                s8.setChecked(true);
+            else
+                s8.setChecked(false);
+
         }
 
     }
@@ -190,6 +219,10 @@ public class SettingsActivity extends AppCompatActivity {
                                     String message = "SPC,42,1";
                                     SmsManager smsManager = SmsManager.getDefault();
                                     smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                                    Log.i("Test", message);
+                                    String mot_data[] = {"", "", ""};
+                                    mot_data[1]="1";
+                                    boolean isInserted = myDb.update_set(mot_data,phoneNumber,2712);
                                 }
                             });
 
@@ -198,7 +231,6 @@ public class SettingsActivity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     s2.setChecked(false);
-                                    Preferences2.edit().putBoolean("Checked2",false).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -216,8 +248,9 @@ public class SettingsActivity extends AppCompatActivity {
                                     String message = "SPC,42,0";
                                     SmsManager smsManager = SmsManager.getDefault();
                                     smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-                                    Log.i("Test", message);
-                                    Preferences2.edit().putBoolean("Checked2",false).apply();
+                                    String mot_data[] = {"", "", ""};
+                                    mot_data[1]="0";
+                                    boolean isInserted = myDb.update_set(mot_data,phoneNumber,2712);
                                 }
                             });
 
@@ -226,7 +259,6 @@ public class SettingsActivity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     s2.setChecked(true);
-                                    Preferences2.edit().putBoolean("Checked2",true).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -248,7 +280,10 @@ public class SettingsActivity extends AppCompatActivity {
                                     SmsManager smsManager = SmsManager.getDefault();
                                     smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                                     Log.i("Test", message);
-                                    Preferences4.edit().putBoolean("Checked4",true).apply();
+                                    String mot_data[] = {"", "", ""};
+                                    mot_data[1]="1";
+                                    boolean isInserted = myDb.update_set(mot_data,phoneNumber,2713);
+
                                 }
                             });
 
@@ -257,7 +292,6 @@ public class SettingsActivity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     s4.setChecked(false);
-                                    Preferences4.edit().putBoolean("Checked4",false).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -276,7 +310,10 @@ public class SettingsActivity extends AppCompatActivity {
                                     SmsManager smsManager = SmsManager.getDefault();
                                     smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                                     Log.i("Test", message);
-                                    Preferences4.edit().putBoolean("Checked4",false).apply();
+                                    String mot_data[] = {"", "", ""};
+                                    mot_data[1]="0";
+                                    boolean isInserted = myDb.update_set(mot_data,phoneNumber,2713);
+
                                 }
                             });
 
@@ -285,7 +322,6 @@ public class SettingsActivity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     s4.setChecked(true);
-                                    Preferences4.edit().putBoolean("Checked4",true).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -306,7 +342,10 @@ public class SettingsActivity extends AppCompatActivity {
                                     SmsManager smsManager = SmsManager.getDefault();
                                     smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                                     Log.i("Test", message);
-                                    Preferences5.edit().putBoolean("Checked5",true).apply();
+                                    String mot_data[] = {"", "", ""};
+                                    mot_data[1]="1";
+                                    boolean isInserted = myDb.update_set(mot_data,phoneNumber,2714);
+
                                 }
                             });
 
@@ -315,63 +354,6 @@ public class SettingsActivity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     s5.setChecked(false);
-                                    Preferences5.edit().putBoolean("Checked5",false).apply();
-                                    dialog.cancel();
-                                }
-                            });
-                    AlertDialog alert11 = builder1.create();
-                    alert11.show();
-                }
-                else{  AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-                    builder1.setMessage("Are you sure want to switch off!.");
-                    builder1.setCancelable(true);
-                    builder1.setPositiveButton(
-                            "Yes",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    String message = "SPC,1,0";
-                                    SmsManager smsManager = SmsManager.getDefault();
-                                    smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-                                    Log.i("Test", message);
-                                    Preferences5.edit().putBoolean("Checked5",false).apply();
-                                }
-                            });
-                    builder1.setNegativeButton(
-                            "No",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    s5.setChecked(true);
-                                    Preferences5.edit().putBoolean("Checked5",true).apply();
-                                    dialog.cancel();
-                                }
-                            });
-                    AlertDialog alert11 = builder1.create();
-                    alert11.show();
-                }
-            case R.id.switch6:
-                if(s6.isChecked()){
-                    AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-                    builder1.setMessage("Are you sure want to switch on!.");
-                    builder1.setCancelable(true);
-                    builder1.setPositiveButton(
-                            "Yes",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    String message = "SPC,0,1";
-                                    SmsManager smsManager = SmsManager.getDefault();
-                                    smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-                                    Log.i("Test", message);
-                                    Log.i("Test", message);
-                                    Preferences6.edit().putBoolean("Checked6",true).apply();
-                                }
-                            });
-
-                    builder1.setNegativeButton(
-                            "No",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    s6.setChecked(false);
-                                    Preferences6.edit().putBoolean("Checked6",false).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -390,8 +372,73 @@ public class SettingsActivity extends AppCompatActivity {
                                     SmsManager smsManager = SmsManager.getDefault();
                                     smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                                     Log.i("Test", message);
+                                    String mot_data[] = {"", "", ""};
+                                    mot_data[1]="0";
+                                    boolean isInserted = myDb.update_set(mot_data,phoneNumber,2714);
+
+                                }
+                            });
+
+                    builder1.setNegativeButton(
+                            "No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    s5.setChecked(true);
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
+                break;
+
+            case R.id.switch6:
+                if(s6.isChecked()){
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                    builder1.setMessage("Are you sure want to switch on!.");
+                    builder1.setCancelable(true);
+                    builder1.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    String message = "SPC,0,1";
+                                    SmsManager smsManager = SmsManager.getDefault();
+                                    smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                                     Log.i("Test", message);
-                                    Preferences6.edit().putBoolean("Checked6",false).apply();
+                                    String mot_data[] = {"", "", ""};
+                                    mot_data[1]="1";
+                                    boolean isInserted = myDb.update_set(mot_data,phoneNumber,2715);
+
+                                }
+                            });
+
+                    builder1.setNegativeButton(
+                            "No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    s6.setChecked(false);
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
+                else{
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                    builder1.setMessage("Are you sure want to switch off!.");
+                    builder1.setCancelable(true);
+                    builder1.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    String message = "SPC,0,0";
+                                    SmsManager smsManager = SmsManager.getDefault();
+                                    smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                                    Log.i("Test", message);
+                                    String mot_data[] = {"", "", ""};
+                                    mot_data[1]="0";
+                                    boolean isInserted = myDb.update_set(mot_data,phoneNumber,2715);
+
                                 }
                             });
 
@@ -400,7 +447,6 @@ public class SettingsActivity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     s6.setChecked(true);
-                                    Preferences6.edit().putBoolean("Checked6",true).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -481,8 +527,10 @@ public class SettingsActivity extends AppCompatActivity {
                                     SmsManager smsManager = SmsManager.getDefault();
                                     smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                                     Log.i("Test", message);
-                                    Log.i("Test", message);
-                                    Preferences8.edit().putBoolean("Checked8",true).apply();
+                                    String mot_data[] = {"", "", ""};
+                                    mot_data[1]="1";
+                                    boolean isInserted = myDb.update_set(mot_data,phoneNumber,2716);
+
                                 }
                             });
 
@@ -491,7 +539,6 @@ public class SettingsActivity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     s8.setChecked(false);
-                                    Preferences8.edit().putBoolean("Checked8",false).apply();
                                     dialog.cancel();
                                 }
                             });
@@ -510,8 +557,10 @@ public class SettingsActivity extends AppCompatActivity {
                                     SmsManager smsManager = SmsManager.getDefault();
                                     smsManager.sendTextMessage(phoneNumber, null, message, null, null);
                                     Log.i("Test", message);
-                                    Log.i("Test", message);
-                                    Preferences8.edit().putBoolean("Checked8",false).apply();
+                                    String mot_data[] = {"", "", ""};
+                                    mot_data[1]="0";
+                                    boolean isInserted = myDb.update_set(mot_data,phoneNumber,2716);
+
                                 }
                             });
 
@@ -519,8 +568,7 @@ public class SettingsActivity extends AppCompatActivity {
                             "No",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    s6.setChecked(true);
-                                    Preferences8.edit().putBoolean("Checked8",true).apply();
+                                    s8.setChecked(true);
                                     dialog.cancel();
                                 }
                             });
@@ -554,6 +602,15 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void underVoltage(View view){
         Intent in2 = new Intent(SettingsActivity.this, UnderVoltageActivity.class);
+        startActivity(in2);
+    }
+
+    public void v_diff(View view){
+        Intent in2 = new Intent(SettingsActivity.this, v_diff_settActivity.class);
+        startActivity(in2);
+    }
+    public void spp_v(View view){
+        Intent in2 = new Intent(SettingsActivity.this, spp_voltsActivity.class);
         startActivity(in2);
     }
 

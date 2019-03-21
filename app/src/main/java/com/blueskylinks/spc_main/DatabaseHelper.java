@@ -45,9 +45,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_SET8 = "RTC_3_2";
     public static final String COL_SET9 = "EXT_CH";
     public static final String COL_SET10 = "SINGLE_PH";
-    public static final String COL_SET11 = "FEED_SMS";
-    public static final String COL_SET12 = "FED_CALL";
-    public static final String COL_SET13 = "STOLEN_PR";
+    public static final String COL_SET11 = "REV_PH";
+    public static final String COL_SET12 = "FEED_SMS";
+    public static final String COL_SET13 = "FED_CALL";
+    public static final String COL_SET14 = "STOLEN_PR";
+    public static final String COL_SET15 = "OVER_LOAD_STATUS";
+    public static final String COL_SET16 = "OL_TRIP_TIME";
+    public static final String COL_SET17 = "OL_TRIP_C3";
+    public static final String COL_SET18 = "OL_TRIP_C2";
+    public static final String COL_SET19 = "OL_PERCENT";
+    public static final String COL_SET20 = "DRY_RUN_STATUS";
+    public static final String COL_SET21 = "DR_TRIPTIME";
+    public static final String COL_SET22 = "DR_TRIPC3";
+    public static final String COL_SET23 = "DR_TRIPC2";
+    public static final String COL_SET24 = "NOLOAD_TRIP_PERCENT";
+    public static final String COL_SET25 = "RESTART_DR_STATUS";
+    public static final String COL_SET26 = "RESTART_TIME";
+    public static final String COL_SET27 = "O_VOLT_PF_STATUS";
+    public static final String COL_SET28 = "MAX_VOLT3";
+    public static final String COL_SET29 = "MAX_VOLT2";
+    public static final String COL_SET30 = "U_VOLT_PF_STATUS";
+    public static final String COL_SET31 = "MIN_VOLT3";
+    public static final String COL_SET32 = "MIN_VOLT2";
+    public static final String COL_SET33 = "V_DIFF_VAL";
+    public static final String COL_SET34 = "SPP_V_STATUS";
+    public static final String COL_SET35 = "SPP_V_DIFF_VAL";
+
 
     public static final String COL_MSG1 = "PH_ID";
     public static final String COL_MSG2 = "MSG";
@@ -64,7 +87,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE_NAME +" (PH_ID TEXT,PH_PASS TEXT,V1 TEXT,V2 TEXT,V3 TEXT,C1 TEXT,C2 TEXT,C3 TEXT,MOT_ST TEXT,PHASE TEXT, CTL_BY TEXT, CTL_ST TEXT, CTL_DATE TEXT, CTL_TIME TEXT, TOWER_SIG TEXT, SYNC_DATE TEXT, LAST_MSG TEXT)");
         db.execSQL("create table " + TABLE_NAME1 +" (PH_ID TEXT, RTC_ST TEXT, RTC_1_1 TEXT, RTC_1_2 TEXT, RTC_2_1 TEXT, RTC_2_2 TEXT, RTC_3_1 TEXT, RTC_3_2 TEXT, " +
-                "EXT_CH TEXT, SINGLE_PH TEXT, REV_PH TEXT, FEED_SMS TEXT, FED_CALL TEXT, STOLEN_PR TEXT)");
+                "EXT_CH TEXT, SINGLE_PH TEXT, REV_PH TEXT, FEED_SMS TEXT, FED_CALL TEXT, STOLEN_PR TEXT, OVER_LOAD_STATUS TEXT, OL_TRIP_TIME TEXT, OL_TRIP_C3 TEXT, OL_TRIP_C2 TEXT, OL_PERCENT TEXT, DRY_RUN_STATUS TEXT, DR_TRIPTIME TEXT, DR_TRIPC3 TEXT, DR_TRIPC2 TEXT, NOLOAD_TRIP_PERCENT TEXT,RESTART_DR_STATUS TEXT, RESTART_TIME TEXT, O_VOLT_PF_STATUS TEXT, MAX_VOLT3 TEXT, MAX_VOLT2 TEXT, U_VOLT_PF_STATUS TEXT, MIN_VOLT3 TEXT, MIN_VOLT2 TEXT, V_DIFF_VAL TEXT, SPP_V_STATUS TEXT, SPP_V_DIFF_VAL TEXT)");
         db.execSQL("CREATE TABLE " + TABLE_MSG1 +"(PH_ID TEXT, MSG TEXT, MSG_DATE TEXT, MSG_LOCDATE TEXT, USER TEXT)");
     }
 
@@ -118,6 +141,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_SET11,"");
         contentValues.put(COL_SET12,"");
         contentValues.put(COL_SET13,"");
+        contentValues.put(COL_SET14,"");
+        contentValues.put(COL_SET15,"");
+        contentValues.put(COL_SET16,"");
+        contentValues.put(COL_SET17,"");
+        contentValues.put(COL_SET18,"");
+        contentValues.put(COL_SET19,"");
+        contentValues.put(COL_SET20,"");
+        contentValues.put(COL_SET21,"");
+        contentValues.put(COL_SET22,"");
+        contentValues.put(COL_SET23,"");
+        contentValues.put(COL_SET24,"");
+        contentValues.put(COL_SET25,"");
+        contentValues.put(COL_SET26,"");
+        contentValues.put(COL_SET27,"");
+        contentValues.put(COL_SET28,"");
+        contentValues.put(COL_SET29,"");
+        contentValues.put(COL_SET30,"");
+        contentValues.put(COL_SET31,"");
+        contentValues.put(COL_SET32,"");
+        contentValues.put(COL_SET33,"");
+        contentValues.put(COL_SET34,"");
+        contentValues.put(COL_SET35,"");
+
         long result = db.insert(TABLE_NAME1,null ,contentValues);
         if(result == -1)
             return false;
@@ -269,6 +315,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             case 2711:
                 contentValues.put(COL_SET9, mot_data[1]);
                 Log.i("Data Setting","Updated...");
+                break;
+            case 2712:
+                contentValues.put(COL_SET10, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2713:
+                contentValues.put(COL_SET11, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2714:
+                contentValues.put(COL_SET12, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2715:
+                contentValues.put(COL_SET13, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2716:
+                contentValues.put(COL_SET14, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2717:
+                contentValues.put(COL_SET15, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
             default:
                 break;
         }

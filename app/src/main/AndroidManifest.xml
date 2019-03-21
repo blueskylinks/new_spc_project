@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
@@ -37,6 +38,8 @@
         <activity android:name=".UnderVoltageActivity" />
         <activity android:name=".RealClockTimeActivity" />
         <activity android:name=".splashActivity" />
+        <activity android:name=".spp_voltsActivity" />
+        <activity android:name=".v_diff_settActivity" />
 
     </application>
 

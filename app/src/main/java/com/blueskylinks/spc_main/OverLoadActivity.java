@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class OverLoadActivity extends AppCompatActivity {
@@ -40,12 +42,17 @@ public class OverLoadActivity extends AppCompatActivity {
     String SMSBody1;
     EditText et3;
     EditText et4;
+    SharedPreferences sp1;
+    DatabaseHelper myDb;
+    Button submit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        myDb = new DatabaseHelper(this);
         setContentView(R.layout.activity_over_load);
         rbutton1 = findViewById(R.id.radioButton);
+        submit = findViewById(R.id.button3);
         rbutyon2 = findViewById(R.id.radioButton2);
         pbar = findViewById(R.id.onoff_pgbar1);
         textView1 = findViewById(R.id.onoff_status_text1);
@@ -64,18 +71,36 @@ public class OverLoadActivity extends AppCompatActivity {
         tv2=findViewById(R.id.current);
 
         //get Destination address
-        SharedPreferences sp1=getSharedPreferences("login",0);
+        sp1=getSharedPreferences("login",0);
         phoneNumber=sp1.getString("subId","0");
+        get_set(phoneNumber);
+    }
+
+    public void get_set(String ph_no){
+        Cursor res = myDb.getAllData_set(ph_no);
+        if(res.getCount() == 0) {
+            Toast.makeText(this,"Nothing found",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Log.i("Rec_Count_settings",String.valueOf(res.getCount()));
+        while (res.moveToNext()) {
+            String temp1 = res.getString(15);
+            Log.i("EXT Value", String.valueOf(temp1));
+            if(temp1!=null){
+                if (temp1.contains("1"))
+                    rbutton1.isChecked();
+                else
+                    rbutyon2.isChecked();
+            }
+
+        }
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
         SMSBody1 = "";
-
-        final IntentFilter vIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-        registerReceiver(OverLoadReceiver, vIntentFilter);
-        registerReceiver(OverLoadReceiver, vIntentFilter);
     }
 
     public void turnsOn(View view) {
@@ -84,19 +109,17 @@ public class OverLoadActivity extends AppCompatActivity {
             message = "SPC,2,1";
             SmsManager smsManager = SmsManager.getDefault();
              smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            Log.i("message", message);
-            Log.i("Test", "SMS sent!");
-              pbar.setVisibility(View.VISIBLE);
-            textView1.setText("Command Sent, Please Wait...For 2 minutes");
+            String mot_data[] = {"", "", ""};
+            mot_data[1]="1";
+            boolean isInserted = myDb.update_set(mot_data,phoneNumber,2717);
         }
         else if (rbutyon2.isChecked()) {
             message = "SPC,2,0";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            Log.i("message", message);
-            Log.i("Test", "SMS sent!");
-             pbar.setVisibility(View.VISIBLE);
-            textView1.setText("Command Sent, Please Wait...For 2 minutes");
+            String mot_data[] = {"", "", ""};
+            mot_data[1]="0";
+            boolean isInserted = myDb.update_set(mot_data,phoneNumber,2717);
         } else return;
     }
 
@@ -191,39 +214,6 @@ public class OverLoadActivity extends AppCompatActivity {
         startActivity(it5);
     }
 
-    private final BroadcastReceiver OverLoadReceiver = new BroadcastReceiver() {
 
-        @Override
-        public void onReceive(Context context, Intent intent3) {
-            if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent3.getAction())) {
-                for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent3)) {
-                    String senderNum = smsMessage.getDisplayOriginatingAddress();
-                    SMSBody1 += smsMessage.getMessageBody().toString();
-                    Log.i("length", String.valueOf(SMSBody1.length()));
-                    Log.i("Received SMS:", SMSBody1);
-                    String[] lines = SMSBody1.split("\\r?\\n");
-                    Log.i("sms",lines[3]);
-                    if(lines[3].toString().contains("function is on")){
-                        tv.setText("ON");
-                        pbar.setVisibility(View.INVISIBLE);
-                    }
-                    else if(lines[3].toString().contains("function is off")){
-                        tv.setText("OFF");
-                        pbar.setVisibility(View.INVISIBLE);
-                    }
-                    else if(lines[2].toString().contains("trip time")){
-                      tv1.setText(lines[2]);
-                      pbar1.setVisibility(View.INVISIBLE);
-                    }
-                    else if(lines[2].toString().contains("trip amps")){
-                        tv2.setText(lines[2]);
-                        pbar2.setVisibility(View.INVISIBLE);
-                    }
-                    else return;
-                }
-                SMSBody1="";
-            }
-        }
-    };
 
 }

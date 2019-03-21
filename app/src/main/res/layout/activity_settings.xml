@@ -405,6 +405,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_weight="3"
+                        android:background="@android:color/darker_gray"
                         android:onClick="spp_v"
                         android:text="SPP Voltage"
                         android:textAlignment="center"
