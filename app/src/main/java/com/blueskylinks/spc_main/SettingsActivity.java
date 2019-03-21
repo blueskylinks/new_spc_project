@@ -161,6 +161,7 @@ public class SettingsActivity extends AppCompatActivity {
                                     String mot_data[] = {"", "", ""};
                                     mot_data[1]="2";
                                     boolean isInserted = myDb.updateData(mot_data,phoneNumber,1005);
+
                                 }
                             });
                             builder1.setNegativeButton(

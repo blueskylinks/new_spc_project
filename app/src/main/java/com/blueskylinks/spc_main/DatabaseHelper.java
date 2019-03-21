@@ -340,6 +340,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 contentValues.put(COL_SET15, mot_data[1]);
                 Log.i("Data Setting","Updated...");
                 break;
+            case 2718:
+                contentValues.put(COL_SET16, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
             default:
                 break;
         }

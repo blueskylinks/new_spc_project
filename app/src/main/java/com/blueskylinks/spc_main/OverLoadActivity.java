@@ -84,14 +84,21 @@ public class OverLoadActivity extends AppCompatActivity {
         }
         Log.i("Rec_Count_settings",String.valueOf(res.getCount()));
         while (res.moveToNext()) {
-            String temp1 = res.getString(15);
+            String temp1 = res.getString(14);
             Log.i("EXT Value", String.valueOf(temp1));
             if(temp1!=null){
-                if (temp1.contains("1"))
-                    rbutton1.isChecked();
-                else
-                    rbutyon2.isChecked();
+                if (temp1.contains("1")){
+                    Log.i("...Value", String.valueOf(temp1));
+                    rbutton1.setChecked(true);
+                }
+                else{
+                    Log.i("...Value", String.valueOf(temp1));
+                    rbutyon2.setChecked(true);
+                }
+
             }
+            String temp2 = res.getString(15);
+            et1.setText(temp2);
 
         }
 
@@ -112,6 +119,7 @@ public class OverLoadActivity extends AppCompatActivity {
             String mot_data[] = {"", "", ""};
             mot_data[1]="1";
             boolean isInserted = myDb.update_set(mot_data,phoneNumber,2717);
+
         }
         else if (rbutyon2.isChecked()) {
             message = "SPC,2,0";
@@ -131,13 +139,13 @@ public class OverLoadActivity extends AppCompatActivity {
             Log.i("..", text);
             String message = "SPC,3," + text;
             SmsManager smsManager = SmsManager.getDefault();
-             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-             pbar1.setVisibility(View.VISIBLE);
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             Log.i("message", message);
             Log.i("Test", "SMS sent!");
             textView2.setText("Command Sent, Please Wait...For 2 minutes");
-
-            et1.getText().clear();
+            String mot_data[] = {"", "", ""};
+            mot_data[1]=text;
+            boolean isInserted = myDb.update_set(mot_data,phoneNumber,2718);
         }
     }
 
