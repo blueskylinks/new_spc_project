@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class
@@ -24,13 +26,13 @@ UnderVoltageActivity extends AppCompatActivity {
     RadioButton rbutton1;
     RadioButton rbutton2;
    String phoneNumber ;
-    ProgressBar pbar;
-    ProgressBar pbar1;
     TextView textView1;
     TextView textView2;
     TextView tv;
     TextView tv1;
     EditText et2;
+    DatabaseHelper myDb;
+    SharedPreferences sp1;
     String SMSBody1;
     EditText et3;
 
@@ -39,30 +41,55 @@ UnderVoltageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_under_voltage);
-
+        myDb = new DatabaseHelper(this);
         rbutton1=findViewById(R.id.radioButton);
         rbutton2=findViewById(R.id.radioButton2);
-        pbar=findViewById(R.id.onoff_pgbar1);
         textView1=findViewById(R.id.onoff_status_text1);
         tv=findViewById(R.id.mot_st);
         tv1=findViewById(R.id.maxvoltage);
-        pbar1=findViewById(R.id.set);
         textView2=findViewById(R.id.onoff_status_text3);
         et2=findViewById(R.id.et11);
         et3=findViewById(R.id.et12);
         //get Destination address
-        SharedPreferences sp1=getSharedPreferences("login",0);
+        sp1=getSharedPreferences("login",0);
         phoneNumber=sp1.getString("subId","0");
+        get_set(phoneNumber);
+    }
+
+
+    public void get_set(String ph_no){
+        Cursor res = myDb.getAllData_set(ph_no);
+        if(res.getCount() == 0) {
+            Toast.makeText(this,"Nothing found",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Log.i("Rec_Count_settings",String.valueOf(res.getCount()));
+        while (res.moveToNext()) {
+            String temp1 = res.getString(29);
+            Log.i("EXT Value", String.valueOf(temp1));
+            if(temp1!=null){
+                if (temp1.contains("1")){
+                    Log.i("...Value", String.valueOf(temp1));
+                    rbutton1.setChecked(true);
+                }
+                else{
+                    Log.i("...Value", String.valueOf(temp1));
+                    rbutton2.setChecked(true);
+                }
+            }
+            String temp2 = res.getString(30);
+            et2.setText(temp2);
+
+            String temp3 = res.getString(31);
+            et3.setText(temp3);
+        }
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
         SMSBody1 = "";
-
-        final IntentFilter uIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-        registerReceiver(underVoltageReceiver, uIntentFilter);
-        registerReceiver(underVoltageReceiver, uIntentFilter);
     }
 
 
@@ -72,19 +99,19 @@ UnderVoltageActivity extends AppCompatActivity {
             message = "SPC,12,1";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            Log.i("message", message);
-            Log.i("Test", "SMS sent!");
-            pbar.setVisibility(View.VISIBLE);
             textView1.setText("Command Sent, Please Wait...For 2 minutes");
+            String mot_data[] = {"", "", ""};
+            mot_data[1]="1";
+            boolean isInserted = myDb.update_set(mot_data,phoneNumber,2732);
         }
         else if (rbutton2.isChecked()) {
             message = "SPC,12,0";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            Log.i("message", message);
-            Log.i("Test", "SMS sent!");
-            pbar.setVisibility(View.VISIBLE);
             textView1.setText("Command Sent, Please Wait...For 2 minutes");
+            String mot_data[] = {"", "", ""};
+            mot_data[1]="0";
+            boolean isInserted = myDb.update_set(mot_data,phoneNumber,2732);
         } else return;
 
     }
@@ -105,13 +132,10 @@ UnderVoltageActivity extends AppCompatActivity {
             message = "SPC,13" + "," + text + "," + text2;
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            pbar1.setVisibility(View.VISIBLE);
-            Log.i("message", message);
-            Log.i("Test", "SMS sent!");
-            textView2.setText("Command Sent, Please Wait...For 2 minutes");
-
-            et2.getText().clear();
-            et3.getText().clear();
+            String mot_data[] = {"", "", ""};
+            mot_data[1]=text;
+            mot_data[2]=text2;
+            boolean isInserted = myDb.update_set(mot_data,phoneNumber,2733);
         }
     }
 
@@ -144,40 +168,9 @@ UnderVoltageActivity extends AppCompatActivity {
         startActivity(it5);
     }
 
-    private final BroadcastReceiver underVoltageReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent6) {
-            if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent6.getAction())) {
-                for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent6)) {
-                    String senderNum = smsMessage.getDisplayOriginatingAddress();
-                    SMSBody1 += smsMessage.getMessageBody().toString();
-                    Log.i("length", String.valueOf(SMSBody1.length()));
-                    Log.i("Received SMS:", SMSBody1);
-                    String[] lines = SMSBody1.split("\\r?\\n");
-                    if(lines[2].toString().contains("function on")){
-                        tv.setText("ON");
-                        pbar.setVisibility(View.INVISIBLE);
-                    }
-                    else if(lines[2].toString().contains("function off")){
-                        tv.setText("OFF");
-                        pbar.setVisibility(View.INVISIBLE);
-                    }
-                    else if(lines[2].toString().contains("voltage setting")){
-                        tv1.setText(lines[2]);
-                        pbar1.setVisibility(View.INVISIBLE);
-                    }
-                    else return;
-                    SMSBody1 = "";
-                }
-            }
-        }
-    };
-
 
     @Override
     public void onPause(){
         super.onPause();
-        unregisterReceiver(underVoltageReceiver);
     }
 }

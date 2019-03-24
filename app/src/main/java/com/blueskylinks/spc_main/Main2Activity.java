@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,10 +39,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class Main2Activity extends AppCompatActivity {
+public class Main2Activity extends AppCompatActivity  {
+
+    float x1, x2, y1, y2;
 
     DatabaseHelper myDb;
-
     TextView ph_id_tx;
     TextView tv_var_v1;
     TextView tv_var_v2;
@@ -84,6 +86,7 @@ public class Main2Activity extends AppCompatActivity {
     String SMSBody1;
     boolean logged;
     public String phoneNumber;
+
     Switch s1;
     Boolean val1=false;
     TextView sync_date_time;
@@ -204,6 +207,34 @@ public class Main2Activity extends AppCompatActivity {
         }
 
     }
+
+    /*public boolean onTouchEvent(MotionEvent touchEvent)
+    {
+        switch(touchEvent.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+                x1 = touchEvent.getX();
+                y1 = touchEvent.getY();
+                break;
+
+            case MotionEvent.ACTION_UP:
+                x2 = touchEvent.getX();
+                y2 = touchEvent.getY();
+
+                if(x1 < x2)
+                {
+                    Intent i = new Intent(Main2Activity.this, SettingsActivity.class);
+                    startActivity(i);
+                }
+                else if(x1 > x2)
+                {
+                    Intent i = new Intent(Main2Activity.this, ON_OFFActivity .class);
+                    startActivity(i);
+                } break;
+        }
+        return false;
+    }*/
+
 
     private boolean isMyServiceRunning(Class <?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);

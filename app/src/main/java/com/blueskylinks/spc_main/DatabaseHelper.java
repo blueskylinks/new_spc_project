@@ -344,6 +344,71 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 contentValues.put(COL_SET16, mot_data[1]);
                 Log.i("Data Setting","Updated...");
                 break;
+            case 2719:
+                contentValues.put(COL_SET17, mot_data[1]);
+                contentValues.put(COL_SET18, mot_data[2]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2721:
+                contentValues.put(COL_SET19, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2722:
+                contentValues.put(COL_SET20, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2723:
+                contentValues.put(COL_SET21, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2724:
+                contentValues.put(COL_SET22, mot_data[1]);
+                contentValues.put(COL_SET23, mot_data[2]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2726:
+                contentValues.put(COL_SET24, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2727:
+                contentValues.put(COL_SET25, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2728:
+                contentValues.put(COL_SET26, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2729:
+                contentValues.put(COL_SET27, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2730:
+                contentValues.put(COL_SET28, mot_data[1]);
+                contentValues.put(COL_SET29, mot_data[2]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2732:
+                contentValues.put(COL_SET30, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2733:
+                contentValues.put(COL_SET31, mot_data[1]);
+                contentValues.put(COL_SET32, mot_data[2]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2735:
+                contentValues.put(COL_SET33, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2736:
+                contentValues.put(COL_SET34, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
+            case 2737:
+                contentValues.put(COL_SET35, mot_data[1]);
+                Log.i("Data Setting","Updated...");
+                break;
+
             default:
                 break;
         }

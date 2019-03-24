@@ -22,7 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class OverLoadActivity extends AppCompatActivity {
+public class  OverLoadActivity extends AppCompatActivity {
     RadioButton rbutton1;
     RadioButton rbutyon2;
     String phoneNumber ;
@@ -54,7 +54,6 @@ public class OverLoadActivity extends AppCompatActivity {
         rbutton1 = findViewById(R.id.radioButton);
         submit = findViewById(R.id.button3);
         rbutyon2 = findViewById(R.id.radioButton2);
-        pbar = findViewById(R.id.onoff_pgbar1);
         textView1 = findViewById(R.id.onoff_status_text1);
         et1 = findViewById(R.id.et1);
         textView2 = findViewById(R.id.onoff_status_text2);
@@ -64,9 +63,6 @@ public class OverLoadActivity extends AppCompatActivity {
         textView3 = findViewById(R.id.onoff_status_text3);
         textView4 = findViewById(R.id.onoff_status_text4);
         tv=findViewById(R.id.mot_st);
-        pbar1=findViewById(R.id.set1);
-        pbar2=findViewById(R.id.set2);
-        pbar3=findViewById(R.id.set3);
         tv1=findViewById(R.id.time);
         tv2=findViewById(R.id.current);
 
@@ -100,6 +96,17 @@ public class OverLoadActivity extends AppCompatActivity {
             String temp2 = res.getString(15);
             et1.setText(temp2);
 
+            String temp3 = res.getString(16);
+            et2.setText(temp3);
+
+            String temp4 = res.getString(17);
+            et3.setText(temp4);
+
+            String temp5 = res.getString(18);
+            et4.setText(temp5);
+
+
+
         }
 
     }
@@ -115,11 +122,10 @@ public class OverLoadActivity extends AppCompatActivity {
         if (rbutton1.isChecked()) {
             message = "SPC,2,1";
             SmsManager smsManager = SmsManager.getDefault();
-             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
             String mot_data[] = {"", "", ""};
             mot_data[1]="1";
             boolean isInserted = myDb.update_set(mot_data,phoneNumber,2717);
-
         }
         else if (rbutyon2.isChecked()) {
             message = "SPC,2,0";
@@ -165,13 +171,12 @@ public class OverLoadActivity extends AppCompatActivity {
             message = "SPC,5" + "," + text + "," + text2;
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            pbar2.setVisibility(View.VISIBLE);
-            Log.i("message", message);
             Log.i("Test", "SMS sent!");
             textView3.setText("Command Sent, Please Wait...For 2 minutes");
-
-            et2.getText().clear();
-            et3.getText().clear();
+            String mot_data[] = {"", "", ""};
+            mot_data[1] = text;
+            mot_data[2] = text2;
+             boolean isInserted = myDb.update_set(mot_data,phoneNumber,2719);
         }
     }
     //Overload Trip Percentage
@@ -184,12 +189,13 @@ public class OverLoadActivity extends AppCompatActivity {
             String message = "SPC,4," + text;
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            pbar3.setVisibility(View.VISIBLE);
             Log.i("message", message);
             Log.i("Test", "SMS sent!");
             textView4.setText("Command Sent, Please Wait...For 2 minutes");
+            String mot_data[] = {"", "", ""};
+            mot_data[1]=text;
+            boolean isInserted = myDb.update_set(mot_data,phoneNumber,2721);
 
-            et4.getText().clear();
         }
     }
 

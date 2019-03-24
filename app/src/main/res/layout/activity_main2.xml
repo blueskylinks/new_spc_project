@@ -460,12 +460,6 @@
                         android:layout_height="0dp"
                         android:layout_weight="2"></LinearLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight=".5"
-                        android:gravity="center"
-                        android:text="refresh"/>
                 </LinearLayout>
 
                 <!-- 3phase,2phase switch button -->
@@ -636,69 +630,8 @@
             </TableLayout>
 
 
-            <TableLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
-                    <ImageButton
-                        android:id="@+id/usrll1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        app:srcCompat="@mipmap/icons8_error" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/usr_l21"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Warning"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-                </TableRow>
-
-            </TableLayout>
-
-            <TableLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/imageButton21"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="manual"
-                        app:srcCompat="@mipmap/manual" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView324"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Functions"
-                        android:textColor="@android:color/black"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-                </TableRow></TableLayout>
             <TableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">

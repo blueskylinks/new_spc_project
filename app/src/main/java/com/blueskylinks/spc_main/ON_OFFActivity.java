@@ -750,6 +750,11 @@ public void remove1_fun(View v) {
             //textView1.setText("Command Sent...");
             }
     }
+    //Home functions
+    public void home(View view){
+        Intent it1 = new Intent(ON_OFFActivity.this, Main2Activity.class);
+        startActivity(it1);
+    }
 
     public void settings(View view){
         //starting another activity..
@@ -757,15 +762,9 @@ public void remove1_fun(View v) {
         startActivity(it1);
     }
 
-    //Hoome functions
-    public void home(View view){
-        Intent it1 = new Intent(ON_OFFActivity.this, Main2Activity.class);
-        startActivity(it1);
-    }
-
     public void Users(View view){
-        //starting another activity..
         Intent it3 = new Intent(ON_OFFActivity.this, UsersActivity.class);
+        //starting another activity..
         startActivity(it3);
     }
 
@@ -774,6 +773,7 @@ public void remove1_fun(View v) {
         Intent it4 = new Intent(ON_OFFActivity.this, ManualActivity.class);
         startActivity(it4);
     }
+
 
 
     @Override

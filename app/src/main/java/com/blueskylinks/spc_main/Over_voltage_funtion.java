@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class Over_voltage_funtion extends AppCompatActivity {
@@ -31,6 +33,8 @@ public class Over_voltage_funtion extends AppCompatActivity {
     TextView tv1;
     EditText et2;
     String SMSBody1;
+    DatabaseHelper myDb;
+    SharedPreferences sp1;
     EditText et3;
 
 
@@ -38,6 +42,7 @@ public class Over_voltage_funtion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_over_voltage_funtion);
+        myDb = new DatabaseHelper(this);
         rbutton1=findViewById(R.id.radioButton);
         rbutton2=findViewById(R.id.radioButton2);
         pbar=findViewById(R.id.onoff_pgbar1);
@@ -49,20 +54,44 @@ public class Over_voltage_funtion extends AppCompatActivity {
         et2=findViewById(R.id.et11);
         et3=findViewById(R.id.et12);
         //get Destination address
-        SharedPreferences sp1=getSharedPreferences("login",0);
+        sp1=getSharedPreferences("login",0);
         phoneNumber=sp1.getString("subId","0");
+        get_set(phoneNumber);
     }
 
+    public void get_set(String ph_no){
+        Cursor res = myDb.getAllData_set(ph_no);
+        if(res.getCount() == 0) {
+            Toast.makeText(this,"Nothing found",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Log.i("Rec_Count_settings",String.valueOf(res.getCount()));
+        while (res.moveToNext()) {
+            String temp1 = res.getString(26);
+            Log.i("EXT Value", String.valueOf(temp1));
+            if(temp1!=null){
+                if (temp1.contains("1")){
+                    Log.i("...Value", String.valueOf(temp1));
+                    rbutton1.setChecked(true);
+                }
+                else{
+                    Log.i("...Value", String.valueOf(temp1));
+                    rbutton2.setChecked(true);
+                }
+            }
+            String temp2 = res.getString(27);
+            et2.setText(temp2);
 
+            String temp3 = res.getString(28);
+            et3.setText(temp3);
+        }
+
+    }
 
     @Override
     public void onResume() {
         super.onResume();
         SMSBody1 = "";
-
-        final IntentFilter volIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-        registerReceiver(overvoltageReceiver, volIntentFilter);
-        registerReceiver(overvoltageReceiver, volIntentFilter);
     }
 
 
@@ -72,19 +101,19 @@ public class Over_voltage_funtion extends AppCompatActivity {
             message = "SPC,14,1";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            Log.i("message", message);
-            Log.i("Test", "SMS sent!");
-            pbar.setVisibility(View.VISIBLE);
             textView1.setText("Command Sent, Please Wait...For 2 minutes");
+            String mot_data[] = {"", "", ""};
+            mot_data[1]="1";
+            boolean isInserted = myDb.update_set(mot_data,phoneNumber,2729);
         }
         else if (rbutton2.isChecked()) {
             message = "SPC,14,0";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            Log.i("message", message);
-            Log.i("Test", "SMS sent!");
-            pbar.setVisibility(View.VISIBLE);
             textView1.setText("Command Sent, Please Wait...For 2 minutes");
+            String mot_data[] = {"", "", ""};
+            mot_data[1]="0";
+            boolean isInserted = myDb.update_set(mot_data,phoneNumber,2729);
         } else return;
 
     }
@@ -98,20 +127,20 @@ public class Over_voltage_funtion extends AppCompatActivity {
         Log.i("..", text2);
         String message = " ";
         if (TextUtils.isEmpty(text) || TextUtils.isEmpty(text2)) {
-            if (TextUtils.isEmpty(text)) et2.setError("please provide 3phase trip current!..");
-            else et3.setError("please provide 2phase trip current!..");
+            if (TextUtils.isEmpty(text))
+                et2.setError("please provide 3phase trip voltage!..");
+            else
+                et3.setError("please provide 2phase trip voltage!..");
         }
         else {
             message = "SPC,15" + "," + text + "," + text2;
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            pbar1.setVisibility(View.VISIBLE);
-            Log.i("message", message);
-            Log.i("Test", "SMS sent!");
-            textView2.setText("Command Sent, Please Wait...For 2 minutes");
+            String mot_data[] = {"", "", ""};
+            mot_data[1]=text;
+            mot_data[2]=text2;
+            boolean isInserted = myDb.update_set(mot_data,phoneNumber,2730);
 
-            et2.getText().clear();
-            et3.getText().clear();
         }
     }
 
@@ -144,39 +173,9 @@ public class Over_voltage_funtion extends AppCompatActivity {
         startActivity(it5);
     }
 
-    private final BroadcastReceiver overvoltageReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent4) {
-            if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent4.getAction())) {
-                for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent4)) {
-                    String senderNum = smsMessage.getDisplayOriginatingAddress();
-                    SMSBody1 += smsMessage.getMessageBody().toString();
-                    Log.i("length", String.valueOf(SMSBody1.length()));
-                    Log.i("Received SMS:", SMSBody1);
-                    String[] lines = SMSBody1.split("\\r?\\n");
-                    if(lines[2].toString().contains("function is on")){
-                        tv.setText("ON");
-                        pbar.setVisibility(View.INVISIBLE);
-                    }
-                    else if(lines[2].toString().contains("function is off")){
-                        tv.setText("OFF");
-                        pbar.setVisibility(View.INVISIBLE);
-                    }
-                    else if(lines[2].toString().contains("voltage setting")){
-                        tv1.setText(lines[2]);
-                        pbar1.setVisibility(View.INVISIBLE);
-                    }
-                    else return;
-                    SMSBody1 = "";
-                }
-            }
-        }
-    };
 
     @Override
     public void onPause(){
         super.onPause();
-        unregisterReceiver(overvoltageReceiver);
     }
 }

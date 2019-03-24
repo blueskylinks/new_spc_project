@@ -167,7 +167,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:hint="time in sec"
                     android:inputType="numberDecimal"
                     android:maxLength="3" />
 
@@ -346,7 +345,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:hint="% value"
                 android:inputType="numberDecimal"
                 android:maxLength="3" />
 

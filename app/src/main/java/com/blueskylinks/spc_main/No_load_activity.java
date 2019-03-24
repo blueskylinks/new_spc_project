@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,16 +19,13 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class No_load_activity extends AppCompatActivity {
     RadioButton rbutton1;
     RadioButton rbutyon2;
     String phoneNumber ;
-    ProgressBar pbar;
-    ProgressBar pbar1;
-    ProgressBar pbar2;
-    ProgressBar pbar3;
     TextView textView1;
     TextView textView2;
     TextView textView3;
@@ -38,21 +36,20 @@ public class No_load_activity extends AppCompatActivity {
     EditText et1;
     EditText et2;
     String SMSBody1;
+    SharedPreferences sp1;
     EditText et3;
+    DatabaseHelper myDb;
     EditText et4;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        myDb = new DatabaseHelper(this);
         setContentView(R.layout.activity_no_load_activity);
         rbutton1=findViewById(R.id.radioButton);
         rbutyon2=findViewById(R.id.radioButton2);
-        pbar=findViewById(R.id.onoff_pgbar1);
         tv=findViewById(R.id.mot_st);
-        pbar1=findViewById(R.id.set1);
-        pbar2=findViewById(R.id.set2);
-        pbar3=findViewById(R.id.set3);
         tv1=findViewById(R.id.dryrun1);
         tv2=findViewById(R.id.dryrun2);
         textView1=findViewById(R.id.onoff_status_text1);
@@ -64,18 +61,53 @@ public class No_load_activity extends AppCompatActivity {
         et3=findViewById(R.id.et3);
         et4=findViewById(R.id.no_lod_et);
         //get Destination address
-        SharedPreferences sp1=getSharedPreferences("login",0);
+        sp1=getSharedPreferences("login",0);
         phoneNumber=sp1.getString("subId","0");
+        get_set(phoneNumber);
+    }
+
+    public void get_set(String ph_no){
+        Cursor res = myDb.getAllData_set(ph_no);
+        if(res.getCount() == 0) {
+            Toast.makeText(this,"Nothing found",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Log.i("Rec_Count_settings",String.valueOf(res.getCount()));
+        while (res.moveToNext()) {
+            String temp1 = res.getString(19);
+            Log.i("EXT Value", String.valueOf(temp1));
+            if(temp1!=null){
+                if (temp1.contains("1")){
+                    Log.i("...Value", String.valueOf(temp1));
+                    rbutton1.setChecked(true);
+                }
+                else{
+                    Log.i("...Value", String.valueOf(temp1));
+                    rbutyon2.setChecked(true);
+                }
+
+            }
+            String temp2 = res.getString(20);
+            et1.setText(temp2);
+
+            String temp3 = res.getString(21);
+            et2.setText(temp3);
+
+            String temp4 = res.getString(22);
+            et3.setText(temp4);
+
+            String temp5 = res.getString(23);
+            et4.setText(temp5);
+
+
+        }
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
         SMSBody1 = "";
-
-        final IntentFilter nIntentFilter = new IntentFilter(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-        registerReceiver(NoloadReceiver, nIntentFilter);
-        registerReceiver(NoloadReceiver, nIntentFilter);
     }
 
     public void turnsOn(View view) {
@@ -84,19 +116,17 @@ public class No_load_activity extends AppCompatActivity {
             message = "SPC,6,1";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            Log.i("message", message);
-            Log.i("Test", "SMS sent!");
-            pbar.setVisibility(View.VISIBLE);
-            textView1.setText("Command Sent, Please Wait...For 2 minutes");
+            String mot_data[] = {"", "", ""};
+            mot_data[1]="1";
+            boolean isInserted = myDb.update_set(mot_data,phoneNumber,2722);
         }
         else if (rbutyon2.isChecked()) {
             message = "SPC,6,0";
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            Log.i("message", message);
-            Log.i("Test", "SMS sent!");
-            pbar.setVisibility(View.VISIBLE);
-            textView1.setText("Command Sent, Please Wait...For 2 minutes");
+            String mot_data[] = {"", "", ""};
+            mot_data[1]="0";
+            boolean isInserted = myDb.update_set(mot_data,phoneNumber,2722);
         } else return;
 
     }
@@ -110,12 +140,13 @@ public class No_load_activity extends AppCompatActivity {
             String message = "SPC,7," + text;
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            pbar1.setVisibility(View.VISIBLE);
-            Log.i("message", message);
             Log.i("Test", "SMS sent!");
             textView2.setText("Command Sent, Please Wait...For 2 minutes");
+            String mot_data[] = {"", "", ""};
+            mot_data[1]=text;
+            boolean isInserted = myDb.update_set(mot_data,phoneNumber,2723);
 
-            et1.getText().clear();
+
         }
     }
 
@@ -135,13 +166,10 @@ public class No_load_activity extends AppCompatActivity {
             message = "SPC,8" + "," + text + "," + text2;
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            pbar2.setVisibility(View.VISIBLE);
-            Log.i("message", message);
-            Log.i("Test", "SMS sent!");
-            textView3.setText("Command Sent, Please Wait...For 2 minutes");
-
-            et2.getText().clear();
-            et3.getText().clear();
+            String mot_data[] = {"", "", ""};
+            mot_data[1]=text;
+            mot_data[2]=text2;
+            boolean isInserted = myDb.update_set(mot_data,phoneNumber,2724);
         }
     }
 
@@ -155,12 +183,11 @@ public class No_load_activity extends AppCompatActivity {
             String message = "SPC,9," + text;
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            pbar3.setVisibility(View.VISIBLE);
             Log.i("message", message);
-            Log.i("Test", "SMS sent!");
             textView4.setText("Command Sent, Please Wait...For 2 minutes");
-
-            et4.getText().clear();
+            String mot_data[] = {"", "", ""};
+            mot_data[1]=text;
+            boolean isInserted = myDb.update_set(mot_data,phoneNumber,2726);
         }
     }
 
@@ -193,45 +220,10 @@ public class No_load_activity extends AppCompatActivity {
         startActivity(it5);
     }
 
-    private final BroadcastReceiver NoloadReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent5) {
-            if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent5.getAction())) {
-                for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent5)) {
-                    String senderNum = smsMessage.getDisplayOriginatingAddress();
-                    SMSBody1 += smsMessage.getMessageBody().toString();
-                    Log.i("length", String.valueOf(SMSBody1.length()));
-                    Log.i("Received SMS:", SMSBody1);
-                    String[] lines = SMSBody1.split("\\r?\\n");
-                    Log.i("sms",lines[3]);
-                    if(lines[2].toString().contains("function is on")){
-                        tv.setText("ON");
-                        pbar.setVisibility(View.INVISIBLE);
-                    }
-                    else if(lines[2].toString().contains("function is off")){
-                        tv.setText("OFF");
-                        pbar.setVisibility(View.INVISIBLE);
-                    }
-                    else if(lines[2].toString().contains("trip time")){
-                        tv1.setText(lines[2]);
-                        pbar1.setVisibility(View.INVISIBLE);
-                    }
-                    else if(lines[2].toString().contains("Dryrunn amps")){
-                        tv2.setText(lines[2]);
-                        pbar2.setVisibility(View.INVISIBLE);
-                    }
-                    else return;
-                }
-                SMSBody1="";
-            }
-        }
-    };
 
 
     @Override
    public void onPause(){
         super.onPause();
-        unregisterReceiver(NoloadReceiver);
     }
 }
